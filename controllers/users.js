@@ -8,7 +8,7 @@ module.exports = {
 }
 
 function createJWT(user) {
-    return jwt.sign({ user }, SECRET, { expiresIn: '24h' })
+    return jwt.sign({ user: user }, SECRET, { expiresIn: '24h' });
 }
 
 async function signup(req, res) {

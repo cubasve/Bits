@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './LoginPage.css';
+// import './LoginPage.css';
 
 export default class LoginPage extends Component {
     state = {
@@ -37,6 +37,7 @@ export default class LoginPage extends Component {
                         <div className="col-sm-12 text-center">
                             <button className="btn btn-default">Log In</button>
                             <Link to="/">Cancel</Link>
+                            <Link to="/signup">Don't have an account? Sign up!</Link>
                         </div>
                     </div>
 

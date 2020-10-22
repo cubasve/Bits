@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import SignupPage from './pages/SignupPage/SignupPage';
+import LoginPage from './pages/LoginPage/LoginPage';
 import userService from './utils/userService';
-import { render } from '@testing-library/react';
 
 export default class App extends Component {
   state = {
@@ -20,9 +21,12 @@ export default class App extends Component {
 
   render() {
     return (
-      <>
-        <h1>Hiii</h1>
-      </>
+      <div>
+        <Switch>
+          <Route exact path='/signup' render={({ history }) => <SignupPage history={history} />} />
+          <Route exact path='/login' render={({ history }) => <LoginPage history={history} />} />
+        </Switch>
+      </div>
     )
   }
 }
