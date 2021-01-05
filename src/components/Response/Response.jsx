@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function GeneralInfo() {
+export default function getResponse() {
     return (
         <>
         </>
