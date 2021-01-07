@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import userService from './utils/userService';
 import HabitGeneratorPage from '../src/pages/HabitGeneratorPage/HabitGeneratorPage';
+import NavBar from '../src/components/Navbar/Navbar';
 
 export default class App extends Component {
   state = {
@@ -16,16 +17,22 @@ export default class App extends Component {
     this.setState({ user: null });
   }
 
-  handleSignupOrLogin = () => {
+  handleSignupOrLogin = async () => {
     this.setState({ user: userService.getUser() });
   }
 
   render() {
     return (
-      <div>
+      <div className="App">
+        <NavBar user={this.state.user} handleLogout={this.handleLogout} />
+
         <Switch>
-          <Route exact path='/signup' render={({ history }) => <SignupPage history={history} />} />
-          <Route exact path='/login' render={({ history }) => <LoginPage history={history} />} />
+          <Route exact path="/habitGenerator" render={() => userService.getUser() ? <main><HabitGeneratorPage /></main> : <Redirect to="/login" />}>
+          </Route>
+
+          <Route exact path='/signup' render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />} />
+
+          <Route exact path='/login' render={({ history }) => <LoginPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />} />
         </Switch>
       </div>
     )

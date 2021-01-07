@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import SignupForm from '../../components/SignupForm/SignupForm';
-// import SignupForm from '../../components/SignupForm/SignupForm';
-// import './SignupPage.css';
+import './SignupPage.css';
 
 export default class SignupPage extends Component {
-    state = {
-        message: '',
+    constructor(props) {
+        super(props);
+        this.state = { message: '' }
     }
+    // state = {
+    //     message: '',
+    // }
 
     updateMessage = (msg) => {
         this.setState({ message: msg });
@@ -14,10 +17,10 @@ export default class SignupPage extends Component {
 
     render() {
         return (
-            <div classname="SignupPage">
-                <SignupForm {...this.props} updateMessage={this.updateMessage} />
+            <div className="SignupPage">
+                <SignupForm {...this.props} updateMessage={this.updateMessage} handleSignupOrLogin={this.props.handleSignupOrLogin} />
                 <p>{this.state.message}</p>
             </div>
-        )
+        );
     }
 }

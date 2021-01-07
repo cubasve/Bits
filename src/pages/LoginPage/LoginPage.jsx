@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import userService from '../../utils/userService';
 // import './LoginPage.css';
 
 export default class LoginPage extends Component {
@@ -9,11 +10,18 @@ export default class LoginPage extends Component {
     }
 
     handleChange = (e) => {
-        //TODO: implement in an elegant way
+        this.setState({ [e.target.name]: e.target.value });
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            await userService.login(this.state);
+            this.props.handleSignupOrLogin();
+            this.props.history.push('/');
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     render() {
@@ -23,13 +31,13 @@ export default class LoginPage extends Component {
                 <form className="form-horizontal" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="email" className="form-control" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
+                            <input type="email" className="form-control" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} />
                         </div>
                     </div>
 
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
+                            <input type="password" className="form-control" placeholder="Password" value={this.state.password} name="password" onChange={this.handleChange} />
                         </div>
                     </div>
 
