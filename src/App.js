@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import userService from './utils/userService';
-import HabitPage from '../src/components/HabitPage/HabitPage';
+import HabitGeneratorPage from '../src/pages/HabitGeneratorPage/HabitGeneratorPage';
 
 export default class App extends Component {
   state = {

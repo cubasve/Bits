@@ -17,6 +17,12 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+app.use(require('./config/auth'));
+app.use('/api/habitGenerator', require('./routes/api/habitGenerator'));
+
+app.use('/api', function (req, res) {
+    res.status(400).json({ error: 'Resource not found' });
+})
 
 // "catch all" route (note the *)is necessary for a SPA's client-side routing to properly work
 app.get('/*', function (req, res) {
