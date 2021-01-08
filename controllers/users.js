@@ -1,6 +1,5 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-// const tokenService = require('../src/utils/tokenService');
 const SECRET = process.env.SECRET;
 
 module.exports = {
@@ -9,7 +8,7 @@ module.exports = {
 }
 
 function createJWT(user) {
-    return jwt.sign({ user: user }, SECRET, { expiresIn: '24h' });
+    return jwt.sign({ user }, SECRET, { expiresIn: '24h' });
 }
 
 async function signup(req, res) {
@@ -17,7 +16,7 @@ async function signup(req, res) {
     try {
         await user.save();
         const token = createJWT(user);
-        res.json({ token: token });
+        res.json({ token });
     } catch (err) {
         res.status(400).json(err);
     }

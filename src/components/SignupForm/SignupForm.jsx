@@ -12,13 +12,14 @@ export default class SignupForm extends Component {
 
     handleChange = (e) => {
         this.props.updateMessage('');
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await userService.signup(this.state);
+            this.props.handleSignupOrLogin();
             this.props.handleSignupOrLogin();
             this.props.history.push('/');
         } catch (err) {

@@ -32,8 +32,8 @@ userSchema.pre('save', function (next) {
     });
 });
 
-userSchema.methods.comparePassword = function (password, cb) {
-    bcrypt.compare(password, this.password)
+userSchema.methods.comparePassword = function (tryPassword, cb) {
+    bcrypt.compare(tryPassword, this.password, cb);
     //password (plain text) is hashed and compared to this.password (hashed version of user's password saved in database)
 }
 
