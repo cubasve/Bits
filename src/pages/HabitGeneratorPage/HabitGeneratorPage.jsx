@@ -6,8 +6,8 @@ export default class HabitGeneratorPage extends Component {
     render() {
         return (
             <div>
-                <HabitList />
-                <HabitInfo />
+                <HabitList allHabits={this.props.allHabits} />
+                <HabitInfo allHabits={this.props.allHabits} />
             </div>
         )
     }

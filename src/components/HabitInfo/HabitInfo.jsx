@@ -4,13 +4,13 @@ import Craving from '../Craving/Craving';
 import Response from '../Response/Response';
 import Reward from '../Reward/Reward';
 
-export default function getHabitInfo() {
+export default function getHabitInfo(props) {
     return (
         <>
-            <Cue />
-            <Craving />
-            <Response />
-            <Reward />
+            <Cue allHabits={props.allHabits} />
+            <Craving allHabits={props.allHabits} />
+            <Response allHabits={props.allHabits} />
+            <Reward allHabits={props.allHabits} />
         </>
     );
 }

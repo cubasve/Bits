@@ -1,10 +1,10 @@
 import React from 'react';
 import HabitName from '../HabitName/HabitName';
 
-export default function getHabitList() {
+export default function getHabitList(props) {
     return (
         <>
-            <HabitName />
+            <HabitName allHabits={props.allHabits} />
         </>
     );
 }
