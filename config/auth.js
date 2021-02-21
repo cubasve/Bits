@@ -1,6 +1,6 @@
-// const jwt = require('jsonwebtoken');
-// const SECRET = process.env.SECRET;
+const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET;
 
-// module.exports = function (req, res, next) {
+module.exports = function (req, res, next) {
 
-// }
+}
