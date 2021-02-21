@@ -22,10 +22,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
 });
 
-export default function HabitGeneratorPage(props) {
+export default function HabitGeneratorPage({newHabit, allHabits, handleInputChange, handleHabitSubmit}) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [input, setInput] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -33,13 +32,6 @@ export default function HabitGeneratorPage(props) {
 
     const handleClose = () => {
         setOpen(false);
-    }
-
-    const handleInputChange = (e) => {
-        console.log('e.target.value: ', e.target.value);
-        console.log('e.target.name: ', e.target.name)
-        // const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
-        setInput(e.target.value);
     }
     
     return (
@@ -56,13 +48,32 @@ export default function HabitGeneratorPage(props) {
                         <Typography variant="h6" className={classes.title}>
                             Add a New Habit
                         </Typography>
-                        <Button autoFocus color="inherit" onClick={handleClose}>
+                        <Button 
+                            autoFocus 
+                            color="inherit" 
+                            onSubmit={handleHabitSubmit} 
+                            onClick={handleClose}
+                        >
                             Save
                         </Button>
                     </Toolbar>
                 </AppBar>
 
                 <List>
+                    <ListItem>
+                        HABIT NAME: 
+                        <form className={classes.userInput} noValidate autoComplete="off">
+                            <TextField 
+                                id="outlined-basic" 
+                                label="Habit Name"  
+                                // variant="outlined" 
+                                name="name"
+                                value={newHabit.name}
+                                onChange={handleInputChange} 
+                            />
+                        </form>
+                    </ListItem>
+                    <Divider />
                     <ListItem>
                         <ListItemText primary="RESPONSE" secondary="Make It Easy - Obtain the Reward" />
                         {/* <h4>BRONZE: 2-minute rule (bare minimum)</h4>
@@ -76,8 +87,8 @@ export default function HabitGeneratorPage(props) {
                                 id="outlined-basic" 
                                 label="Bronze"  
                                 // variant="outlined" 
-                                name="Bronze"
-                                value={input} 
+                                name="responseBronze"
+                                value={newHabit.responseBronze}
                                 onChange={handleInputChange} 
                             />
                         </form>
@@ -89,7 +100,8 @@ export default function HabitGeneratorPage(props) {
                                 id="outlined-basic" 
                                 label="Silver" 
                                 // variant="outlined" 
-                                value={input} 
+                                name="responseSilver"
+                                value={newHabit.responseSilver}
                                 onChange={handleInputChange} 
                             />
                         </form>
@@ -101,7 +113,8 @@ export default function HabitGeneratorPage(props) {
                                 id="outlined-basic" 
                                 label="Gold" 
                                 // variant="outlined" 
-                                value={input} 
+                                name="responseGold"
+                                value={newHabit.responseGold}
                                 onChange={handleInputChange}
                             />
                         </form>
@@ -119,7 +132,8 @@ export default function HabitGeneratorPage(props) {
                                     id="outlined-basic" 
                                     label="Behavior" 
                                     // variant="outlined" 
-                                    value={input} 
+                                    name="cueBehavior"
+                                    value={newHabit.cueBehavior}
                                     onChange={handleInputChange} 
                                 />
                             </form>
@@ -131,7 +145,8 @@ export default function HabitGeneratorPage(props) {
                                 type="time"
                                 defaultValue="07:30"
                                 // variant="outlined"
-                                value={input} 
+                                name="cueTime"
+                                value={newHabit.cueTime}
                                 onChange={handleInputChange}
                                 className={classes.textField}
                                 InputLabelProps={{
@@ -148,7 +163,8 @@ export default function HabitGeneratorPage(props) {
                                     id="outlined-basic" 
                                     label="Location" 
                                     // variant="outlined" 
-                                    value={input} 
+                                    name="cueLocation"
+                                    value={newHabit.cueLocation}
                                     onChange={handleInputChange} 
                                 />
                             </form>
@@ -166,7 +182,8 @@ export default function HabitGeneratorPage(props) {
                                 id="outlined-basic" 
                                 label="Current Habit" 
                                 // variant="outlined" 
-                                value={input} 
+                                name="currentHabit"
+                                value={newHabit.currentHabit}
                                 onChange={handleInputChange} 
                             />
                         </form>,
@@ -176,7 +193,8 @@ export default function HabitGeneratorPage(props) {
                                 id="outlined-basic" 
                                 label="Habit I Need" 
                                 // variant="outlined" 
-                                value={input} 
+                                name="neededHabit"
+                                value={newHabit.neededHabit}
                                 onChange={handleInputChange} 
                             />
                         </form>
@@ -193,7 +211,8 @@ export default function HabitGeneratorPage(props) {
                                 id="outlined-basic" 
                                 label="Habit I Need" 
                                 // variant="outlined" 
-                                value={input} 
+                                name="neededHabit"
+                                value={newHabit.neededHabit}
                                 onChange={handleInputChange} 
                             />
                         </form>,
@@ -203,7 +222,8 @@ export default function HabitGeneratorPage(props) {
                                 id="outlined-basic" 
                                 label="Habit I Want" 
                                 // variant="outlined" 
-                                value={input} 
+                                name="wantedHabit"
+                                value={newHabit.wantedHabit}
                                 onChange={handleInputChange} 
                             />
                         </form>
@@ -211,8 +231,8 @@ export default function HabitGeneratorPage(props) {
                 </List>
             </Dialog>
 
-            <HabitList allHabits={props.allHabits} />
-            <HabitInfo allHabits={props.allHabits} />
+            <HabitList allHabits={allHabits} />
+            <HabitInfo allHabits={allHabits} />
         </div>
     )
 

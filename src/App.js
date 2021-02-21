@@ -12,33 +12,39 @@ export default class App extends Component {
   state = {
     user: userService.getUser(),
     allHabits: [
-      {
-        name: 'Storytime',
-        cue: 'At 10pm, I will read a book on my bed.',
-        craving: 'After reading my book I will scroll through Fb',
-        responseBronze: 'Read my book for 5 min',
-        responseSilver: 'Read my book for 30 min',
-        responseGold: 'Read my book for 1 hour',
-        reward: 'Scroll through FB Feed'
-      },
-      {
-        name: 'ABCD',
-        cue: 'AAAAAA',
-        craving: 'BBBBB',
-        responseBronze: 'CCCCCBronze',
-        responseSilver: 'CCCCSilver',
-        responseGold: 'CCCCCGold',
-        reward: 'DDDDDDD'
-      },
+    //   {
+    //     name: 'Storytime',
+    //     cue: 'At 10pm, I will read a book on my bed.',
+    //     craving: 'After reading my book I will scroll through Fb',
+    //     responseBronze: 'Read my book for 5 min',
+    //     responseSilver: 'Read my book for 30 min',
+    //     responseGold: 'Read my book for 1 hour',
+    //     reward: 'Scroll through FB Feed'
+    //   },
+    //   {
+    //     name: 'ABCD',
+    //     cue: 'AAAAAA',
+    //     craving: 'BBBBB',
+    //     responseBronze: 'CCCCCBronze',
+    //     responseSilver: 'CCCCSilver',
+    //     responseGold: 'CCCCCGold',
+    //     reward: 'DDDDDDD'
+    //   },
     ],
     newHabit: {
       name: '',
-      cue: '',
-      craving: '',
+
       responseBronze: '',
       responseSilver: '',
       responseGold: '',
-      reward: '',
+
+      cueBehavior: '',
+      cueTime: '',
+      cueLocation: '',
+
+      currentHabit: '',
+      neededHabit: '',
+      wantedHabit: '',
     }
   }
 
@@ -51,11 +57,37 @@ export default class App extends Component {
     this.setState({ user: userService.getUser() });
   }
 
-  handleAddNewHabit = () => {
+  handleInputChange = (e) => {
+    console.log('e.target.name: ', e.target.name);
+    console.log('e.target.value: ', e.target.value);
+    const newHabit = { ...this.state.newHabit, [e.target.name]: e.target.value };
+    this.setState({ newHabit: newHabit });
+  }
 
+  handleHabitSubmit = (e) => {
+    e.preventDefault();
+    this.setState(state => ({
+      allHabits: [...state.allHabits, state.newHabit],
+      newHabit: {
+        name: '',
+
+        responseBronze: '',
+        responseSilver: '',
+        responseGold: '',
+
+        cueBehavior: '',
+        cueTime: '',
+        cueLocation: '',
+
+        currentHabit: '',
+        neededHabit: '',
+        wantedHabit: '',
+      }
+    }));
   }
 
   render() {
+
     return (
       <div className="App">
         <NavBar user={this.state.user} handleLogout={this.handleLogout} />
@@ -63,7 +95,16 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>
 
-          <Route exact path="/habitgenerator" render={() => <HabitGeneratorPage user={this.state.user} allHabits={this.state.allHabits} />}></Route>
+          <Route exact path="/habitgenerator" 
+            render={
+              () => <HabitGeneratorPage 
+              user={this.state.user} 
+              allHabits={this.state.allHabits} 
+              newHabit={this.state.newHabit}
+              handleInputChange={this.handleInputChange}
+              handleHabitSubmit={this.handleHabitSubmit}
+            />}>
+          </Route>
 
           {/* <Route exact path="/habitGenerator" render={() => (
             userService.getUser() ?
