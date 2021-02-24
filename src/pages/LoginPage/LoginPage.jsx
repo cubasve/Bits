@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import userService from '../../utils/userService';
-// import './LoginPage.css';
+import './LoginPage.css';
+// import { TextField, Button } from '@material-ui/core';
 
 export default class LoginPage extends Component {
     state = {
@@ -18,8 +19,9 @@ export default class LoginPage extends Component {
         try {
             await userService.login(this.state);
             this.props.handleSignupOrLogin();
-            this.props.history.push('/');
+            this.props.history.push('/habitgenerator');
         } catch (err) {
+            alert('Invalid Credentials'); //use modal or toast in apps instead of alert
             console.error(err);
         }
     }
@@ -31,20 +33,56 @@ export default class LoginPage extends Component {
                 <form className="form-horizontal" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="email" className="form-control" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} />
+                            {/* <TextField 
+                                type="email"
+                                variant="outlined"
+                                className="form-control"
+                                label="Email"
+                                value={this.state.email}
+                                name="email"
+                                onChange={this.handleChange}
+
+                            /> */}
+                            <input 
+                                type="email" 
+                                className="form-control" 
+                                placeholder="Email" 
+                                value={this.state.email} 
+                                name="email" 
+                                onChange={this.handleChange} 
+                                />
                         </div>
                     </div>
 
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="password" className="form-control" placeholder="Password" value={this.state.password} name="password" onChange={this.handleChange} />
+                            {/* <TextField 
+                                type="password"
+                                variant="outlined"
+                                className="form-control"
+                                label="Password"
+                                value={this.state.password}
+                                name="password"
+                                onChange={this.handleChange}
+
+                            /> */}
+                            <input 
+                                type="password" 
+                                className="form-control" 
+                                placeholder="Password" 
+                                value={this.state.password} 
+                                name="password" 
+                                onChange={this.handleChange} 
+                                />
                         </div>
                     </div>
 
                     <div className="form-group">
                         <div className="col-sm-12 text-center">
                             <button className="btn btn-default">Log In</button>
+                            <br />
                             <Link to="/">Cancel</Link>
+                            <br />
                             <Link to="/signup">Don't have an account? Sign up!</Link>
                         </div>
                     </div>

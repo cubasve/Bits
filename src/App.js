@@ -53,19 +53,18 @@ export default class App extends Component {
     this.setState({ user: null });
   }
 
-  handleSignupOrLogin = async () => {
+  handleSignupOrLogin = () => {
     this.setState({ user: userService.getUser() });
   }
 
   handleInputChange = (e) => {
-    console.log('e.target.name: ', e.target.name);
-    console.log('e.target.value: ', e.target.value);
     const newHabit = { ...this.state.newHabit, [e.target.name]: e.target.value };
     this.setState({ newHabit: newHabit });
   }
 
   handleHabitSubmit = (e) => {
     e.preventDefault();
+    console.log('e: ', e)
     this.setState(state => ({
       allHabits: [...state.allHabits, state.newHabit],
       newHabit: {
@@ -95,22 +94,33 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>
 
-          <Route exact path="/habitgenerator" 
-            render={
-              () => <HabitGeneratorPage 
-              user={this.state.user} 
-              allHabits={this.state.allHabits} 
-              newHabit={this.state.newHabit}
-              handleInputChange={this.handleInputChange}
-              handleHabitSubmit={this.handleHabitSubmit}
-            />}>
-          </Route>
-
-          {/* <Route exact path="/habitGenerator" render={() => (
-            userService.getUser() ?
-              <main><HabitGeneratorPage /></main> :
-              <Redirect to="/login" />)}>
+          {/* <Route exact path="/habitgenerator" 
+            render={() => (
+              userService.getUser() ?
+              <main>
+                <HabitGeneratorPage 
+                  user={this.state.user} 
+                  allHabits={this.state.allHabits} 
+                  newHabit={this.state.newHabit}
+                  handleInputChange={this.handleInputChange}
+                  handleHabitSubmit={this.handleHabitSubmit}
+                />
+              </main>
+              :
+              <Redirect to="/login" />
+            )}>
           </Route> */}
+
+          <Route exact path="/habitgenerator" 
+            render={() => 
+                <HabitGeneratorPage 
+                  user={this.state.user} 
+                  allHabits={this.state.allHabits} 
+                  newHabit={this.state.newHabit}
+                  handleInputChange={this.handleInputChange}
+                  handleHabitSubmit={this.handleHabitSubmit}
+                />}>
+          </Route>
 
           <Route exact path='/signup' render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
 

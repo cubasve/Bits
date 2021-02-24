@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import userService from '../../utils/userService';
+import { TextField } from '@material-ui/core';
 
 export default class SignupForm extends Component {
     state = {
@@ -20,7 +21,6 @@ export default class SignupForm extends Component {
         try {
             await userService.signup(this.state);
             this.props.handleSignupOrLogin();
-            this.props.handleSignupOrLogin();
             this.props.history.push('/');
         } catch (err) {
             this.props.updateMessage(err.message); //Invalid user data
@@ -38,28 +38,66 @@ export default class SignupForm extends Component {
                 <form className="form-horizontal" onSubmit={this.handleSubmit} >
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="text" className="form-control" placeholder="Name" value={this.state.name} name="name" onChange={this.handleChange} />
+                            <TextField 
+                                type="text"
+                                className="form-control"
+                                variant="outlined"
+                                label="Name"
+                                value={this.state.name}
+                                name="name"
+                                onChange={this.handleChange}
+                            />
+                            {/* <input type="text" className="form-control" placeholder="Name" value={this.state.name} name="name" onChange={this.handleChange} /> */}
                         </div>
                     </div>
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="email" className="form-control" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} />
+                            <TextField 
+                                    type="email"
+                                    className="form-control"
+                                    variant="outlined"
+                                    label="Email"
+                                    value={this.state.email}
+                                    name="email"
+                                    onChange={this.handleChange}
+                                />
+                            {/* <input type="email" className="form-control" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} /> */}
                         </div>
                     </div>
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="password" className="form-control" placeholder="Password" value={this.state.password} name="password" onChange={this.handleChange} />
+                            <TextField 
+                                    type="password"
+                                    className="form-control"
+                                    variant="outlined"
+                                    label="Password"
+                                    value={this.state.password}
+                                    name="password"
+                                    onChange={this.handleChange}
+                                />
+                            {/* <input type="password" className="form-control" placeholder="Password" value={this.state.password} name="password" onChange={this.handleChange} /> */}
                         </div>
                     </div>
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="password" className="form-control" placeholder="Confirm Password" value={this.state.passwordConfirmation} name="passwordConfirmation" onChange={this.handleChange} />
+                            <TextField 
+                                    type="password"
+                                    className="form-control"
+                                    variant="outlined"
+                                    label="Confirm Password"
+                                    value={this.state.passwordConfirmation}
+                                    name="passwordConfirmation"
+                                    onChange={this.handleChange}
+                                />
+                            {/* <input type="password" className="form-control" placeholder="Confirm Password" value={this.state.passwordConfirmation} name="passwordConfirmation" onChange={this.handleChange} /> */}
                         </div>
                     </div>
                     <div className="form-group">
                         <div className="col-sm-12 text-center">
                             <button className="btn btn-default" disabled={this.isFormInvalid()}>Sign Up</button>&nbsp;&nbsp;
+                            <br />
                             <Link to='/'>Cancel</Link>
+                            <br />
                             <Link to='/login'>Already have an account? Log in</Link>
                         </div>
                     </div>

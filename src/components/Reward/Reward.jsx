@@ -4,7 +4,9 @@ export default function getReward(props) {
     return (
         <>
             <h1>Reward</h1>
-            {props.allHabits.map(habit => habit.reward)}
+            {props.allHabits.map(habit => 
+                `After ${habit.neededHabit}, I will
+                ${habit.wantedHabit}`)}
         </>
     )
 }

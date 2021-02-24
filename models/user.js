@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 const SALT_ROUNDS = 6;
 
 const userSchema = new Schema({
-    name: { type: String, required: true },
+    name: { type: String},
     email: { type: String, required: true, lowercase: true, unique: true },
     // match: [/\S+@\S+\.\S+/, 'is invalid'] },
-    password: { type: String, required: true },
+    password: { type: String, select: false },
     habitGenerator: [{ type: Schema.Types.ObjectId, ref: 'HabitGenerator' }],
     habitDetonator: [{ type: Schema.Types.ObjectId, ref: 'HabitDetonator' }],
 }, {

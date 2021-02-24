@@ -1,40 +1,55 @@
 import React from 'react';
-import { Card, CardContent, Typography } from '@material-ui/core';
-// import HabitInfo from '../../components/HabitInfo/HabitInfo';
+import { Card, CardContent } from '@material-ui/core';
+import './HomePage.css';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    card: {
+        width: 300,
+    }
+
+}))
 
 export default function HomePage() {
+    const classes = useStyles();
     return (
         <>
-            <h1>HomePage</h1>
-            <Card>
-                <CardContent>
-                    <Typography>
-                        1. Cue
-                    </Typography>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardContent>
-                    <Typography>
-                        2. Craving
-                    </Typography>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardContent>
-                    <Typography>
-                        3. Response
-                    </Typography>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardContent>
-                    <Typography>
-                        4. Reward
-                    </Typography>
-                </CardContent>
-            </Card>
-            {/* <HabitInfo /> */}
+            <h1>BITS</h1>
+            <h2>Habits are the compound interest of self-improvement.</h2>
+            <div className="cards">
+                <Card className={classes.card}>
+                    <CardContent>
+                        <h1 className="steps">1</h1>
+                        <h1>CUE</h1>
+                        <h3>Make It Obvious</h3>
+                        <p>Notice the Reward</p>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <h1 className="steps">2</h1>
+                        <h1>CRAVING</h1>
+                        <h3>Make It Attractive</h3>
+                        <p>Want the Reward</p>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <h1 className="steps">3</h1>
+                        <h1>RESPONSE</h1>
+                        <h3>Make It Easy</h3>
+                        <p>Obtain the Reward</p>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <h1 className="steps">4</h1>
+                        <h1>REWARD</h1>
+                        <h3>Make It Satisfying</h3>
+                        <p>Repeat the Habit Loop</p>
+                    </CardContent>
+                </Card>
+            </div>
         </>
     )
 }

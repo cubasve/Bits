@@ -1,7 +1,20 @@
 import React, {useState} from 'react';
 import HabitList from '../../components/HabitList/HabitList';
 import HabitInfo from '../../components/HabitInfo/HabitInfo';
-import { Button, Dialog, ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, Typography, Slide, TextField } from '@material-ui/core';
+import { 
+    Button, 
+    Dialog, 
+    ListItemText, 
+    ListItem, 
+    List, 
+    Divider, 
+    AppBar, 
+    Toolbar, 
+    IconButton, 
+    Typography, 
+    Slide, 
+    TextField,
+    FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -39,6 +52,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Add New Habit
             </Button>
+
+            <FormControl onSubmit={handleHabitSubmit}>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar className={classes.appBar}>
                     <Toolbar>
@@ -49,10 +64,10 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                             Add a New Habit
                         </Typography>
                         <Button 
-                            autoFocus 
+                            // autoFocus 
                             color="inherit" 
                             onSubmit={handleHabitSubmit} 
-                            onClick={handleClose}
+                            // onClick={handleClose}
                         >
                             Save
                         </Button>
@@ -70,6 +85,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 name="name"
                                 value={newHabit.name}
                                 onChange={handleInputChange} 
+                                required
+                                pattern=".{2,}"
                             />
                         </form>
                     </ListItem>
@@ -90,6 +107,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 name="responseBronze"
                                 value={newHabit.responseBronze}
                                 onChange={handleInputChange} 
+                                required
+                                pattern=".{2,}"
                             />
                         </form>
                     </ListItem>
@@ -103,6 +122,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 name="responseSilver"
                                 value={newHabit.responseSilver}
                                 onChange={handleInputChange} 
+                                required
+                                pattern=".{2,}"
                             />
                         </form>
                     </ListItem>
@@ -116,6 +137,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 name="responseGold"
                                 value={newHabit.responseGold}
                                 onChange={handleInputChange}
+                                required
+                                pattern=".{2,}"
                             />
                         </form>
                     </ListItem>
@@ -135,6 +158,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                     name="cueBehavior"
                                     value={newHabit.cueBehavior}
                                     onChange={handleInputChange} 
+                                    required
+                                    pattern=".{2,}"
                                 />
                             </form>
                             AT 
@@ -143,12 +168,14 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 id="time"
                                 label="Time"
                                 type="time"
-                                defaultValue="07:30"
+                                // defaultValue="07:30"
                                 // variant="outlined"
                                 name="cueTime"
                                 value={newHabit.cueTime}
                                 onChange={handleInputChange}
-                                className={classes.textField}
+                                required
+                                pattern=".{2,}"
+                                // className={classes.userInput}
                                 InputLabelProps={{
                                 shrink: true,
                                 }}
@@ -166,6 +193,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                     name="cueLocation"
                                     value={newHabit.cueLocation}
                                     onChange={handleInputChange} 
+                                    required
+                                    pattern=".{2,}"
                                 />
                             </form>
                         </ListItemText>
@@ -185,6 +214,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 name="currentHabit"
                                 value={newHabit.currentHabit}
                                 onChange={handleInputChange} 
+                                required
+                                pattern=".{2,}"
                             />
                         </form>,
                         I WILL
@@ -196,6 +227,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 name="neededHabit"
                                 value={newHabit.neededHabit}
                                 onChange={handleInputChange} 
+                                required
+                                pattern=".{2,}"
                             />
                         </form>
                     </ListItem>
@@ -214,6 +247,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 name="neededHabit"
                                 value={newHabit.neededHabit}
                                 onChange={handleInputChange} 
+                                required
+                                pattern=".{2,}"
                             />
                         </form>,
                         I WILL
@@ -225,11 +260,15 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 name="wantedHabit"
                                 value={newHabit.wantedHabit}
                                 onChange={handleInputChange} 
+                                required
+                                pattern=".{2,}"
                             />
                         </form>
                     </ListItem>
+                    <button onSubmit={handleHabitSubmit}>ADD HABIT</button>
                 </List>
             </Dialog>
+            </FormControl>
 
             <HabitList allHabits={allHabits} />
             <HabitInfo allHabits={allHabits} />

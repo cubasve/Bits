@@ -8,7 +8,11 @@ module.exports = {
 }
 
 function createJWT(user) {
-    return jwt.sign({ user }, SECRET, { expiresIn: '24h' });
+    return jwt.sign(
+        { user }, 
+        SECRET, 
+        { expiresIn: '24h' }
+    );
 }
 
 async function signup(req, res) {
@@ -26,6 +30,7 @@ async function login(req, res) {
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) return res.status(401).json({ err: 'Bad Credentials' });
+        
         user.comparePassword(req.body.password, (err, isMatch) => {
             if (isMatch) {
                 const token = createJWT(user);
