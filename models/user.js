@@ -8,7 +8,7 @@ const userSchema = new Schema({
     name: { type: String},
     email: { type: String, required: true, lowercase: true, unique: true },
     // match: [/\S+@\S+\.\S+/, 'is invalid'] },
-    password: { type: String, select: false },
+    password: { type: String },
     habitGenerator: [{ type: Schema.Types.ObjectId, ref: 'HabitGenerator' }],
     habitDetonator: [{ type: Schema.Types.ObjectId, ref: 'HabitDetonator' }],
 }, {

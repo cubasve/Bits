@@ -53,7 +53,8 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                 Add New Habit
             </Button>
 
-            <FormControl onSubmit={handleHabitSubmit}>
+            <FormControl>
+            {/* <FormControl onSubmit={handleHabitSubmit}> */}
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar className={classes.appBar}>
                     <Toolbar>
@@ -66,7 +67,7 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                         <Button 
                             // autoFocus 
                             color="inherit" 
-                            onSubmit={handleHabitSubmit} 
+                            // onSubmit={handleHabitSubmit} 
                             // onClick={handleClose}
                         >
                             Save

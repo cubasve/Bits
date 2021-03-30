@@ -64,26 +64,31 @@ export default class App extends Component {
   }
 
   handleHabitSubmit = (e) => {
-    e.preventDefault();
-    console.log('e: ', e)
-    this.setState(state => ({
-      allHabits: [...state.allHabits, state.newHabit],
-      newHabit: {
-        name: '',
+    try {
+      console.log('handleHabitSubmit')
+      e.preventDefault();
+      console.log('e: ', e)
+      this.setState(state => ({
+        allHabits: [...state.allHabits, state.newHabit],
+        newHabit: {
+          name: '',
 
-        responseBronze: '',
-        responseSilver: '',
-        responseGold: '',
+          responseBronze: '',
+          responseSilver: '',
+          responseGold: '',
 
-        cueBehavior: '',
-        cueTime: '',
-        cueLocation: '',
+          cueBehavior: '',
+          cueTime: '',
+          cueLocation: '',
 
-        currentHabit: '',
-        neededHabit: '',
-        wantedHabit: '',
-      }
-    }));
+          currentHabit: '',
+          neededHabit: '',
+          wantedHabit: '',
+        }
+      }));
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {
@@ -112,6 +117,16 @@ export default class App extends Component {
             )}>
           </Route> */}
 
+          {/* <Route exact path="/habitgenerator" render={() => (
+            userService.getUser() ?
+              <main>
+                <FinancialStatementPage />
+              </main>
+              :
+              <Redirect to='/login' />
+          )}>
+          </Route> */}
+
           <Route exact path="/habitgenerator" 
             render={() => 
                 <HabitGeneratorPage 
@@ -129,11 +144,13 @@ export default class App extends Component {
               <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}>
           </Route>
 
-          <Route 
+          <Route exact path="/login" render={({ history }) => <LoginPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
+
+          {/* <Route 
             exact path="/login" 
             render={({ history }) => 
               <LoginPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}>
-          </Route>
+          </Route> */}
 
           {/* <Route exact path='/signup' render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
 
