@@ -76,7 +76,7 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                 </AppBar>
 
                 <List>
-                    <ListItem>
+                    {/* <ListItem>
                         HABIT NAME: 
                         <form className={classes.userInput} noValidate autoComplete="off">
                             <TextField 
@@ -91,7 +91,7 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                             />
                         </form>
                     </ListItem>
-                    <Divider />
+                    <Divider /> */}
                     <ListItem>
                         <ListItemText primary="RESPONSE" secondary="Make It Easy - Obtain the Reward" />
                         {/* <h4>BRONZE: 2-minute rule (bare minimum)</h4>
@@ -221,6 +221,18 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                         </form>,
                         I WILL
                         <form className={classes.userInput} noValidate autoComplete="off">
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="Habit I Need" 
+                                    // variant="outlined" 
+                                    name="cueBehavior"
+                                    value={newHabit.cueBehavior}
+                                    onChange={handleInputChange} 
+                                    required
+                                    pattern=".{2,}"
+                                />
+                            </form>
+                        {/* <form className={classes.userInput} noValidate autoComplete="off">
                             <TextField 
                                 id="outlined-basic" 
                                 label="Habit I Need" 
@@ -231,7 +243,7 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 required
                                 pattern=".{2,}"
                             />
-                        </form>
+                        </form> */}
                     </ListItem>
                     <Divider />
                     <ListItem>
@@ -245,13 +257,25 @@ export default function HabitGeneratorPage({newHabit, allHabits, handleInputChan
                                 id="outlined-basic" 
                                 label="Habit I Need" 
                                 // variant="outlined" 
+                                name="cueBehavior"
+                                value={newHabit.cueBehavior}
+                                onChange={handleInputChange} 
+                                required
+                                pattern=".{2,}"
+                            />
+                        </form>,
+                        {/* <form className={classes.userInput} noValidate autoComplete="off">
+                            <TextField 
+                                id="outlined-basic" 
+                                label="Habit I Need" 
+                                // variant="outlined" 
                                 name="neededHabit"
                                 value={newHabit.neededHabit}
                                 onChange={handleInputChange} 
                                 required
                                 pattern=".{2,}"
                             />
-                        </form>,
+                        </form>, */}
                         I WILL
                         <form className={classes.userInput} noValidate autoComplete="off">
                             <TextField 

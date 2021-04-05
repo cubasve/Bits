@@ -9,6 +9,8 @@ import userService from './utils/userService';
 import HabitGeneratorPage from '../src/pages/HabitGeneratorPage/HabitGeneratorPage';
 import NavBar from '../src/components/Navbar/Navbar';
 
+import habitGeneratorService from './utils/habitGeneratorService';
+
 export default class App extends Component {
   state = {
     user: userService.getUser(),
@@ -33,7 +35,7 @@ export default class App extends Component {
     //   },
     ],
     newHabit: {
-      name: '',
+      //name: '',
 
       responseBronze: '',
       responseSilver: '',
@@ -44,8 +46,17 @@ export default class App extends Component {
       cueLocation: '',
 
       currentHabit: '',
-      neededHabit: '',
+      //neededHabit: '',
       wantedHabit: '',
+    }
+  }
+
+  async componentDidMount() {
+    try {
+      await habitGeneratorService.showHabit().then(data => console.log(data));
+
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -63,11 +74,24 @@ export default class App extends Component {
     this.setState({ newHabit: newHabit });
   }
 
-  handleHabitSubmit = (e) => {
+  handleHabitSubmit = async (e) => {
     try {
       console.log('handleHabitSubmit')
       e.preventDefault();
-      console.log('e: ', e)
+      //console.log('e: ', e)
+      await habitGeneratorService.createHabit({
+        responseBronze: this.state.newHabit.responseBronze,
+        responseSilver: this.state.newHabit.responseSilver,
+        responseGold: this.state.newHabit.responseGold,
+        cueBehavior: this.state.newHabit.cueBehavior,
+        cueTime: this.state.newHabit.cueTime,
+        cueLocation: this.state.newHabit.cueLocation,
+        currentHabit: this.state.newHabit.currentHabit,
+        wantedHabit: this.state.newHabit.wantedHabit,
+      }).then(
+        data => console.log('data: ', data)
+      )
+
       this.setState(state => ({
         allHabits: [...state.allHabits, state.newHabit],
         newHabit: {

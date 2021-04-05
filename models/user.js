@@ -4,38 +4,40 @@ const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 6;
 
+const habitGenerator = new Schema({
+    //name: { type: String, required: true },
+
+    /* CUE INPUTS */
+    cueBehavior: { type: String, required: true },
+    cueTime: { type: String, required: true },
+    cueLocation: { type: String, required: true },
+
+    /* CRAVING AND REWARD INPUTS */
+    currentHabit: { type: String, required: true },
+    //neededHabit: { type: String, required: true },
+    wantedHabit: { type: String, required: true },
+
+    /* RESPONSE INPUTS */
+    responseBronze: { type: String, required: true },
+    responseSilver: { type: String, required: true },
+    responseGold: { type: String, required: true },
+
+    frequency: [{ type: String, required: true }]
+}, {
+    timestamps: true,
+});
+
 const userSchema = new Schema({
     name: { type: String},
     email: { type: String, required: true, lowercase: true, unique: true },
     // match: [/\S+@\S+\.\S+/, 'is invalid'] },
     password: { type: String },
-    habitGenerator: [{ type: Schema.Types.ObjectId, ref: 'HabitGenerator' }],
+    // habitGenerator: [{ type: Schema.Types.ObjectId, ref: 'HabitGenerator' }],
+    userHabitGenerator: [habitGenerator],
     habitDetonator: [{ type: Schema.Types.ObjectId, ref: 'HabitDetonator' }],
 }, {
     timestamps: true,
 });
-
-// userSchema.set('toJSON', {
-//     transform: function (doc, ret) {
-//         delete ret.password;
-//         return ret;
-//     }
-// });
-
-// userSchema.pre('save', function (next) {
-//     const user = this; //this = current Mongoose user document being saved
-//     if (!user.isModified('password')) return next();
-//     bcrypt.hash(user.password, SALT_ROUNDS, function (err, hash) {
-//         if (err) return next(err);
-//         user.password = hash;
-//         next();
-//     });
-// });
-
-// userSchema.methods.comparePassword = function (tryPassword, cb) {
-//     bcrypt.compare(tryPassword, this.password, cb);
-//     //password (plain text) is hashed and compared to this.password (hashed version of user's password saved in database)
-// }
 
 userSchema.set('toJSON', {
     transform: function (doc, ret) {
