@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
-// app.use(require('./config/auth'));
+app.use(require('./config/auth')); //Attaches user to req.user
 app.use('/api/habitGenerator', require('./routes/api/habitGenerator'));
 
 app.use('/api', function (req, res) {

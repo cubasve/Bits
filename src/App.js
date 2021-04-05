@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -12,27 +12,43 @@ import NavBar from '../src/components/Navbar/Navbar';
 import habitGeneratorService from './utils/habitGeneratorService';
 
 export default class App extends Component {
+  // const initialUserValue = userService.getUser();
+  // const [user, setUser] = useState(initialUserValue);
+  // const [allHabits, setAllHabits] = useState([]);
+  // const [newHabit, setNewHabit] = useState({
+  //   responseBronze: '',
+  //     responseSilver: '',
+  //     responseGold: '',
+
+  //     cueBehavior: '',
+  //     cueTime: '',
+  //     cueLocation: '',
+
+  //     currentHabit: '',
+  //     wantedHabit: '',
+  // });
+
   state = {
     user: userService.getUser(),
     allHabits: [
-    //   {
-    //     name: 'Storytime',
-    //     cue: 'At 10pm, I will read a book on my bed.',
-    //     craving: 'After reading my book I will scroll through Fb',
-    //     responseBronze: 'Read my book for 5 min',
-    //     responseSilver: 'Read my book for 30 min',
-    //     responseGold: 'Read my book for 1 hour',
-    //     reward: 'Scroll through FB Feed'
-    //   },
-    //   {
-    //     name: 'ABCD',
-    //     cue: 'AAAAAA',
-    //     craving: 'BBBBB',
-    //     responseBronze: 'CCCCCBronze',
-    //     responseSilver: 'CCCCSilver',
-    //     responseGold: 'CCCCCGold',
-    //     reward: 'DDDDDDD'
-    //   },
+      // {
+      //   name: 'Storytime',
+      //   cue: 'At 10pm, I will read a book on my bed.',
+      //   craving: 'After reading my book I will scroll through Fb',
+      //   responseBronze: 'Read my book for 5 min',
+      //   responseSilver: 'Read my book for 30 min',
+      //   responseGold: 'Read my book for 1 hour',
+      //   reward: 'Scroll through FB Feed'
+      // },
+      // {
+      //   name: 'ABCD',
+      //   cue: 'AAAAAA',
+      //   craving: 'BBBBB',
+      //   responseBronze: 'CCCCCBronze',
+      //   responseSilver: 'CCCCSilver',
+      //   responseGold: 'CCCCCGold',
+      //   reward: 'DDDDDDD'
+      // },
     ],
     newHabit: {
       //name: '',
@@ -53,8 +69,25 @@ export default class App extends Component {
 
   async componentDidMount() {
     try {
-      await habitGeneratorService.showHabit().then(data => console.log(data));
+      await habitGeneratorService.showHabit()
+      .then(data => {
+        console.log('data/componentDidMount: ', data);
+        this.setState({
+          allHabits: data.user.userHabitGenerator,
+          newHabit: {
+            responseBronze: '',
+            responseSilver: '',
+            responseGold: '',
 
+            cueBehavior: '',
+            cueTime: '',
+            cueLocation: '',
+
+            currentHabit: '',
+            wantedHabit: '',
+          }
+        });
+      });
     } catch (err) {
       console.error(err);
     }
@@ -89,27 +122,27 @@ export default class App extends Component {
         currentHabit: this.state.newHabit.currentHabit,
         wantedHabit: this.state.newHabit.wantedHabit,
       }).then(
-        data => console.log('data: ', data)
+        data => console.log('data/habitSubmit: ', data)
       )
 
-      this.setState(state => ({
-        allHabits: [...state.allHabits, state.newHabit],
-        newHabit: {
-          name: '',
+      // this.setState(state => ({
+      //   allHabits: [...state.allHabits, state.newHabit],
+      //   newHabit: {
+      //     name: '',
 
-          responseBronze: '',
-          responseSilver: '',
-          responseGold: '',
+      //     responseBronze: '',
+      //     responseSilver: '',
+      //     responseGold: '',
 
-          cueBehavior: '',
-          cueTime: '',
-          cueLocation: '',
+      //     cueBehavior: '',
+      //     cueTime: '',
+      //     cueLocation: '',
 
-          currentHabit: '',
-          neededHabit: '',
-          wantedHabit: '',
-        }
-      }));
+      //     currentHabit: '',
+      //     neededHabit: '',
+      //     wantedHabit: '',
+      //   }
+      // }));
     } catch (err) {
       console.error(err);
     }
@@ -122,9 +155,16 @@ export default class App extends Component {
         <NavBar user={this.state.user} handleLogout={this.handleLogout} />
 
         <Switch>
-          <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>
+          <Route 
+            exact path="/" 
+            render={() => 
+              <HomePage 
+                user={this.state.user} 
+                handleLogout={this.handleLogout} 
+              />}>
+          </Route>
 
-          {/* <Route exact path="/habitgenerator" 
+          <Route exact path="/habitgenerator" 
             render={() => (
               userService.getUser() ?
               <main>
@@ -139,7 +179,7 @@ export default class App extends Component {
               :
               <Redirect to="/login" />
             )}>
-          </Route> */}
+          </Route>
 
           {/* <Route exact path="/habitgenerator" render={() => (
             userService.getUser() ?
@@ -151,7 +191,7 @@ export default class App extends Component {
           )}>
           </Route> */}
 
-          <Route exact path="/habitgenerator" 
+          {/* <Route exact path="/habitgenerator" 
             render={() => 
                 <HabitGeneratorPage 
                   user={this.state.user} 
@@ -160,25 +200,26 @@ export default class App extends Component {
                   handleInputChange={this.handleInputChange}
                   handleHabitSubmit={this.handleHabitSubmit}
                 />}>
-          </Route>
+          </Route> */}
 
           <Route 
             exact path="/signup" 
             render={({ history }) => 
-              <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}>
+              <SignupPage 
+                history={history} 
+                handleSignupOrLogin={this.handleSignupOrLogin} 
+              />}>
           </Route>
 
-          <Route exact path="/login" render={({ history }) => <LoginPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
-
-          {/* <Route 
+          <Route 
             exact path="/login" 
             render={({ history }) => 
-              <LoginPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}>
-          </Route> */}
+              <LoginPage 
+                history={history} 
+                handleSignupOrLogin={this.handleSignupOrLogin} 
+              />}>
+          </Route>
 
-          {/* <Route exact path='/signup' render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
-
-          <Route exact path='/login' render={({ history }) => <LoginPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route> */}
         </Switch >
       </div >
     )
