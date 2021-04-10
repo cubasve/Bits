@@ -9,9 +9,9 @@ async function show(req, res) {
     console.log('req.user: ', req.user);
     try {
         const user = await User.findById({ _id: req.user._id }); //req.body._id OR req.user._id?
-        console.log('req.user: ', req.user);
-        console.log('req.user._id: ', req.user._id);
-        console.log('user: ', user);
+        //console.log('req.user: ', req.user);
+        //console.log('req.user._id: ', req.user._id);
+        //console.log('user: ', user);
         return res.json({ user: user });
     } catch (err) {
         console.error(err);

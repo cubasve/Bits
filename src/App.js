@@ -74,18 +74,6 @@ export default class App extends Component {
         console.log('data/componentDidMount: ', data);
         this.setState({
           allHabits: data.user.userHabitGenerator,
-          newHabit: {
-            responseBronze: '',
-            responseSilver: '',
-            responseGold: '',
-
-            cueBehavior: '',
-            cueTime: '',
-            cueLocation: '',
-
-            currentHabit: '',
-            wantedHabit: '',
-          }
         });
       });
     } catch (err) {
@@ -122,27 +110,25 @@ export default class App extends Component {
         currentHabit: this.state.newHabit.currentHabit,
         wantedHabit: this.state.newHabit.wantedHabit,
       }).then(
-        data => console.log('data/habitSubmit: ', data)
+        data => {
+          console.log('data/habitSubmit: ', data);
+          this.setState({
+            allHabits: data.user.userHabitGenerator,
+            newHabit: {
+              responseBronze: '',
+              responseSilver: '',
+              responseGold: '',
+        
+              cueBehavior: '',
+              cueTime: '',
+              cueLocation: '',
+        
+              currentHabit: '',
+              wantedHabit: '',
+            }
+          });
+        }
       )
-
-      // this.setState(state => ({
-      //   allHabits: [...state.allHabits, state.newHabit],
-      //   newHabit: {
-      //     name: '',
-
-      //     responseBronze: '',
-      //     responseSilver: '',
-      //     responseGold: '',
-
-      //     cueBehavior: '',
-      //     cueTime: '',
-      //     cueLocation: '',
-
-      //     currentHabit: '',
-      //     neededHabit: '',
-      //     wantedHabit: '',
-      //   }
-      // }));
     } catch (err) {
       console.error(err);
     }
