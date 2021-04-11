@@ -184,7 +184,7 @@ export default function HabitForm({
                             <ListItemText primary="CRAVING" secondary="Make It Attractive - Want the Reward" />
                         </ListItem>
                         <ListItem>
-                            {/* <h4>After [CURRENT HABIT], I will [HABIT I NEED]</h4> */}
+                            {/* <ListItemText secondary="After [CURRENT HABIT], I will [HABIT I NEED]"/>     */}
                             AFTER
                             <form className={classes.userInput} noValidate autoComplete="off">
                                 <TextField 

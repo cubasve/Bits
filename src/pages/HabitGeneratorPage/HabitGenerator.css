@@ -1,0 +1,32 @@
+.HabitGeneratorPage {
+    display: grid;
+    grid-template-columns: 300px auto;
+}
+
+.habitSteps {
+    background-color: aquamarine;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(2, 1fr);
+}
+
+@media only screen and (min-width: 601px) and (max-width: 850px) {
+    .HabitGeneratorPage {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px auto;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .HabitGeneratorPage {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px auto;
+    }
+
+    .habitSteps {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}

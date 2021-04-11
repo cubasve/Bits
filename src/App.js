@@ -31,24 +31,6 @@ export default class App extends Component {
   state = {
     user: userService.getUser(),
     allHabits: [
-      // {
-      //   name: 'Storytime',
-      //   cue: 'At 10pm, I will read a book on my bed.',
-      //   craving: 'After reading my book I will scroll through Fb',
-      //   responseBronze: 'Read my book for 5 min',
-      //   responseSilver: 'Read my book for 30 min',
-      //   responseGold: 'Read my book for 1 hour',
-      //   reward: 'Scroll through FB Feed'
-      // },
-      // {
-      //   name: 'ABCD',
-      //   cue: 'AAAAAA',
-      //   craving: 'BBBBB',
-      //   responseBronze: 'CCCCCBronze',
-      //   responseSilver: 'CCCCSilver',
-      //   responseGold: 'CCCCCGold',
-      //   reward: 'DDDDDDD'
-      // },
     ],
     newHabit: {
       //name: '',
@@ -134,6 +116,21 @@ export default class App extends Component {
     }
   }
 
+  handleHabitDelete = async (e) => {
+    try {
+      console.log('e.target.value: ', e.target.value);
+      await habitGeneratorService.removeHabit({ id: e.target.value })
+        .then(data => {
+          console.log('data/DELETE: ', data);
+          this.setState({
+            allHabits: data.user.userHabitGenerator,
+          })
+        })
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   render() {
 
     return (
@@ -160,6 +157,7 @@ export default class App extends Component {
                   newHabit={this.state.newHabit}
                   handleInputChange={this.handleInputChange}
                   handleHabitSubmit={this.handleHabitSubmit}
+                  handleHabitDelete={this.handleHabitDelete}
                 />
               </main>
               :

@@ -4,13 +4,15 @@ import Craving from '../Craving/Craving';
 import Response from '../Response/Response';
 import Reward from '../Reward/Reward';
 
-export default function getHabitInfo(props) {
+import './HabitInfo.css';
+
+export default function getHabitInfo({allHabits}) {
     return (
-        <>
-            <Cue allHabits={props.allHabits} />
-            <Craving allHabits={props.allHabits} />
-            <Response allHabits={props.allHabits} />
-            <Reward allHabits={props.allHabits} />
-        </>
+        <div className="habitInfo">
+            <Cue allHabits={allHabits} />
+            <Craving allHabits={allHabits} />
+            <Response allHabits={allHabits} />
+            <Reward allHabits={allHabits} />
+        </div>
     );
 }
