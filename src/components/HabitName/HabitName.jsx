@@ -4,6 +4,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import './HabitName.css';
 
+import { Link, Route, Switch, Redirect } from 'react-router-dom';
+
 export default function getHabitName({ 
     allHabits ,
     handleShowHabit,
@@ -13,7 +15,12 @@ export default function getHabitName({
             <h2>Habit Names:</h2>
             {allHabits.map(habit => (
                 <div key={habit._id} className="individualHabit">
-                    <Button onClick={handleShowHabit}>
+                    {/* <Switch>
+                        <Route>
+                             <Link to={`habitgenerator/${id}`}>{allHabits}</Link>
+                        </Route>
+                    </Switch> */}
+                    <Button /*onClick={handleShowHabit}*/>
                         {habit.cueBehavior}
                     </Button>
                     <button><EditIcon /></button>

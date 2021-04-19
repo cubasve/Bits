@@ -119,7 +119,7 @@ export default class App extends Component {
   handleShowHabit = async (e) => {
     try {
       console.log('e.target.value/SHOW: ', e.target.value);
-      await habitGeneratorService.showOneHabit({ id: e.target.value })
+      await habitGeneratorService.showOneHabit()
       .then(data => console.log(data));
 
     } catch (err) {

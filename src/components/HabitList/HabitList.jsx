@@ -10,7 +10,7 @@ export default function getHabitList({
         <div className="habitlist">
             <HabitName 
                 allHabits={allHabits} 
-                handleShowHabit={handleShowHabit}
+                //handleShowHabit={handleShowHabit}
             />
         </div>
     );

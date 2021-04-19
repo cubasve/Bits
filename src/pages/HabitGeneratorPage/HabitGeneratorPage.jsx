@@ -3,10 +3,14 @@ import HabitList from '../../components/HabitList/HabitList';
 import HabitForm from '../../components/HabitForm/HabitForm';
 import './HabitGenerator.css';
 
+import { Link, Route, Switch, Redirect } from 'react-router-dom';
+
 import Cue from '../../components/Cue/Cue';
 import Craving from '../../components/Craving/Craving';
 import Response from '../../components/Response/Response';
 import Reward from '../../components/Reward/Reward';
+
+import { Button } from '@material-ui/core';
 
 export default function HabitGeneratorPage({
     newHabit, 
@@ -25,13 +29,22 @@ export default function HabitGeneratorPage({
                 handleHabitSubmit={handleHabitSubmit}
                 handleShowHabit={handleShowHabit}
             />
+
             <div className="HabitGeneratorPage">
-                <HabitList 
-                    allHabits={allHabits} 
-                    handleHabitDelete={handleHabitDelete}
-                    handleShowHabit={handleShowHabit}
-                />
-                {/* <HabitInfo allHabits={allHabits} /> */}
+                <Switch>
+                    <Route 
+                        path="/habitgenerator"
+                    >
+                        {allHabits.map((habit) => (
+                            <button onClick={handleShowHabit}>
+                                <Link to={`/habitgenerator/${habit._id}`}>
+                                        {habit.cueBehavior}
+                                </Link>
+                            </button>
+                            
+                        ))}
+                    </Route>
+                </Switch>
                 <div className="habitSteps">
                     <Cue allHabits={allHabits} />
                     <Craving allHabits={allHabits} />
