@@ -1,7 +1,7 @@
 .cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    justify-content: space-evenly;
+    justify-items: center;
 }
 
 .steps {
@@ -10,22 +10,21 @@
     margin: 10px 100px;
 }
 
-@media only screen and (min-width: 600px) and (max-width: 1270) {
+@media only screen and (min-width: 675px) and (max-width: 1270px) {
     .cards {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: repeat(2, 1fr);
-        gap: 5px;
-        justify-content: space-evenly;
+        gap: 20px;
     }
 }
 
-@media only screen and (max-width: 599px) {
+@media only screen and (max-width: 674px) {
     .cards {
         display: grid;
         flex-direction: column;
+        grid-template-columns: 1fr;
         grid-template-rows: auto;
-        gap: 5px;
-        justify-content: center;
+        gap: 20px;
     }
 }

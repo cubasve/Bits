@@ -116,6 +116,17 @@ export default class App extends Component {
     }
   }
 
+  handleShowHabit = async (e) => {
+    try {
+      console.log('e.target.value/SHOW: ', e.target.value);
+      await habitGeneratorService.showOneHabit({ id: e.target.value })
+      .then(data => console.log(data));
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   handleHabitDelete = async (e) => {
     try {
       console.log('e.target.value: ', e.target.value);
@@ -158,6 +169,7 @@ export default class App extends Component {
                   handleInputChange={this.handleInputChange}
                   handleHabitSubmit={this.handleHabitSubmit}
                   handleHabitDelete={this.handleHabitDelete}
+                  handleShowHabit={this.handleShowHabit}
                 />
               </main>
               :

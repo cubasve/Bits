@@ -1,6 +1,5 @@
 import React from 'react';
 import HabitList from '../../components/HabitList/HabitList';
-import HabitInfo from '../../components/HabitInfo/HabitInfo';
 import HabitForm from '../../components/HabitForm/HabitForm';
 import './HabitGenerator.css';
 
@@ -14,7 +13,8 @@ export default function HabitGeneratorPage({
     allHabits, 
     handleInputChange, 
     handleHabitSubmit,
-    handleHabitDelete
+    handleHabitDelete,
+    handleShowHabit,
 }) {
     return (
         <>
@@ -23,9 +23,14 @@ export default function HabitGeneratorPage({
                 allHabits={allHabits} 
                 handleInputChange={handleInputChange} 
                 handleHabitSubmit={handleHabitSubmit}
+                handleShowHabit={handleShowHabit}
             />
             <div className="HabitGeneratorPage">
-                <HabitList allHabits={allHabits} handleHabitDelete={handleHabitDelete}/>
+                <HabitList 
+                    allHabits={allHabits} 
+                    handleHabitDelete={handleHabitDelete}
+                    handleShowHabit={handleShowHabit}
+                />
                 {/* <HabitInfo allHabits={allHabits} /> */}
                 <div className="habitSteps">
                     <Cue allHabits={allHabits} />

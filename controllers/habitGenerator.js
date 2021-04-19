@@ -1,8 +1,21 @@
 const User = require('../models/user');
 
 module.exports = {
+    showOneHabit,
     show,
     create,
+    update, 
+    remove,
+}
+
+async function showOneHabit(req, res) {
+    try {
+        const user = await User.findById({ _id: req.user._id });
+        const habitId = user.userHabitGenerator.id(req.body.id);
+        res.json({ habitId: habitId });
+    } catch (err) {
+        return res.status(400).json(err);
+    }
 }
 
 async function show(req, res) {
@@ -49,6 +62,30 @@ async function create(req, res) {
         });
         console.log('user: ', user);
         console.log('user.userHabitGenerator: ', user.userHabitGenerator);
+        await user.save();
+        res.json({ user: user });
+    } catch (err) {
+        return res.status(400).json(err);
+    }
+}
+
+async function update(req, res) {
+    try {
+        const user = await User.findById({ _id: req.user._id });
+        const habitId = user.userHabitGenerator.id(req.body.id);
+        //id.set({});
+        await user.save();
+        res.json({ user: user });
+    } catch (err) {
+        return res.status(400).json(err);
+    }
+}
+
+async function remove(req, res) {
+    try {
+        const user = await User.findById({ _id: req.user._id });
+        const habitId = user.userHabitGenerator.id(req.body.id);
+        habitId.remove();
         await user.save();
         res.json({ user: user });
     } catch (err) {
