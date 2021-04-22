@@ -99,7 +99,7 @@ export default function HabitForm({
                                 <TextField 
                                     id="outlined-basic" 
                                     label="Silver" 
-                                    // variant="outlined" 
+                                    variant="outlined" 
                                     name="responseSilver"
                                     value={newHabit.responseSilver}
                                     onChange={handleInputChange} 
@@ -114,7 +114,7 @@ export default function HabitForm({
                             <TextField 
                                 id="outlined-basic" 
                                 label="Gold" 
-                                // variant="outlined" 
+                                variant="outlined" 
                                 name="responseGold"
                                 value={newHabit.responseGold}
                                 onChange={handleInputChange}
