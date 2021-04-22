@@ -1,17 +1,63 @@
 import React from 'react';
-import HabitName from '../HabitName/HabitName';
+//import HabitName from '../HabitName/HabitName';
+import HabitForm from '../../components/HabitForm/HabitForm';
 import './HabitList.css';
 
-export default function getHabitList({ 
-    allHabits,
+import { Link } from 'react-router-dom';
+
+// export default function getHabitList({ 
+//     allHabits,
+//     handleShowHabit,
+// }) {
+//     return (
+//         <div className="habitlist">
+//             <HabitName 
+//                 allHabits={allHabits} 
+//             />
+//         </div>
+//     );
+// }
+
+export default function getHabitList ({
+    newHabit, 
+    allHabits, 
+    handleInputChange, 
+    handleHabitSubmit,
+    handleHabitDelete,
     handleShowHabit,
 }) {
     return (
-        <div className="habitlist">
-            <HabitName 
+        <>
+            <HabitForm 
+                newHabit={newHabit} 
                 allHabits={allHabits} 
-                //handleShowHabit={handleShowHabit}
+                handleInputChange={handleInputChange} 
+                handleHabitSubmit={handleHabitSubmit}
+                handleShowHabit={handleShowHabit}
             />
-        </div>
-    );
+
+            <div className="HabitGeneratorPage">
+                {/* <Switch>
+                    <Route 
+                        path="/habitgenerator/:i"
+                    > */}
+                        {allHabits.map((habit) => (
+                            <button onClick={handleShowHabit} key={habit._id}>
+                                <Link to={`/habitgenerator/${habit._id}`}>
+                                        {habit.cueBehavior}
+                                </Link>
+                            </button>
+                            
+                        ))}
+                    {/* </Route>
+                </Switch> */}
+                {/* <div className="habitSteps">
+                    <Cue allHabits={allHabits} />
+                    <Craving allHabits={allHabits} />
+                    <Response allHabits={allHabits} />
+                    <Reward allHabits={allHabits} />
+                </div> */}
+            </div>
+        </>
+    )
 }

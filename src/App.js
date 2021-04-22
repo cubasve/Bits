@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, /*useEffect, useState*/ } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -6,7 +6,9 @@ import HomePage from './pages/HomePage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import userService from './utils/userService';
-import HabitGeneratorPage from '../src/pages/HabitGeneratorPage/HabitGeneratorPage';
+//import HabitGeneratorPage from '../src/pages/HabitGeneratorPage/HabitGeneratorPage';
+import HabitList from '../src/components/HabitList/HabitList';
+import HabitInfo from '../src/components/HabitInfo/HabitInfo';
 import NavBar from '../src/components/Navbar/Navbar';
 
 import habitGeneratorService from './utils/habitGeneratorService';
@@ -162,7 +164,7 @@ export default class App extends Component {
             render={() => (
               userService.getUser() ?
               <main>
-                <HabitGeneratorPage 
+                <HabitList 
                   user={this.state.user} 
                   allHabits={this.state.allHabits} 
                   newHabit={this.state.newHabit}
@@ -177,26 +179,12 @@ export default class App extends Component {
             )}>
           </Route>
 
-          {/* <Route exact path="/habitgenerator" render={() => (
-            userService.getUser() ?
-              <main>
-                <FinancialStatementPage />
-              </main>
-              :
-              <Redirect to='/login' />
-          )}>
-          </Route> */}
-
-          {/* <Route exact path="/habitgenerator" 
-            render={() => 
-                <HabitGeneratorPage 
-                  user={this.state.user} 
-                  allHabits={this.state.allHabits} 
-                  newHabit={this.state.newHabit}
-                  handleInputChange={this.handleInputChange}
-                  handleHabitSubmit={this.handleHabitSubmit}
-                />}>
-          </Route> */}
+          <Route 
+            path='/habitgenerator/:id' 
+            render={props => 
+              <HabitInfo {...props} allHabits={this.state.allHabits} />
+            }
+          />
 
           <Route 
             exact path="/signup" 

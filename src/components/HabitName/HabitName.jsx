@@ -4,7 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import './HabitName.css';
 
-import { Link, Route, Switch, Redirect } from 'react-router-dom';
+
 
 export default function getHabitName({ 
     allHabits ,
