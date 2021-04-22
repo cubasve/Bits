@@ -1,8 +1,12 @@
 import React from 'react';
 import Cue from '../Cue/Cue';
 import Craving from '../Craving/Craving';
-import Response from '../Response/Response';
+import ResponseBronze from '../ResponseBronze/ResponseBronze';
+import ResponseSilver from '../ResponseSilver/ResponseSilver';
+import ResponseGold from '../ResponseGold/ResponseGold';
 import Reward from '../Reward/Reward';
+
+import './HabitInfo.css';
 
 export default function getHabitInfo({ allHabits, match }) {
     const { id } = match.params; //match.params.id
@@ -11,12 +15,13 @@ export default function getHabitInfo({ allHabits, match }) {
     console.log('Specific habit: ', allHabits.find(habit => habit._id === id));
     
     return (
-        <>
-            <p>Hello</p>
-            <Cue allHabits={allHabits} habit={specificHabit} />
-            <Craving allHabits={allHabits} habit={specificHabit} />
-            <Response allHabits={allHabits} habit={specificHabit} />
-            <Reward allHabits={allHabits} habit={specificHabit} />
-        </>
+        <div className="HabitInfo">
+            <Cue habit={specificHabit} />
+            <Craving habit={specificHabit} />
+            <ResponseBronze habit={specificHabit} />
+            <ResponseSilver habit={specificHabit} />
+            <ResponseGold habit={specificHabit} />
+            <Reward habit={specificHabit} />
+        </div>
     );
 }

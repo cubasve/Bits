@@ -1,12 +1,13 @@
 import React from 'react';
 import { Card } from '@material-ui/core';
 
-export default function getReward({ habit: { cueBehavior, wantedHabit } }) {
+export default function getResponseBronze({ habit: { responseSilver } }) 
+{
     return (
         <div className="infoBorder">
             <Card>
-                <h1>Reward</h1>
-                <h3>After {cueBehavior}, I will {wantedHabit}</h3>
+                <h1>Response: Silver</h1>
+                <h3>{responseSilver}</h3>
             </Card>
         </div>
     )

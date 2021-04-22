@@ -1,4 +1,6 @@
-.habitlist {
-    background-color: yellow;
-    text-align: left;
+.HabitList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 1000px;
 }

@@ -129,10 +129,12 @@ export default class App extends Component {
     }
   }
 
-  handleHabitDelete = async (e) => {
+  handleHabitDelete = async (event) => {
     try {
-      console.log('e.target.value: ', e.target.value);
-      await habitGeneratorService.removeHabit({ id: e.target.value })
+      console.log('e: ', event);
+      console.log('e.target: ', event.target)
+      //console.log('e.target.value: ', event.target.value);
+      await habitGeneratorService.removeHabit({ id: event })
         .then(data => {
           console.log('data/DELETE: ', data);
           this.setState({
