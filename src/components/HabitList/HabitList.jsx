@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HabitForm from '../../components/HabitForm/HabitForm';
+import habitGeneratorService from '../../utils/habitGeneratorService';
 import './HabitList.css';
 
 import { Link } from 'react-router-dom';
@@ -28,13 +29,46 @@ export default function GetHabitList ({
     handleHabitSubmit,
     handleHabitDelete,
     handleShowHabit,
-    match,
 }) {
-    // const { id } = match.params; //match.params.id
-    // const specificHabit = allHabits.find(habit => habit._id === id)
-    // console.log('id for HABITLIST: ', id);
-    // console.log('Specific habit for HABITLIST: ', allHabits.find(habit => habit._id === id));
 
+    // const [allHabits, setAllHabits] = useState([]);
+    // const [newHabit, setNewHabit] = useState({
+    //     responseBronze: '',
+    //     responseSilver: '',
+    //     responseGold: '',
+
+    //     cueBehavior: '',
+    //     cueTime: '',
+    //     cueLocation: '',
+
+    //     currentHabit: '',
+    //     wantedHabit: '',
+    // });
+
+    // useEffect(async() => {
+    //     try {
+    //         await habitGeneratorService.showHabit()
+    //         .then(data => {
+    //             console.log('data/componentDidMount: ', data);
+    //             setAllHabits(data.user.userHabitGenerator);
+    //           });
+
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }, []);
+
+    // handleInputChange = (e) => {
+    //     const newHabit = { ...this.state.newHabit, [e.target.name]: e.target.value };
+    //     this.setState({ newHabit: newHabit });
+    //   }
+
+    // handleInputChange = (e) => {
+    //     //const addHabit = { ...newHabit, [e.target.name]: e.target.value };
+    //     setNewHabit({ ...newHabit, [e.target.name]: e.target.value });
+    // }
+
+    // MODAL
     const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
     const [ openEditDialog, setOpenEditDialog ] = useState(false);
 
@@ -61,13 +95,13 @@ export default function GetHabitList ({
                 allHabits={allHabits} 
                 handleInputChange={handleInputChange} 
                 handleHabitSubmit={handleHabitSubmit}
-                handleShowHabit={handleShowHabit}
+                //handleShowHabit={handleShowHabit}
             />
 
             <div className="HabitList">
                 {allHabits.map((habit) => (
                     <Card key={habit._id}>
-                        <Button onClick={handleShowHabit} key={habit._id}>
+                        <Button /*onClick={handleShowHabit}*/>
                             <Link to={`/habitgenerator/${habit._id}`}>
                                     {habit.cueBehavior}
                             </Link>
@@ -91,6 +125,7 @@ export default function GetHabitList ({
                                         BRONZE: 
                                         <form>
                                             <TextField 
+                                                variant="outlined"
                                                 id="outlined-basic" 
                                                 label="Bronze"  
                                                 name="responseBronze"
@@ -157,7 +192,7 @@ export default function GetHabitList ({
                                                 id="time"
                                                 label="Time"
                                                 type="time"
-                                                // variant="outlined"
+                                                //variant="outlined"
                                                 name="cueTime"
                                                 value={habit.cueTime}
                                                 //onChange={handleInputChange}
@@ -176,7 +211,7 @@ export default function GetHabitList ({
                                                 <TextField 
                                                     id="outlined-basic" 
                                                     label="Location" 
-                                                    // variant="outlined" 
+                                                    variant="outlined" 
                                                     name="cueLocation"
                                                     value={habit.cueLocation}
                                                     onChange={handleInputChange} 
@@ -197,7 +232,7 @@ export default function GetHabitList ({
                                             <TextField 
                                                 id="outlined-basic" 
                                                 label="Current Habit" 
-                                                // variant="outlined" 
+                                                variant="outlined" 
                                                 name="currentHabit"
                                                 value={habit.currentHabit}
                                                 onChange={handleInputChange} 
@@ -210,7 +245,7 @@ export default function GetHabitList ({
                                                 <TextField 
                                                     id="outlined-basic" 
                                                     label="Habit I Need" 
-                                                    // variant="outlined" 
+                                                    variant="outlined" 
                                                     name="cueBehavior"
                                                     value={habit.cueBehavior}
                                                     onChange={handleInputChange} 

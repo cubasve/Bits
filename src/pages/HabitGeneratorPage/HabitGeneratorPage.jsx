@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 //import HabitList from '../../components/HabitList/HabitList';
 import HabitForm from '../../components/HabitForm/HabitForm';
 import './HabitGenerator.css';
@@ -9,6 +9,7 @@ import Cue from '../../components/Cue/Cue';
 import Craving from '../../components/Craving/Craving';
 import Response from '../../components/Response/Response';
 import Reward from '../../components/Reward/Reward';
+import habitGeneratorService from '../../utils/habitGeneratorService';
 
 //import { Button } from '@material-ui/core';
 
@@ -20,6 +21,23 @@ export default function HabitGeneratorPage({
     handleHabitDelete,
     handleShowHabit,
 }) {
+
+    /* When the component mounts */
+    useEffect(() => {
+        try {
+            await habitGeneratorService.showHabit()
+            .then(data => {
+                console.log('data/componentDidMount: ', data);
+                this.setState({
+                  allHabits: data.user.userHabitGenerator,
+                });
+              });
+
+        } catch (err) {
+            console.error(err);
+        }
+    }, []);
+
     return (
         <>
             <HabitForm 

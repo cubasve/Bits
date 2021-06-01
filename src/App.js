@@ -16,54 +16,41 @@ import habitGeneratorService from './utils/habitGeneratorService';
 export default class App extends Component {
   // const initialUserValue = userService.getUser();
   // const [user, setUser] = useState(initialUserValue);
-  // const [allHabits, setAllHabits] = useState([]);
-  // const [newHabit, setNewHabit] = useState({
-  //   responseBronze: '',
-  //     responseSilver: '',
-  //     responseGold: '',
-
-  //     cueBehavior: '',
-  //     cueTime: '',
-  //     cueLocation: '',
-
-  //     currentHabit: '',
-  //     wantedHabit: '',
-  // });
 
   state = {
     user: userService.getUser(),
-    allHabits: [
-    ],
-    newHabit: {
-      //name: '',
+    // allHabits: [
+    // ],
+    // newHabit: {
+    //   //name: '',
 
-      responseBronze: '',
-      responseSilver: '',
-      responseGold: '',
+    //   responseBronze: '',
+    //   responseSilver: '',
+    //   responseGold: '',
 
-      cueBehavior: '',
-      cueTime: '',
-      cueLocation: '',
+    //   cueBehavior: '',
+    //   cueTime: '',
+    //   cueLocation: '',
 
-      currentHabit: '',
-      //neededHabit: '',
-      wantedHabit: '',
-    }
+    //   currentHabit: '',
+    //   //neededHabit: '',
+    //   wantedHabit: '',
+    // }
   }
 
-  async componentDidMount() {
-    try {
-      await habitGeneratorService.showHabit()
-      .then(data => {
-        console.log('data/componentDidMount: ', data);
-        this.setState({
-          allHabits: data.user.userHabitGenerator,
-        });
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  // async componentDidMount() {
+  //   try {
+  //     await habitGeneratorService.showHabit()
+  //     .then(data => {
+  //       console.log('data/componentDidMount: ', data);
+  //       this.setState({
+  //         allHabits: data.user.userHabitGenerator,
+  //       });
+  //     });
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 
   handleLogout = () => {
     userService.logout();
@@ -118,16 +105,16 @@ export default class App extends Component {
     }
   }
 
-  handleShowHabit = async (e) => {
-    try {
-      console.log('e.target.value/SHOW: ', e.target.value);
-      await habitGeneratorService.showOneHabit()
-      .then(data => console.log(data));
+  // handleShowHabit = async (e) => {
+  //   try {
+  //     console.log('e.target.value/SHOW: ', e.target.value);
+  //     await habitGeneratorService.showOneHabit()
+  //     .then(data => console.log(data));
 
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 
   handleHabitDelete = async (event) => {
     try {
