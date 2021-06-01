@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -30,18 +30,6 @@ export default function App() {
         wantedHabit: '',
     });    
 
-    useEffect(async () => {
-        try {
-            await habitGeneratorService.showHabit()
-            .then(data => {
-                console.log('data/componentDidMount: ', data);
-                setAllHabits(data.user.userHabitGenerator);
-            });
-        } catch (err) {
-            console.error(err);
-        }
-    }, [ allHabits ]);
-
     const handleLogout = () => {
         userService.logout();
         setUser(null);
@@ -52,14 +40,14 @@ export default function App() {
     }
 
     const handleInputChange = (e) => {
-        const newHabit = {...newHabit, [e.target.name]: e.target.value };
-        setNewHabit(newHabit);
+        const habit = {...newHabit, [e.target.name]: e.target.value };
+        setNewHabit(habit);
     }
 
     const handleHabitSubmit = async (e) => {
         try {
             e.preventDefault();
-            await habitGeneratorService.createHabit({
+            const data = await habitGeneratorService.createHabit({
                 responseBronze: newHabit.responseBronze,
                 responseSilver: newHabit.responseSilver,
                 responseGold: newHabit.responseGold,
@@ -70,20 +58,20 @@ export default function App() {
 
                 currentHabit: newHabit.currentHabit,
                 wantedHabit: newHabit.wantedHabit,
-            }).then(data => {
-                setAllHabits(data.user.userHabitGenerator);
-                setNewHabit({
-                    responseBronze: '',
-                    responseSilver: '',
-                    responseGold: '',
-                
-                    cueBehavior: '',
-                    cueTime: '',
-                    cueLocation: '',
-                
-                    currentHabit: '',
-                    wantedHabit: '',
-                });
+            });
+
+            setAllHabits(data.user.userHabitGenerator);
+            setNewHabit({
+                responseBronze: '',
+                responseSilver: '',
+                responseGold: '',
+            
+                cueBehavior: '',
+                cueTime: '',
+                cueLocation: '',
+            
+                currentHabit: '',
+                wantedHabit: '',
             });
         } catch (err) {
             console.error(err);
@@ -92,10 +80,8 @@ export default function App() {
 
     const handleHabitDelete = async (event) => {
         try {
-            await habitGeneratorService.removeHabit({ id: event })
-            .then(data => {
-                setAllHabits(data.user.userHabitGenerator);
-            })
+            const data = await habitGeneratorService.removeHabit({ id: event });
+            setAllHabits(data.user.userHabitGenerator);
         } catch (err) {
             console.error(err);
         }
@@ -121,6 +107,7 @@ export default function App() {
                             <HabitList 
                                 user={user}
                                 allHabits={allHabits}
+                                setAllHabits={setAllHabits}
                                 newHabit={newHabit}
                                 handleInputChange={handleInputChange}
                                 handleHabitSubmit={handleHabitSubmit}
@@ -134,8 +121,8 @@ export default function App() {
 
                 <Route 
                     path="/habitgenerator/:id"
-                    render={props => (
-                        <HabitInfo {...props} allHabit={allHabits} />
+                    render={({ match }) => (
+                        <HabitInfo  match={match} allHabits={allHabits} />
                     )}
                 />
 

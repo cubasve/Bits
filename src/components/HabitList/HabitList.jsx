@@ -25,48 +25,23 @@ import EditIcon from '@material-ui/icons/Edit';
 export default function GetHabitList ({
     newHabit, 
     allHabits, 
+    setAllHabits,
     handleInputChange, 
     handleHabitSubmit,
     handleHabitDelete,
-    handleShowHabit,
 }) {
 
-    // const [allHabits, setAllHabits] = useState([]);
-    // const [newHabit, setNewHabit] = useState({
-    //     responseBronze: '',
-    //     responseSilver: '',
-    //     responseGold: '',
-
-    //     cueBehavior: '',
-    //     cueTime: '',
-    //     cueLocation: '',
-
-    //     currentHabit: '',
-    //     wantedHabit: '',
-    // });
-
-    // useEffect(async() => {
-    //     try {
-    //         await habitGeneratorService.showHabit()
-    //         .then(data => {
-    //             console.log('data/componentDidMount: ', data);
-    //             setAllHabits(data.user.userHabitGenerator);
-    //           });
-
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }, []);
-
-    // handleInputChange = (e) => {
-    //     const newHabit = { ...this.state.newHabit, [e.target.name]: e.target.value };
-    //     this.setState({ newHabit: newHabit });
-    //   }
-
-    // handleInputChange = (e) => {
-    //     //const addHabit = { ...newHabit, [e.target.name]: e.target.value };
-    //     setNewHabit({ ...newHabit, [e.target.name]: e.target.value });
-    // }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await habitGeneratorService.showHabit();
+                setAllHabits(data.user.userHabitGenerator);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        fetchData();
+    }, [ allHabits, setAllHabits ]);
 
     // MODAL
     const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
@@ -95,13 +70,12 @@ export default function GetHabitList ({
                 allHabits={allHabits} 
                 handleInputChange={handleInputChange} 
                 handleHabitSubmit={handleHabitSubmit}
-                //handleShowHabit={handleShowHabit}
             />
 
             <div className="HabitList">
                 {allHabits.map((habit) => (
                     <Card key={habit._id}>
-                        <Button /*onClick={handleShowHabit}*/>
+                        <Button>
                             <Link to={`/habitgenerator/${habit._id}`}>
                                     {habit.cueBehavior}
                             </Link>
