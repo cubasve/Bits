@@ -92,10 +92,14 @@ export default function App() {
 
     //UPDATE
     const handleHabitUpdate = async (updatedHabitData) => {
-        const updatedHabit = await habitGeneratorService.updateHabit(updatedHabitData);
-        //Use map to replace just the habit that was updated
-        const newHabitArray = allHabits.map(habit => habit._id === updatedHabit._id ? updatedHabit : habit);
-        setAllHabits(newHabitArray);
+        try {
+            const updatedHabit = await habitGeneratorService.updateHabit(updatedHabitData);
+            //Use map to replace just the habit that was updated
+            const newHabitArray = allHabits.map(habit => habit._id === updatedHabit._id ? updatedHabit : habit);
+            setAllHabits(newHabitArray);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     return (
@@ -133,16 +137,16 @@ export default function App() {
                 />
 
                 <Route 
-                    path="/habitgenerator/:id"
+                    exact path="/habitgenerator/:id"
                     render={({ location }) => (
                         <HabitInfo location={location} />
                     )}
                 />
 
                 <Route 
-                    path="/habitgenerator/:id/edit"
+                    exact path="/habitgenerator/:id/edit"
                     render={(props) => (
-                        <EditHabit  {...props} />
+                        <EditHabit {...props} handleHabitUpdate={handleHabitUpdate} />
                     )}
                 />      
 
