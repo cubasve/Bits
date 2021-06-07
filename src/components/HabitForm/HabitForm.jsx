@@ -66,7 +66,10 @@ export default function HabitForm({
                             <Typography variant="h6" className={classes.title}>
                                 Add a New Habit
                             </Typography>
-                            <Button color="inherit" onClick={handleHabitSubmit}>
+                            <Button 
+                                color="inherit" 
+                                onClick={handleHabitSubmit}
+                            >
                                 Save
                             </Button>
                         </Toolbar>

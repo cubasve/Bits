@@ -1,7 +1,9 @@
 import React from 'react';
 import { Card } from '@material-ui/core';
 
-export default function getReward({ habit: { cueBehavior, wantedHabit } }) {
+export default function getReward({ location }) {
+    const { cueBehavior, wantedHabit } = location.state.habit;
+    
     return (
         <div className="infoBorder">
             <Card>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Card } from '@material-ui/core';
 
-export default function getResponseBronze({ habit: { responseBronze } }) 
-{
+export default function getResponseBronze({ location }) {
+    const { responseBronze } = location.state.habit;
+    
     return (
         <div className="infoBorder">
             <Card>

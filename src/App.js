@@ -1,4 +1,4 @@
-import React, { Component, /*useEffect, useState*/ } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -6,195 +6,166 @@ import HomePage from './pages/HomePage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import userService from './utils/userService';
-//import HabitGeneratorPage from '../src/pages/HabitGeneratorPage/HabitGeneratorPage';
-import HabitList from '../src/components/HabitList/HabitList';
-import HabitInfo from '../src/components/HabitInfo/HabitInfo';
-import NavBar from '../src/components/Navbar/Navbar';
+import HabitList from './components/HabitList/HabitList';
+import HabitInfo from './components/HabitInfo/HabitInfo';
+import EditHabit from './components/EditHabit/EditHabit';
+import NavBar from './components/Navbar/Navbar';
 
 import habitGeneratorService from './utils/habitGeneratorService';
 
-export default class App extends Component {
-  // const initialUserValue = userService.getUser();
-  // const [user, setUser] = useState(initialUserValue);
+export default function App() {
+    const initialUserValue = userService.getUser();
+    const [ user, setUser ] = useState(initialUserValue);
 
-  state = {
-    user: userService.getUser(),
-    // allHabits: [
-    // ],
-    // newHabit: {
-    //   //name: '',
+    const [allHabits, setAllHabits] = useState([]);
+    const [newHabit, setNewHabit] = useState({
+        responseBronze: '',
+        responseSilver: '',
+        responseGold: '',
 
-    //   responseBronze: '',
-    //   responseSilver: '',
-    //   responseGold: '',
+        cueBehavior: '',
+        cueTime: '',
+        cueLocation: '',
 
-    //   cueBehavior: '',
-    //   cueTime: '',
-    //   cueLocation: '',
+        currentHabit: '',
+        wantedHabit: '',
+    });    
 
-    //   currentHabit: '',
-    //   //neededHabit: '',
-    //   wantedHabit: '',
-    // }
-  }
+    const handleLogout = () => {
+        userService.logout();
+        setUser(null);
+    }
 
-  // async componentDidMount() {
-  //   try {
-  //     await habitGeneratorService.showHabit()
-  //     .then(data => {
-  //       console.log('data/componentDidMount: ', data);
-  //       this.setState({
-  //         allHabits: data.user.userHabitGenerator,
-  //       });
-  //     });
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
+    const handleSignupOrLogin = () => {
+        setUser(userService.getUser());
+    }
 
-  handleLogout = () => {
-    userService.logout();
-    this.setState({ user: null });
-  }
+    //CREATE
+    const handleInputChange = (e) => {
+        const habit = {...newHabit, [e.target.name]: e.target.value };
+        setNewHabit(habit);
+    }
 
-  handleSignupOrLogin = async () => {
-    this.setState({ user: userService.getUser() });
-  }
+    const handleHabitSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            const data = await habitGeneratorService.createHabit({
+                responseBronze: newHabit.responseBronze,
+                responseSilver: newHabit.responseSilver,
+                responseGold: newHabit.responseGold,
 
-  handleInputChange = (e) => {
-    const newHabit = { ...this.state.newHabit, [e.target.name]: e.target.value };
-    this.setState({ newHabit: newHabit });
-  }
+                cueBehavior: newHabit.cueBehavior,
+                cueTime: newHabit.cueTime,
+                cueLocation: newHabit.cueLocation,
 
-  handleHabitSubmit = async (e) => {
-    try {
-      console.log('handleHabitSubmit')
-      e.preventDefault();
-      //console.log('e: ', e)
-      await habitGeneratorService.createHabit({
-        responseBronze: this.state.newHabit.responseBronze,
-        responseSilver: this.state.newHabit.responseSilver,
-        responseGold: this.state.newHabit.responseGold,
-        cueBehavior: this.state.newHabit.cueBehavior,
-        cueTime: this.state.newHabit.cueTime,
-        cueLocation: this.state.newHabit.cueLocation,
-        currentHabit: this.state.newHabit.currentHabit,
-        wantedHabit: this.state.newHabit.wantedHabit,
-      }).then(
-        data => {
-          console.log('data/habitSubmit: ', data);
-          this.setState({
-            allHabits: data.user.userHabitGenerator,
-            newHabit: {
-              responseBronze: '',
-              responseSilver: '',
-              responseGold: '',
-        
-              cueBehavior: '',
-              cueTime: '',
-              cueLocation: '',
-        
-              currentHabit: '',
-              wantedHabit: '',
-            }
-          });
+                currentHabit: newHabit.currentHabit,
+                wantedHabit: newHabit.wantedHabit,
+            });
+
+            setAllHabits(data.user.userHabitGenerator);
+            setNewHabit({
+                responseBronze: '',
+                responseSilver: '',
+                responseGold: '',
+            
+                cueBehavior: '',
+                cueTime: '',
+                cueLocation: '',
+            
+                currentHabit: '',
+                wantedHabit: '',
+            });
+        } catch (err) {
+            console.error(err);
         }
-      )
-    } catch (err) {
-      console.error(err);
     }
-  }
 
-  // handleShowHabit = async (e) => {
-  //   try {
-  //     console.log('e.target.value/SHOW: ', e.target.value);
-  //     await habitGeneratorService.showOneHabit()
-  //     .then(data => console.log(data));
-
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
-
-  handleHabitDelete = async (event) => {
-    try {
-      console.log('e: ', event);
-      console.log('e.target: ', event.target)
-      //console.log('e.target.value: ', event.target.value);
-      await habitGeneratorService.removeHabit({ id: event })
-        .then(data => {
-          console.log('data/DELETE: ', data);
-          this.setState({
-            allHabits: data.user.userHabitGenerator,
-          })
-        })
-    } catch (err) {
-      console.error(err);
+    //DELETE
+    const handleHabitDelete = async (event) => {
+        try {
+            const data = await habitGeneratorService.removeHabit({ id: event });
+            setAllHabits(data.user.userHabitGenerator);
+        } catch (err) {
+            console.error(err);
+        }
     }
-  }
 
-  render() {
+    //UPDATE
+    const handleHabitUpdate = async (updatedHabitData) => {
+        const updatedHabit = await habitGeneratorService.updateHabit(updatedHabitData);
+        //Use map to replace just the habit that was updated
+        const newHabitArray = allHabits.map(habit => habit._id === updatedHabit._id ? updatedHabit : habit);
+        setAllHabits(newHabitArray);
+    }
 
     return (
-      <div className="App">
-        <NavBar user={this.state.user} handleLogout={this.handleLogout} />
+        <div className="App">
+            <NavBar user={user} handleLogout={handleLogout} />
 
-        <Switch>
-          <Route 
-            exact path="/" 
-            render={() => 
-              <HomePage 
-                user={this.state.user} 
-                handleLogout={this.handleLogout} 
-              />}>
-          </Route>
-
-          <Route exact path="/habitgenerator" 
-            render={() => (
-              userService.getUser() ?
-              <main>
-                <HabitList 
-                  user={this.state.user} 
-                  allHabits={this.state.allHabits} 
-                  newHabit={this.state.newHabit}
-                  handleInputChange={this.handleInputChange}
-                  handleHabitSubmit={this.handleHabitSubmit}
-                  handleHabitDelete={this.handleHabitDelete}
-                  handleShowHabit={this.handleShowHabit}
+            <Switch>
+                <Route 
+                    exact path="/"
+                    render={() => (
+                        <HomePage user={user} handleLogout={handleLogout} />
+                    )}
                 />
-              </main>
-              :
-              <Redirect to="/login" />
-            )}>
-          </Route>
 
-          <Route 
-            path='/habitgenerator/:id' 
-            render={props => 
-              <HabitInfo {...props} allHabits={this.state.allHabits} />
-            }
-          />
+                <Route 
+                    exact path="/habitgenerator"
+                    render={({ location }) => (
+                        userService.getUser() ?
+                        <main>
+                            <HabitList 
+                                user={user}
+                                allHabits={allHabits}
+                                setAllHabits={setAllHabits}
+                                newHabit={newHabit}
+                                handleInputChange={handleInputChange}
+                                handleHabitSubmit={handleHabitSubmit}
+                                handleHabitDelete={handleHabitDelete}
+                                handleHabitUpdate={handleHabitUpdate}
+                                location={location}
+                            />
+                        </main>
+                        :
+                        <Redirect to="/login" />
+                    )}
+                />
 
-          <Route 
-            exact path="/signup" 
-            render={({ history }) => 
-              <SignupPage 
-                history={history} 
-                handleSignupOrLogin={this.handleSignupOrLogin} 
-              />}>
-          </Route>
+                <Route 
+                    path="/habitgenerator/:id"
+                    render={({ location }) => (
+                        <HabitInfo location={location} />
+                    )}
+                />
 
-          <Route 
-            exact path="/login" 
-            render={({ history }) => 
-              <LoginPage 
-                history={history} 
-                handleSignupOrLogin={this.handleSignupOrLogin} 
-              />}>
-          </Route>
+                <Route 
+                    path="/habitgenerator/:id/edit"
+                    render={(props) => (
+                        <EditHabit  {...props} />
+                    )}
+                />      
 
-        </Switch >
-      </div >
-    )
-  }
+                <Route 
+                    exact path="/signup"
+                    render={({ history }) => (
+                        <SignupPage 
+                            history={history} 
+                            handleSignupOrLogin={handleSignupOrLogin} 
+                        />
+                    )}
+                />
+
+                <Route 
+                    exact path="/login"
+                    render={({ history }) => (
+                        <LoginPage 
+                            history={history} 
+                            handleSignupOrLogin={handleSignupOrLogin} 
+                        />
+                    )}
+                />
+            </Switch>
+        </div>
+    );
 }

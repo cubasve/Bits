@@ -21,11 +21,8 @@ async function showOneHabit(req, res) {
 async function show(req, res) {
     console.log('req.user: ', req.user);
     try {
-        const user = await User.findById({ _id: req.user._id }); //req.body._id OR req.user._id?
-        //console.log('req.user: ', req.user);
-        //console.log('req.user._id: ', req.user._id);
-        //console.log('user: ', user);
-        return res.json({ user: user });
+        const user = await User.findById({ _id: req.user._id }); 
+        return res.status(200).json({ user: user });
     } catch (err) {
         console.error(err);
         return res.status(400).json(err);
@@ -35,7 +32,7 @@ async function show(req, res) {
 async function create(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
-        console.log('req.body: ', req.body);
+        //console.log('req.body: ', req.body);
         const {
             //name, 
             responseBronze, 
@@ -60,10 +57,10 @@ async function create(req, res) {
             //'neededHabit': neededHabit,
             'wantedHabit': wantedHabit,
         });
-        console.log('user: ', user);
-        console.log('user.userHabitGenerator: ', user.userHabitGenerator);
+        //console.log('user: ', user);
+        //console.log('user.userHabitGenerator: ', user.userHabitGenerator);
         await user.save();
-        res.json({ user: user });
+        res.status(201).json({ user: user });
     } catch (err) {
         return res.status(400).json(err);
     }
@@ -71,11 +68,17 @@ async function create(req, res) {
 
 async function update(req, res) {
     try {
-        const user = await User.findById({ _id: req.user._id });
-        const habitId = user.userHabitGenerator.id(req.body.id);
-        //id.set({});
+        const findUser = await User.findById({ _id: req.user._id });
+        const habitId = findUser.userHabitGenerator.id(req.body.id);
+
+        const user = await user.userHabitGenerator.findByIdAndUpdate(
+            { _id: habitId }, //find user first
+            req.body, //update info using req.body
+            { new: true } //options: new returns the newly updated habit
+        );
+        //const habitId = user.userHabitGenerator.id(req.body.id);
         await user.save();
-        res.json({ user: user });
+        res.status(201).json({ user: user });
     } catch (err) {
         return res.status(400).json(err);
     }
@@ -87,7 +90,7 @@ async function remove(req, res) {
         const habitId = user.userHabitGenerator.id(req.body.id);
         habitId.remove();
         await user.save();
-        res.json({ user: user });
+        res.status(200).json({ user: user });
     } catch (err) {
         return res.status(400).json(err);
     }

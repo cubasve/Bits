@@ -1,7 +1,9 @@
 import React from 'react';
 import { Card } from '@material-ui/core';
 
-export default function getCraving({ habit: { currentHabit, cueBehavior } }) {
+export default function getCraving({ location }) {
+    const { currentHabit, cueBehavior } = location.state.habit;
+    
     return (
         <div className="infoBorder">
             <Card>

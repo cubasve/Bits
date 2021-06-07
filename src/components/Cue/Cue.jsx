@@ -2,7 +2,9 @@ import React from 'react';
 import './Cue.css';
 import { Card } from '@material-ui/core';
 
-export default function getCue({ habit: {cueBehavior, cueTime, cueLocation } }) {
+export default function getCue({ location }) {
+
+    const { cueBehavior, cueTime, cueLocation } = location.state.habit;
     return (
         <div className="infoBorder">
             <Card>
