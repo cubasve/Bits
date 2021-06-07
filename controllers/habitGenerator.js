@@ -19,7 +19,6 @@ async function showOneHabit(req, res) {
 }
 
 async function show(req, res) {
-    console.log('req.user: ', req.user);
     try {
         const user = await User.findById({ _id: req.user._id }); 
         return res.status(200).json({ user: user });
@@ -32,9 +31,7 @@ async function show(req, res) {
 async function create(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
-        //console.log('req.body: ', req.body);
         const {
-            //name, 
             responseBronze, 
             responseSilver, 
             responseGold, 
@@ -42,11 +39,9 @@ async function create(req, res) {
             cueTime,
             cueLocation,
             currentHabit,
-            //neededHabit,
             wantedHabit,
         } = req.body;
         user.userHabitGenerator.push({
-            //'name': name, 
             'responseBronze': responseBronze,
             'responseSilver': responseSilver,
             'responseGold': responseGold,
@@ -54,11 +49,8 @@ async function create(req, res) {
             'cueTime': cueTime,
             'cueLocation': cueLocation,
             'currentHabit': currentHabit,
-            //'neededHabit': neededHabit,
             'wantedHabit': wantedHabit,
         });
-        //console.log('user: ', user);
-        //console.log('user.userHabitGenerator: ', user.userHabitGenerator);
         await user.save();
         res.status(201).json({ user: user });
     } catch (err) {
@@ -68,16 +60,38 @@ async function create(req, res) {
 
 async function update(req, res) {
     try {
-        const findUser = await User.findById({ _id: req.user._id });
-        const habitId = findUser.userHabitGenerator.id(req.body.id);
+        const user = await User.findById({ _id: req.user._id });
+        const habitId = user.userHabitGenerator.id(req.body._id);
+        console.log('req.body: ', req.body);
+        console.log('habitId BEFORE: ', habitId);
 
-        const user = await user.userHabitGenerator.findByIdAndUpdate(
-            { _id: habitId }, //find user first
-            req.body, //update info using req.body
-            { new: true } //options: new returns the newly updated habit
-        );
-        //const habitId = user.userHabitGenerator.id(req.body.id);
+        // const updatedHabit = await habitId.replaceOne(habitId, req.body);
+        // console.log('updatedHabit backend: ', updatedHabit);
+        // console.log('user.habitId: ', user.habitId);
+        habitId.set(req.body);
+        console.log('habitId AFTER: ', habitId)
+        // const updatedHabit = await habitId.findByIdAndUpdate(
+        //     { _id: habitId },
+        //     req.body,
+        //     { new: true },
+        // )
+        // console.log('updatedHabit backend: ', updatedHabit);
+        // console.log('user.habitId: ', user.habitId);
+
+        // const updatedHabit = await User.habitId.findByIdAndUpdate(
+        //     { _id: habitId },
+        //     req.body,
+        //     { new: true }, 
+        // )
         await user.save();
+
+        // const user = await user.userHabitGenerator.findByIdAndUpdate(
+        //     { _id: habitId }, //find user first
+        //     req.body, //update info using req.body
+        //     { new: true } //options: new returns the newly updated habit
+        // );
+        //const habitId = user.userHabitGenerator.id(req.body.id);
+        // await user.save();
         res.status(201).json({ user: user });
     } catch (err) {
         return res.status(400).json(err);

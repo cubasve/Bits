@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 import { 
     Button, 
-    Dialog, 
     ListItemText, 
     ListItem, 
     List, 
     Divider, 
-    AppBar, 
-    Toolbar, 
-    IconButton, 
-    Typography, 
-    Slide, 
     TextField,
     FormControl } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 export default function EditHabit({ handleHabitUpdate, location }) {
 
@@ -31,7 +26,7 @@ export default function EditHabit({ handleHabitUpdate, location }) {
     return (
         <>
             Edit Habit
-            <form onSubmit={handleSubmit}>
+            <FormControl onSubmit={handleSubmit}>
             <List>
                         <ListItem>
                             <ListItemText 
@@ -39,12 +34,12 @@ export default function EditHabit({ handleHabitUpdate, location }) {
                                 secondary="Make It Easy - Obtain the Reward" 
                             />
                         </ListItem>
-                        <ListItem>
+                        <span>
                             BRONZE: 
-                       
                                 <TextField 
                                     id="outlined-basic" 
                                     label="Bronze"  
+                                    variant="outlined"
                                     name="responseBronze"
                                     value={habitData.responseBronze}
                                     onChange={handleChange} 
@@ -52,8 +47,8 @@ export default function EditHabit({ handleHabitUpdate, location }) {
                                     pattern=".{2,}"
                                 />
                          
-                        </ListItem>
-                        <ListItem>
+                        </span>
+                        <span>
                             SILVER: 
                             
                                 <TextField 
@@ -67,8 +62,8 @@ export default function EditHabit({ handleHabitUpdate, location }) {
                                     pattern=".{2,}"
                                 />
                       
-                        </ListItem>
-                        <ListItem>
+                        </span>
+                        <span>
                         GOLD: 
                     
                             <TextField 
@@ -82,7 +77,7 @@ export default function EditHabit({ handleHabitUpdate, location }) {
                                 pattern=".{2,}"
                             />
                   
-                        </ListItem>
+                        </span>
                         <Divider />
                         <ListItem>
                             <ListItemText primary="CUE" secondary="Make It Obvious - Notice the Reward" />
@@ -183,7 +178,7 @@ export default function EditHabit({ handleHabitUpdate, location }) {
                                 <TextField 
                                     id="outlined-basic" 
                                     label="Habit I Need" 
-                                    // variant="outlined" 
+                                    //variant="outlined" 
                                     name="cueBehavior"
                                     value={habitData.cueBehavior}
                                     onChange={handleChange} 
@@ -205,9 +200,10 @@ export default function EditHabit({ handleHabitUpdate, location }) {
                                 />
                         
                         </ListItem>
-                        {/* <button onSubmit={handleHabitSubmit}>ADD HABIT</button> */}
+                        <Button onClick={handleSubmit}>SAVE HABIT</Button>
+                        <Link to='/habitgenerator'>Cancel</Link>
                     </List>
-            </form>
+            </FormControl>
         </>
     );
 }

@@ -13,7 +13,7 @@ import NavBar from './components/Navbar/Navbar';
 
 import habitGeneratorService from './utils/habitGeneratorService';
 
-export default function App() {
+export default function App({ history }) {
     const initialUserValue = userService.getUser();
     const [ user, setUser ] = useState(initialUserValue);
 
@@ -94,9 +94,11 @@ export default function App() {
     const handleHabitUpdate = async (updatedHabitData) => {
         try {
             const updatedHabit = await habitGeneratorService.updateHabit(updatedHabitData);
+            console.log('function updatedHabit: ', updatedHabit);
             //Use map to replace just the habit that was updated
             const newHabitArray = allHabits.map(habit => habit._id === updatedHabit._id ? updatedHabit : habit);
             setAllHabits(newHabitArray);
+            history.push('/habitgenerator');
         } catch (err) {
             console.error(err);
         }

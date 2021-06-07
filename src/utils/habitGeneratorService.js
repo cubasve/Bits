@@ -45,6 +45,7 @@ function createHabit(habitData) {
 }
 
 function updateHabit(habitData) {
+    console.log('fetch habitData: ', habitData);
     const options = {
         method: 'PUT',
         headers: {
@@ -53,7 +54,7 @@ function updateHabit(habitData) {
         },
         body: JSON.stringify(habitData),
     }
-    return fetch(`${BASE_URL}/${habitData.id}`, options)
+    return fetch(`${BASE_URL}/${habitData._id}`, options)
     .then(res => res.json());
 }
 

@@ -12,12 +12,12 @@ import {
     DialogContent, 
     DialogContentText, 
     DialogTitle,
-    Divider,
-    FormControl,
-    List,
-    ListItem,
-    ListItemText,
-    TextField
+    // Divider,
+    // FormControl,
+    // List,
+    // ListItem,
+    // ListItemText,
+    // TextField
  } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -29,8 +29,8 @@ export default function GetHabitList ({
     handleInputChange, 
     handleHabitSubmit,
     handleHabitDelete,
-    handleHabitUpdate,
-    location,
+    // handleHabitUpdate,
+    // location,
 }) {
 
     useEffect(() => {
@@ -43,11 +43,10 @@ export default function GetHabitList ({
             }
         }
         fetchData();
-    }, [ allHabits, setAllHabits ]);
+    }, []);
 
     // MODAL
     const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
-    const [ openEditDialog, setOpenEditDialog ] = useState(false);
 
     const handleClickOpenDeleteDialog = () => {
         setOpenDeleteDialog(true);
@@ -55,40 +54,6 @@ export default function GetHabitList ({
 
     const handleCloseDeleteDialog = () => {
         setOpenDeleteDialog(false);
-    }
-
-    const handleClickOpenEditDialog = () => {
-        setOpenEditDialog(true);
-    }
-
-    const handleCloseEditDialog = () => {
-        setOpenEditDialog(false);
-    }
-
-    //EDIT
-
-    const [updateHabit, setUpdateHabit] = useState({
-        responseBronze: '',
-        responseSilver: '',
-        responseGold: '',
-
-        cueBehavior: '',
-        cueTime: '',
-        cueLocation: '',
-
-        currentHabit: '',
-        wantedHabit: '',
-    }); 
-
-    const handleHabitUpdateSubmit = e => {
-        e.preventDefault();
-        handleHabitUpdate(updateHabit);
-    }
-
-    const handleHabitUpdateChange = (e) => {
-        alert('It is working')
-        const updatedHabitData = {...updateHabit, [e.target.value]: e.target.value };
-        setUpdateHabit(updatedHabitData);
     }
 
     return (
