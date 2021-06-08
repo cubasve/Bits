@@ -43,7 +43,7 @@ export default function GetHabitList ({
             }
         }
         fetchData();
-    }, []);
+    }, [ setAllHabits ]);
 
     // MODAL
     const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);

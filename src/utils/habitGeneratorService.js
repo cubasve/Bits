@@ -45,7 +45,6 @@ function createHabit(habitData) {
 }
 
 function updateHabit(habitData) {
-    console.log('fetch habitData: ', habitData);
     const options = {
         method: 'PUT',
         headers: {
