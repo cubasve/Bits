@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import userService from '../../utils/userService';
+import UserContext from '../../context/User';
 //import { Button, InputAdornment, TextField } from '@material-ui/core';
 //import { AccountCircle } from '@material-ui/icons';
 
-export default function LoginPage({ handleSignupOrLogin, history }) {
+export default function LoginPage({ /*handleSignupOrLogin,*/ history }) {
 
     const [credentials, setCredentials ] = useState({
         email: '',
         password: '',
     });
+    const { handleSignupOrLogin } = useContext(UserContext);
 
     const handleChange = (e) => {
         const loginValues = {...credentials, [e.target.name]: e.target.value };

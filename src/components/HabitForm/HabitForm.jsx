@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import HabitContext from '../../context/Habit';
 import { 
     Button, 
     Dialog, 
@@ -33,11 +34,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
 });
 
-export default function HabitForm({
-    newHabit, 
-    allHabits, 
-    handleInputChange, 
-    handleHabitSubmit}) {
+export default function HabitForm(
+    //{
+    // newHabit, 
+    // allHabits, 
+    // handleInputChange, 
+    // handleHabitSubmit}
+    )
+     {
+    const { newHabit, handleInputChange, handleHabitSubmit } = useContext(HabitContext);
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -57,10 +62,20 @@ export default function HabitForm({
             </Button>
 
             <FormControl onSubmit={handleHabitSubmit}>
-                <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+                <Dialog 
+                    fullScreen 
+                    open={open} 
+                    onClose={handleClose} 
+                    TransitionComponent={Transition}
+                >
                     <AppBar className={classes.appBar}>
                         <Toolbar>
-                            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                            <IconButton 
+                                edge="start" 
+                                color="inherit" 
+                                onClick={handleClose} 
+                                aria-label="close"
+                            >
                                 <CloseIcon />
                             </IconButton>
                             <Typography variant="h6" className={classes.title}>

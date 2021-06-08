@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { 
     Button, 
     ListItemText, 
@@ -8,10 +8,13 @@ import {
     TextField,
     FormControl } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import HabitContext from '../../context/Habit';
 
-export default function EditHabit({ handleHabitUpdate, location }) {
+export default function EditHabit({ /*handleHabitUpdate,*/ location }) {
 
     const [habitData, setHabitData] = useState(location.state.habit);
+
+    const { handleHabitUpdate } = useContext(HabitContext);
 
     const handleChange = e => {
         const formData = {...habitData, [e.target.name]: e.target.value };

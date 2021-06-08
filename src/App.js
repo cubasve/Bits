@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -16,26 +16,27 @@ import HabitContext from './context/Habit';
 import UserContext from './context/User';
 
 export default function App({ history }) {
-    const { user, setUser } = useContext(UserContext);
-    const { 
-        newHabit, setNewHabit, allHabits, setAllHabits 
-    } = useContext(HabitContext);
-    // const initialUserValue = userService.getUser();
-    // const [ user, setUser ] = useState(initialUserValue);
+    const initialUserValue = userService.getUser();
+    const [ user, setUser ] = useState(initialUserValue);
 
-    // const [allHabits, setAllHabits] = useState([]);
-    // const [newHabit, setNewHabit] = useState({
-    //     responseBronze: '',
-    //     responseSilver: '',
-    //     responseGold: '',
+    // const { user, setUser } = useContext(UserContext);
+    // const { 
+    //     newHabit, setNewHabit, allHabits, setAllHabits 
+    // } = useContext(HabitContext);
 
-    //     cueBehavior: '',
-    //     cueTime: '',
-    //     cueLocation: '',
+    const [allHabits, setAllHabits] = useState([]);
+    const [newHabit, setNewHabit] = useState({
+        responseBronze: '',
+        responseSilver: '',
+        responseGold: '',
 
-    //     currentHabit: '',
-    //     wantedHabit: '',
-    // });    
+        cueBehavior: '',
+        cueTime: '',
+        cueLocation: '',
+
+        currentHabit: '',
+        wantedHabit: '',
+    });    
 
     const handleLogout = () => {
         userService.logout();
@@ -111,17 +112,26 @@ export default function App({ history }) {
 
     return (
         <div className="App">
-            <NavBar user={user} handleLogout={handleLogout} />
+            <UserContext.Provider 
+                value={{ user, setUser, handleLogout, handleSignupOrLogin }}
+            >
+                <NavBar /*handleLogout={handleLogout}*/ />
 
-            <UserContext.Provider value={{ user, setUser }}>
                 <HabitContext.Provider 
-                    value={{ newHabit, setNewHabit, allHabits, setAllHabits  }}
+                    value={{ 
+                        newHabit, setNewHabit, 
+                        allHabits, setAllHabits,
+                        handleInputChange,
+                        handleHabitSubmit,
+                        handleHabitDelete,
+                        handleHabitUpdate,
+                    }}
                 >
                     <Switch>
                         <Route 
                             exact path="/"
                             render={() => (
-                                <HomePage user={user} handleLogout={handleLogout} />
+                                <HomePage /*user={user} handleLogout={handleLogout}*/ />
                             )}
                         />
 
@@ -131,14 +141,14 @@ export default function App({ history }) {
                                 userService.getUser() ?
                                 <main>
                                     <HabitList 
-                                        user={user}
-                                        allHabits={allHabits}
-                                        setAllHabits={setAllHabits}
-                                        newHabit={newHabit}
-                                        handleInputChange={handleInputChange}
-                                        handleHabitSubmit={handleHabitSubmit}
-                                        handleHabitDelete={handleHabitDelete}
-                                        handleHabitUpdate={handleHabitUpdate}
+                                        // user={user}
+                                        // allHabits={allHabits}
+                                        // setAllHabits={setAllHabits}
+                                        // newHabit={newHabit}
+                                        // handleInputChange={handleInputChange}
+                                        // handleHabitSubmit={handleHabitSubmit}
+                                        // handleHabitDelete={handleHabitDelete}
+                                        // handleHabitUpdate={handleHabitUpdate}
                                         location={location}
                                     />
                                 </main>
@@ -157,7 +167,7 @@ export default function App({ history }) {
                         <Route 
                             exact path="/habitgenerator/:id/edit"
                             render={(props) => (
-                                <EditHabit {...props} handleHabitUpdate={handleHabitUpdate} />
+                                <EditHabit {...props} /*handleHabitUpdate={handleHabitUpdate}*/ />
                             )}
                         />      
 
