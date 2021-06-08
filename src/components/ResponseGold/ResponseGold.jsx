@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from '@material-ui/core';
+import BatteryFullIcon from '@material-ui/icons/BatteryFull';
 
 export default function getResponse ({ location }) {
     const { responseGold } = location.state.habit;
@@ -7,7 +8,10 @@ export default function getResponse ({ location }) {
     return (
         <div className="infoBorder">
             <Card>
-                <h1>Response: Gold</h1>
+                <div className='habit-icons'>
+                    <BatteryFullIcon style={{ fontSize: 40, color: 'red' }} />
+                </div>
+                <h1>3C: Response - Gold</h1>
                 <h3>{responseGold}</h3>
             </Card>
         </div>

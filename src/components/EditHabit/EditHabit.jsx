@@ -10,7 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 import HabitContext from '../../context/Habit';
 
-export default function EditHabit({ /*handleHabitUpdate,*/ location }) {
+export default function EditHabit({ location }) {
 
     const [habitData, setHabitData] = useState(location.state.habit);
 

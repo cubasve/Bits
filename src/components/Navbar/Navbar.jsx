@@ -1,35 +1,107 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../../context/User';
+import { 
+    AppBar, 
+    Toolbar, 
+    Typography, 
+    Button,
+    IconButton,
+    MenuItem, 
+    Menu 
+    } from '@material-ui/core';
+import LoopIcon from '@material-ui/icons/Loop';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { makeStyles } from '@material-ui/core/styles';
 
-const Navbar = (/*{ handleLogout }*/) => {
-    
+const useStyles = makeStyles(theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    }
+}));
+
+export default function Navbar() {
     const { user, handleLogout } = useContext(UserContext);
-    //console.log('user', user);
 
-    let nav = user ?
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleMenu = e => {
+        setAnchorEl(e.currentTarget);
+    }
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    }
+
+    let nav = user ? (
         <div>
-            <Link to='/' className='NavBar-link' onClick={handleLogout}>LOG OUT</Link>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <Link to='/habitgenerator' className='NavBar-link'>HABIT GENERATOR</Link>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <span className='NavBar-welcome'>WELCOME, {user.name}</span>
+            <IconButton
+                aria-lebel='account of current user'
+                aria-controls='menu-appbar'
+                aria-haspopup='true'
+                onClick={handleMenu}
+                color='inherit'
+            >
+                <AccountCircle />
+            </IconButton>
+            <Typography>{user.name}</Typography>
+
+            <Menu 
+                id='menu-appbar'
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horiontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+            >
+                <MenuItem component={Link} to='/habitgenerator' onClick={handleClose}>
+                    Habit List
+                </MenuItem>
+                <MenuItem component={Link} to='/' onClick={() => {
+                    handleLogout();
+                    handleClose();
+                }}>
+                    Log Out
+                </MenuItem>
+            </Menu>
         </div>
-        :
+    ) : (
         <div>
-            <Link to='/login' className='NavBar-link'>LOG IN</Link>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <Link to='/signup' className='NavBar-link'>SIGN UP</Link>
-            {/* &nbsp;&nbsp;|&nbsp;&nbsp;
-            <Link to='/habitgenerator' className='NavBar-link'>HABIT GENERATOR</Link> */}
-        </div>;
+            <Button color="inherit" component={Link} to='/login'>
+                Login
+            </Button>
+            <Button color="inherit" component={Link} to='/signup'>
+                Signup
+            </Button>
+        </div>
+    );
 
     return (
-        <div className='NavBar'>
-            {nav}
+        <div className={classes.root}>
+            <AppBar>
+                <Toolbar>
+                    <LoopIcon />
+                    <Typography variant='h6' className={classes.title}>
+                        Bits
+                    </Typography>
+                    {nav}
+                </Toolbar>
+            </AppBar>
         </div>
-    )
-
+    );
 }
-
-export default Navbar;

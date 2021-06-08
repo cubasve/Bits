@@ -6,7 +6,7 @@ import UserContext from '../../context/User';
 //import { Button, InputAdornment, TextField } from '@material-ui/core';
 //import { AccountCircle } from '@material-ui/icons';
 
-export default function LoginPage({ /*handleSignupOrLogin,*/ history }) {
+export default function LoginPage({ history }) {
 
     const [credentials, setCredentials ] = useState({
         email: '',
@@ -24,7 +24,7 @@ export default function LoginPage({ /*handleSignupOrLogin,*/ history }) {
         try {
             await userService.login(credentials);
             handleSignupOrLogin();
-            history.push("/");
+            history.push('/');
         } catch (err) {
             console.error(err);
         }
