@@ -1,119 +1,194 @@
 import React, { useContext, useState } from 'react';
 import HabitContext from '../../context/Habit';
+import { Link } from 'react-router-dom';
 import { 
     Button, 
-    Dialog, 
     ListItemText, 
     ListItem, 
     List, 
     Divider, 
-    AppBar, 
-    Toolbar, 
-    IconButton, 
-    Typography, 
-    Slide, 
     TextField,
     FormControl } from '@material-ui/core';
+import { Card } from '@material-ui/core';
+import { 
+    Battery20, 
+    Battery50, 
+    BatteryFull, 
+    EmojiEvents,
+    EmojiObjects, 
+    WatchLater 
+}  from '@material-ui/icons';
+import './HabitForm.css';
 import { makeStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles (theme => ({
-    appBar: {
-        position: 'relative',
+    root: {
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
+            width: '18ch',
+        },
     },
-    title: {
-        marginLeft: theme.spacing(2),
-        flex: 1,
-    },
-    userInput: {
-        display: 'inline',
+    button: {
+        margin: theme.spacing(2),
     }
 }));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />
-});
 
 export default function HabitForm () {
     const { 
         newHabit, 
         handleInputChange, 
         handleHabitSubmit,
-        habitFormRef,
-        formValid, 
+        // habitFormRef,
+        // formValid, 
     } = useContext(HabitContext);
 
     const classes = useStyles();
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    }
-
-    const handleClose = () => {
-        setOpen(false);
-    }
 
     return(
         <>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Add New Habit
-            </Button>
-
-            <FormControl ref={habitFormRef} onSubmit={handleHabitSubmit}>
-                <Dialog 
-                    fullScreen 
-                    open={open} 
-                    onClose={handleClose} 
-                    TransitionComponent={Transition}
+            <form className={classes.root} onSubmit={handleHabitSubmit}>
+                <Button 
+                    onClick={handleHabitSubmit} 
+                    variant='contained' 
+                    style={{ backgroundColor: '#A0522D', color: 'white' }}
+                    className={classes.button}
                 >
-                    <AppBar className={classes.appBar}>
-                        <Toolbar>
-                            <IconButton 
-                                edge="start" 
-                                color="inherit" 
-                                onClick={handleClose} 
-                                aria-label="close"
-                            >
-                                <CloseIcon />
-                            </IconButton>
-                            <Typography variant="h6" className={classes.title}>
-                                Add a New Habit
-                            </Typography>
-                            <Button 
-                                color="inherit" 
-                                onClick={handleHabitSubmit}
-                                disabled={formValid}
-                            >
-                                Save
-                            </Button>
-                        </Toolbar>
-                    </AppBar>
+                    Add New Habit
+                </Button>
+                <Button 
+                    component={Link} 
+                    to='/' 
+                    variant='contained'
+                    className={classes.button}
+                >
+                    Cancel
+                </Button>
 
-                    <List>
-                        <ListItem>
-                            <ListItemText 
-                                primary="RESPONSE" 
-                                secondary="Make It Easy - Obtain the Reward" 
-                            />
-                        </ListItem>
-                        <ListItem>
-                            BRONZE: 
-                            <form className={classes.userInput} noValidate autoComplete="off">
+                <div className="EditHabitInfo">
+                    {/* CUE */}
+                    <div className='edit-infoBorder'>
+                        <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
+                            <div className='habit-edit-icons'>
+                                <WatchLater style={{ fontSize: 40, color: '#A0522D' }} />
+                            </div>
+                            <p className='habit-edit-steps'>1. Cue</p>
+                            <p className='habit-edit-description'>
+                                <span className='edit-text'>I WILL </span>
                                 <TextField 
                                     id="outlined-basic" 
-                                    label="Bronze"  
+                                    label="Behavior" 
+                                    variant="outlined" 
+                                    name="cueBehavior"
+                                    value={newHabit.cueBehavior}
+                                    onChange={handleInputChange} 
+                                    required
+                                    pattern=".{2,}"
+                                    size='small'
+                                />
+                                <span className='edit-text'> AT </span>
+                                <TextField
+                                    id="time"
+                                    label="Time"
+                                    type="time"
+                                    variant="outlined"
+                                    name="cueTime"
+                                    value={newHabit.cueTime}
+                                    onChange={handleInputChange}
+                                    required
+                                    pattern=".{2,}"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    inputProps={{
+                                        step: 300, // 5 min
+                                    }}
+                                    size='small'
+                                /> 
+                                <span className='edit-text'> IN </span>
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="Location" 
+                                    variant="outlined" 
+                                    name="cueLocation"
+                                    value={newHabit.cueLocation}
+                                    onChange={handleInputChange} 
+                                    required
+                                    pattern=".{2,}"
+                                    size='small'
+                                />
+                            </p>
+                        </Card>
+                    </div>
+
+                    {/* CRAVING */}
+                    <div className='edit-infoBorder'>
+                        <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
+                            <div className='habit-edit-icons'>
+                                <EmojiObjects style={{ fontSize: 40, color: '#A0522D' }} />
+                            </div>
+                            <p className='habit-edit-steps'>2. Craving</p>
+                            <p className='habit-edit-description'>
+                                <span className='edit-text'>AFTER </span>
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="Current Habit" 
+                                    variant="outlined" 
+                                    name="currentHabit"
+                                    value={newHabit.currentHabit}
+                                    onChange={handleInputChange} 
+                                    required
+                                    pattern=".{2,}"
+                                    size='small'
+                                />
+                                <span className='edit-text'> ,</span>
+                                <br />
+                                <span className='edit-text'> I WILL </span>
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="Habit I Need" 
+                                    variant="outlined" 
+                                    name="cueBehavior"
+                                    value={newHabit.cueBehavior}
+                                    onChange={handleInputChange} 
+                                    required
+                                    pattern=".{2,}"
+                                    size='small'
+                                />
+                            </p>
+                        </Card>
+                    </div>
+
+                    {/* REWARD BRONZE */}
+                    <div className='edit-infoBorder'>
+                        <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
+                            <div className='habit-edit-icons'>
+                                <Battery20 style={{ fontSize: 40, color: '#A0522D' }} />
+                            </div>
+                            <p className='habit-edit-steps'>3A. Response - Bronze</p>
+                            <p className='habit-edit-description'>
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="Bronze" 
+                                    variant="outlined" 
                                     name="responseBronze"
                                     value={newHabit.responseBronze}
                                     onChange={handleInputChange} 
                                     required
                                     pattern=".{2,}"
+                                    size='small'
                                 />
-                            </form>
-                        </ListItem>
-                        <ListItem>
-                            SILVER: 
-                            <form className={classes.userInput} noValidate autoComplete="off">
+                            </p>
+                        </Card>
+                    </div>
+
+                    {/* REWARD SILVER */}
+                    <div className='edit-infoBorder'>
+                        <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
+                            <div className='habit-edit-icons'>
+                                <Battery50 style={{ fontSize: 40, color: '#A0522D' }} />
+                            </div>
+                            <p className='habit-edit-steps'>3B. Response - Silver</p>
+                            <p className='habit-edit-description'>
                                 <TextField 
                                     id="outlined-basic" 
                                     label="Silver" 
@@ -123,150 +198,74 @@ export default function HabitForm () {
                                     onChange={handleInputChange} 
                                     required
                                     pattern=".{2,}"
+                                    size='small'
                                 />
-                            </form>
-                        </ListItem>
-                        <ListItem>
-                        GOLD: 
-                        <form className={classes.userInput} noValidate autoComplete="off">
-                            <TextField 
-                                id="outlined-basic" 
-                                label="Gold" 
-                                variant="outlined" 
-                                name="responseGold"
-                                value={newHabit.responseGold}
-                                onChange={handleInputChange}
-                                required
-                                pattern=".{2,}"
-                            />
-                        </form>
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <ListItemText primary="CUE" secondary="Make It Obvious - Notice the Reward" />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText className={classes.userInput}>
-                                {/* <h4>I will [BEHAVIOR] at [TIME] in [LOCATION]</h4> */}
-                                I WILL 
-                                <form className={classes.userInput} noValidate autoComplete="off">
-                                    <TextField 
-                                        id="outlined-basic" 
-                                        label="Behavior" 
-                                        // variant="outlined" 
-                                        name="cueBehavior"
-                                        value={newHabit.cueBehavior}
-                                        onChange={handleInputChange} 
-                                        required
-                                        pattern=".{2,}"
-                                    />
-                                </form>
-                                AT 
-                                <form className={classes.userInput} noValidate>
-                                <TextField
-                                    id="time"
-                                    label="Time"
-                                    type="time"
-                                    // variant="outlined"
-                                    name="cueTime"
-                                    value={newHabit.cueTime}
-                                    onChange={handleInputChange}
-                                    required
-                                    pattern=".{2,}"
-                                    // className={classes.userInput}
-                                    InputLabelProps={{
-                                    shrink: true,
-                                    }}
-                                    inputProps={{
-                                    step: 300, // 5 min
-                                    }}
-                                /> 
-                                </form>
-                                IN 
-                                <form className={classes.userInput} noValidate autoComplete="off">
-                                    <TextField 
-                                        id="outlined-basic" 
-                                        label="Location" 
-                                        // variant="outlined" 
-                                        name="cueLocation"
-                                        value={newHabit.cueLocation}
-                                        onChange={handleInputChange} 
-                                        required
-                                        pattern=".{2,}"
-                                    />
-                                </form>
-                            </ListItemText>
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <ListItemText primary="CRAVING" secondary="Make It Attractive - Want the Reward" />
-                        </ListItem>
-                        <ListItem>
-                            {/* <ListItemText secondary="After [CURRENT HABIT], I will [HABIT I NEED]"/>     */}
-                            AFTER
-                            <form className={classes.userInput} noValidate autoComplete="off">
+                            </p>
+                        </Card>
+                    </div>
+
+                    {/* REWARD GOLD */}
+                    <div className='edit-infoBorder'>
+                        <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
+                            <div className='habit-edit-icons'>
+                                <BatteryFull style={{ fontSize: 40, color: '#A0522D' }} />
+                            </div>
+                            <p className='habit-edit-steps'>3C. Response - Gold</p>
+                            <p className='habit-edit-description'>
                                 <TextField 
                                     id="outlined-basic" 
-                                    label="Current Habit" 
-                                    // variant="outlined" 
-                                    name="currentHabit"
-                                    value={newHabit.currentHabit}
+                                    label="Gold" 
+                                    variant="outlined" 
+                                    name="responseGold"
+                                    value={newHabit.responseGold}
                                     onChange={handleInputChange} 
                                     required
                                     pattern=".{2,}"
+                                    size='small'
                                 />
-                            </form>,
-                            I WILL
-                            <form className={classes.userInput} noValidate autoComplete="off">
-                                    <TextField 
-                                        id="outlined-basic" 
-                                        label="Habit I Need" 
-                                        // variant="outlined" 
-                                        name="cueBehavior"
-                                        value={newHabit.cueBehavior}
-                                        onChange={handleInputChange} 
-                                        required
-                                        pattern=".{2,}"
-                                    />
-                                </form>
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <ListItemText primary="REWARD" secondary="Make It Satisfying - Want to Repeat the Habit Loop" />
-                        </ListItem>
-                        <ListItem>
-                            {/* <h4>After [HABIT I NEED], I will [HABIT I WANT]</h4> */}
-                            AFTER
-                            <form className={classes.userInput} noValidate autoComplete="off">
+                            </p>
+                        </Card>
+                    </div>
+
+                    {/* REWARD */}
+                    <div className='edit-infoBorder'>
+                        <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
+                            <div className='habit-edit-icons'>
+                                <EmojiEvents style={{ fontSize: 40, color: '#A0522D' }} />
+                            </div>
+                            <p className='habit-edit-steps'>4. Reward</p>
+                            <p className='habit-edit-description'>
+                                <span className='edit-text'>AFTER </span>
                                 <TextField 
                                     id="outlined-basic" 
                                     label="Habit I Need" 
-                                    // variant="outlined" 
+                                    variant="outlined" 
                                     name="cueBehavior"
                                     value={newHabit.cueBehavior}
                                     onChange={handleInputChange} 
                                     required
                                     pattern=".{2,}"
+                                    size='small'
                                 />
-                            </form>,
-                            I WILL
-                            <form className={classes.userInput} noValidate autoComplete="off">
+                                <span className='edit-text'> ,</span>
+                                <br />
+                                <span className='edit-text'> I WILL </span>
                                 <TextField 
                                     id="outlined-basic" 
                                     label="Habit I Want" 
-                                    // variant="outlined" 
+                                    variant="outlined" 
                                     name="wantedHabit"
                                     value={newHabit.wantedHabit}
                                     onChange={handleInputChange} 
                                     required
                                     pattern=".{2,}"
+                                    size='small'
                                 />
-                            </form>
-                        </ListItem>
-                        {/* <button onSubmit={handleHabitSubmit}>ADD HABIT</button> */}
-                    </List>
-                </Dialog>
-            </FormControl>
+                            </p>
+                        </Card>
+                    </div>
+                </div>
+            </form>
         </>
     );
 }

@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import HabitForm from '../../components/HabitForm/HabitForm';
 import habitGeneratorService from '../../utils/habitGeneratorService';
 import HabitContext from '../../context/Habit';
+import UserContext from '../../context/User';
 import './HabitList.css';
 
 import { Link } from 'react-router-dom';
@@ -13,6 +14,7 @@ import {
     DialogContent, 
     DialogContentText, 
     DialogTitle,
+    Grid,
  } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -22,10 +24,9 @@ export default function GetHabitList ({ location }) {
     const { 
         allHabits, 
         setAllHabits, 
-        // handleInputChange, 
-        // handleHabitSubmit, 
         handleHabitDelete 
     } = useContext(HabitContext);
+    const { user } = useContext(UserContext);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -59,7 +60,9 @@ export default function GetHabitList ({ location }) {
     return (
         <div className="HabitList">
 
-           <HabitForm />
+           <Grid xs>
+            {user.name}'s Habits
+           </Grid>
 
             {allHabits.map((habit) => (
                 <Card key={habit._id} variant='outlined'>

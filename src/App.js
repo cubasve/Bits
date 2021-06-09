@@ -10,8 +10,9 @@ import HabitList from './components/HabitList/HabitList';
 //import HabitInfo from './components/HabitInfo/HabitInfo';
 //import EditHabit from './components/EditHabit/EditHabit';
 import NavBar from './components/Navbar/Navbar';
-import HabitGeneratorPage from './pages/HabitGeneratorPage/HabitGeneratorPage';
+import HabitListPage from './pages/HabitListPage/HabitListPage';
 import HabitEditPage from './pages/HabitEditPage/HabitEditPage';
+import HabitCreationPage from './pages/HabitCreationPage/HabitCreationPage';
 
 import habitGeneratorService from './utils/habitGeneratorService';
 import HabitContext from './context/Habit';
@@ -141,9 +142,10 @@ export default function App({ history }) {
 
                         <Route 
                             exact path="/habitgenerator"
-                            render={({ location }) => (
+                            render={() => (
                                 userService.getUser() ?
-                                    <HabitList location={location} />
+                                    // <HabitList location={location} />
+                                    <HabitCreationPage />
                                 :
                                 <Redirect to="/login" />
                             )}
@@ -152,7 +154,7 @@ export default function App({ history }) {
                         <Route 
                             exact path="/habitgenerator/:id"
                             render={({ location }) => (
-                                <HabitGeneratorPage location={location} />
+                                <HabitListPage location={location} />
                                 //<HabitInfo location={location} />
                             )}
                         />

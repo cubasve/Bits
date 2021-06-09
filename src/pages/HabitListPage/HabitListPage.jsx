@@ -1,16 +1,15 @@
 import React from 'react';
 import HabitList from '../../components/HabitList/HabitList';
 import HabitInfo from '../../components/HabitInfo/HabitInfo';
-// import HabitForm from '../../components/HabitForm/HabitForm';
-import './HabitGenerator.css';
+import './HabitListPage.css';
 
-export default function HabitGeneratorPage({ location }) {
+export default function HabitListPage({ location }) {
     return (
         <div className='HabitGeneratorPage'>
-            <div className='habit-list-section'>
+            <div>
                 <HabitList />
             </div>
-            <div className='habit-info-section'>
+            <div>
                 <HabitInfo location={location} />
             </div>
         </div>
