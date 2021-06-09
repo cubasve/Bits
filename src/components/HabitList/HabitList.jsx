@@ -59,9 +59,9 @@ export default function GetHabitList ({ location }) {
     return (
         <div className="HabitList">
 
-           <Grid xs>
-            {user.name}'s Habits
-           </Grid>
+            <Grid>
+                {user.name}'s Habits
+            </Grid>
 
             {allHabits.map((habit) => (
                 <Card key={habit._id} variant='outlined'>
