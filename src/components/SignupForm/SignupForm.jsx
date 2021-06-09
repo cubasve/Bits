@@ -34,7 +34,7 @@ export default function SignupForm({ history, updateMessage }) {
         try {
             await userService.signup(credentials);
             handleSignupOrLogin();
-            history.push('/');
+            history.push('/habitgenerator');
         } catch (err) {
             //Invalid user data (probably duplicate email)
             updateMessage(err.message);

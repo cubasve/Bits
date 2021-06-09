@@ -8,9 +8,10 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import userService from './utils/userService';
 import HabitList from './components/HabitList/HabitList';
 //import HabitInfo from './components/HabitInfo/HabitInfo';
-import EditHabit from './components/EditHabit/EditHabit';
+//import EditHabit from './components/EditHabit/EditHabit';
 import NavBar from './components/Navbar/Navbar';
 import HabitGeneratorPage from './pages/HabitGeneratorPage/HabitGeneratorPage';
+import HabitEditPage from './pages/HabitEditPage/HabitEditPage';
 
 import habitGeneratorService from './utils/habitGeneratorService';
 import HabitContext from './context/Habit';
@@ -158,9 +159,10 @@ export default function App({ history }) {
 
                         <Route 
                             exact path="/habitgenerator/:id/edit"
-                            render={(props) => (
-                                <EditHabit {...props} />
-                            )}
+                            render={({ location }) => 
+                                // <EditHabit {...props} />
+                                <HabitEditPage location={location} />
+                            }
                         />      
 
                         <Route 

@@ -32,7 +32,7 @@ export default function LoginPage({ history }) {
         try {
             await userService.login(credentials);
             handleSignupOrLogin();
-            history.push('/');
+            history.push('/habitgenerator');
         } catch (err) {
             console.error(err);
         }
