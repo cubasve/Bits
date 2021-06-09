@@ -1,5 +1,5 @@
 .edit-infoBorder {
-  padding: 10px;
+  padding: 8px;
 }
 
 .habit-edit-icons {
@@ -14,7 +14,6 @@
 
 .habit-edit-description {
   font-size: calc(12px + 1vmin);
-  padding: 10px 0px;
 }
 
 .edit-text {
