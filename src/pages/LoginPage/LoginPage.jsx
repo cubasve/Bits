@@ -3,10 +3,18 @@ import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import userService from '../../utils/userService';
 import UserContext from '../../context/User';
-import { Button, FormControl, InputAdornment, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Divider, FormControl, Grid, TextField } from '@material-ui/core';
 import { AccountCircle, Lock } from '@material-ui/icons';
 
+const useStyles = makeStyles(theme => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+}));
+
 export default function LoginPage({ history }) {
+    const classes = useStyles();
 
     const [credentials, setCredentials ] = useState({
         email: '',
@@ -32,62 +40,55 @@ export default function LoginPage({ history }) {
 
     return (
         <div className="LoginPage">
-            <header className="header-footer">LOG IN</header>
-            <br />
-            <FormControl className="form-horizontal" onSubmit={handleSubmit}>
-                {/* <div className="form-group">
-                    <div className="col-sm-12"> */}
-                        <TextField
-                            //className={classes.margin}
-                            //id="input-with-icon-textfield"
-                            label="Email"
-                            type="email"
-                            name="email"
-                            className="form-control"
-                            placeholder="Email"
-                            value={credentials.email}
-                            onChange={handleChange}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                <AccountCircle />
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                    {/* </div>
-                </div> */}
-                <br />
-                {/* <div className="form-group">
-                    <div className="col-sm-12"> */}
-                        <TextField
-                            //className={classes.margin}
-                            //id="input-with-icon-textfield"
-                            label="Password"
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            placeholder="Password"
-                            value={credentials.password}
-                            onChange={handleChange}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <Lock />
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                    {/* </div>
-                </div> */}
-                <br />
-                {/* <div className="form-group">
-                    <div className="col-sm-12 text-center"> */}
-                        <Button variant='contained' color='primary'>Log In</Button>
-                        &nbsp;&nbsp;&nbsp;
-                        <Link to="/">Cancel</Link>
-                    {/* </div>
-                </div> */}
+            <header className="auth-header">LOG IN</header>
+            <FormControl onSubmit={handleSubmit}>
+                <div className={classes.margin}>
+                    <Grid container spacing={1} alignItems='flex-end'>
+                        <Grid item>
+                            <AccountCircle />
+                        </Grid>
+                        <Grid item>
+                            <TextField 
+                                label='Email'
+                                type='email'
+                                name='email'
+                                value={credentials.email}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                    </Grid>
+                </div>
+
+                <div className={classes.margin}>
+                    <Grid container spacing={1} alignItems='flex-end'>
+                        <Grid item>
+                            <Lock />
+                        </Grid>
+                        <Grid item>
+                            <TextField 
+                                label='Password'
+                                type='password'
+                                name='password'
+                                value={credentials.password}
+                                onChange={handleChange}
+                                size='medium'
+                            />
+                        </Grid>
+                    </Grid>
+                </div>
+        
+                <Button 
+                    type='submit'
+                    variant='contained' 
+                    color='primary'
+                    onClick={handleSubmit}
+                    className={classes.margin}
+                >
+                    Log In
+                </Button>
+                <Link to='/' className='cancel'>Cancel</Link>
+                <Divider />
+                <Link to='/signup' className='cancel'>Sign Up</Link>
             </FormControl>
         </div>
     );

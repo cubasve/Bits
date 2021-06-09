@@ -45,7 +45,7 @@ export default function Navbar() {
         <div>
             <Typography>{user.name}</Typography>
             <IconButton
-                aria-lebel='account of current user'
+                aria-label='account of current user'
                 aria-controls='menu-appbar'
                 aria-haspopup='true'
                 onClick={handleMenu}

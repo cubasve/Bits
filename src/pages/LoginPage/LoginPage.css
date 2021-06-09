@@ -1,7 +1,16 @@
 .LoginPage {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 50px;
-  }
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+}
+
+.auth-header {
+  font-size: calc(15px + 2vmin);
+}
+
+.cancel {
+  text-decoration: none;
+  color: black;
+  margin: 10px 0px;
+}

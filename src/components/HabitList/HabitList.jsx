@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import HabitForm from '../../components/HabitForm/HabitForm';
 import habitGeneratorService from '../../utils/habitGeneratorService';
 import HabitContext from '../../context/Habit';
@@ -35,7 +35,7 @@ export default function GetHabitList ({ location }) {
 
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchData = async() => {
+    const fetchData = useCallback( async() => {
         try {
             const data = await habitGeneratorService.showHabit();
             console.log('data: ', data);
@@ -45,14 +45,14 @@ export default function GetHabitList ({ location }) {
         } catch (err) {
             console.error(err);
         }
-    }
+    }, [allHabits, setAllHabits]);
 
     useEffect(() => {
        if (isLoading) {
            fetchData();
            setIsLoading(false);
        }
-    }, [ allHabits, setAllHabits, fetchData, isLoading ]);
+    }, [ fetchData, isLoading ]);
 
     // MODAL
     const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);

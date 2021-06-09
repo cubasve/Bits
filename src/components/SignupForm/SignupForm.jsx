@@ -2,10 +2,19 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import userService from '../../utils/userService.js';
 import UserContext from '../../context/User';
-import { Button, FormControl, InputAdornment, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Divider, FormControl, InputAdornment, TextField } from '@material-ui/core';
 import { AccountCircle, Email, Lock } from '@material-ui/icons';
 
+const useStyles = makeStyles(theme => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+}));
+
 export default function SignupForm({ history, updateMessage }) {
+    const classes = useStyles();
+
     const [ credentials, setCredentials ] = useState({
         name: '',
         email: '',
@@ -42,105 +51,95 @@ export default function SignupForm({ history, updateMessage }) {
 
     return (
         <>
-            <header className="header-footer">SIGN UP</header>
+            <header className="auth-header">SIGN UP</header>
 
-            <FormControl className="form-horizontal" onSubmit={handleSubmit}>
-                {/* <div className="form-group">
-                    <div className="col-sm-12"> */}
-                        <TextField
-                            label="Name"
-                            name="name"
-                            type="text"
-                            className="form-control"
-                            placeholder="Name"
-                            value={credentials.name}
-                            onChange={handleChange}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                    {/* </div>
-                </div> */}
-                <br />
-                {/* <div className="form-group">
-                    <div className="col-sm-12"> */}
-                        <TextField
-                            label="Email"
-                            name="email"
-                            type="email"
-                            className="form-control"
-                            placeholder="Email"
-                            value={credentials.email}
-                            onChange={handleChange}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <Email />
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                    {/* </div>
-                </div> */}
-                <br />
-                {/* <div className="form-group">
-                    <div className="col-sm-12"> */}
-                        <TextField
-                            label="Password"
-                            name="password"
-                            type="password"
-                            className="form-control"
-                            placeholder="Password"
-                            value={credentials.password}
-                            onChange={handleChange}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <Lock />
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                    {/* </div>
-                </div> */}
-                <br />
-                {/* <div className="form-group">
-                    <div className="col-sm-12"> */}
-                        <TextField
-                            label="Password Confirmation"
-                            name="passwordConfirmation"
-                            type="password"
-                            className="form-control"
-                            placeholder="Confirm Password"
-                            value={credentials.passwordConfirmation}
-                            onChange={handleChange}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <Lock />
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                    {/* </div>
-                </div> */}
-                <br />
-                {/* <div className="form-group">
-                    <div className="col-sm-12 text-center"> */}
-                        <Button 
-                            variant='contained' 
-                            color='primary' 
-                            disabled={isFormInvalid()}
-                        >
-                            Sign Up
-                        </Button>
-                        <Link to="/">Cancel</Link>
-                    {/* </div>
-                </div> */}
+            <FormControl onSubmit={handleSubmit}>
+                <div className={classes.margin}>
+                    <TextField
+                        label="Name"
+                        name="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Name"
+                        value={credentials.name}
+                        onChange={handleChange}
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <AccountCircle />
+                            </InputAdornment>
+                        ),
+                        }}
+                    />
+                </div>
+                <div className={classes.margin}>
+                    <TextField
+                        label="Email"
+                        name="email"
+                        type="email"
+                        className="form-control"
+                        placeholder="Email"
+                        value={credentials.email}
+                        onChange={handleChange}
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Email />
+                            </InputAdornment>
+                        ),
+                        }}
+                    />
+                </div>
+                <div className={classes.margin}>
+                    <TextField
+                        label="Password"
+                        name="password"
+                        type="password"
+                        className="form-control"
+                        placeholder="Password"
+                        value={credentials.password}
+                        onChange={handleChange}
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Lock />
+                            </InputAdornment>
+                        ),
+                        }}
+                    />
+                </div>
+                <div className={classes.margin}>
+                    <TextField
+                        label="Password Confirmation"
+                        name="passwordConfirmation"
+                        type="password"
+                        className="form-control"
+                        placeholder="Confirm Password"
+                        value={credentials.passwordConfirmation}
+                        onChange={handleChange}
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Lock />
+                            </InputAdornment>
+                        ),
+                        }}
+                    />
+                </div>
+                <Button 
+                    type='submit'
+                    variant='contained' 
+                    color='primary' 
+                    disabled={isFormInvalid()}
+                    onClick={handleSubmit}
+                    className={classes.margin}
+                >
+                    Sign Up
+                </Button>
+
+                <Link to='/' className='cancel'>Cancel</Link>
+                <Divider />
+                <Link to='/login' className='cancel'>Login</Link>
             </FormControl>
         </>
     );
