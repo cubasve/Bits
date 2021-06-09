@@ -1,6 +1,24 @@
 .HabitList {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     gap: 20px;
-    width: 1000px;
+    width: 300px;
+    margin-left: 10px;
+    margin-top: 18px;
+}
+
+.habit-name {
+    text-decoration: none;
+    color: red;
+}
+
+@media only screen and (max-width: 700px) {
+    .HabitList {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2px;
+        width: 98%;
+        margin: 5px 5px;
+    }
 }

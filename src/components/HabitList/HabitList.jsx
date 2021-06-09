@@ -13,12 +13,6 @@ import {
     DialogContent, 
     DialogContentText, 
     DialogTitle,
-    // Divider,
-    // FormControl,
-    // List,
-    // ListItem,
-    // ListItemText,
-    // TextField
  } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -38,14 +32,11 @@ export default function GetHabitList ({ location }) {
     const fetchData = useCallback( async() => {
         try {
             const data = await habitGeneratorService.showHabit();
-            console.log('data: ', data);
             setAllHabits(data.user.userHabitGenerator);
-            console.log('data.user.userHabitGenerator', data.user.userHabitGenerator)
-            console.log('allHabits: ', allHabits);
         } catch (err) {
             console.error(err);
         }
-    }, [allHabits, setAllHabits]);
+    }, [setAllHabits]);
 
     useEffect(() => {
        if (isLoading) {
@@ -66,57 +57,61 @@ export default function GetHabitList ({ location }) {
     }
 
     return (
-        <>
-            <HabitForm />
+        <div className="HabitList">
 
-            <div className="HabitList">
-                {allHabits.map((habit) => (
-                    <Card key={habit._id}>
-                        <Button>
-                            <Link to={{
+           <HabitForm />
+
+            {allHabits.map((habit) => (
+                <Card key={habit._id} variant='outlined'>
+                    <Button>
+                        <Link 
+                            to={{
                                 pathname: `/habitgenerator/${habit._id}`,
                                 state: { habit }
                             }}
-                            >
-                                    {habit.cueBehavior}
-                            </Link>
-                        </Button>
+                            className='habit-name'
+                        >       
+                            {habit.cueBehavior}
+                        </Link>
+                    </Button>
 
-                        {/* EDIT */}
-                        <Button><Link to={{
+                    {/* EDIT */}
+                    <Button>
+                        <Link to={{
                             pathname: `/habitgenerator/${habit._id}/edit`,
                             state: { habit },
                         }}>
-                            <EditIcon />
-                        </Link></Button>
-                        
-
-                        {/* DELETE */}
-                        <Button onClick={handleClickOpenDeleteDialog}><DeleteIcon /></Button>
-                        <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-                            <DialogTitle>DELETE HABIT</DialogTitle>
-                            <DialogContent /*dividers*/>
-                                <DialogContentText>
-                                    Are you sure you want to delete this habit?
-                                </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={handleCloseDeleteDialog}>Cancel</Button>
-                                <Button 
-                                    color="primary" 
-                                    autoFocus
-                                    onClick={() => {
-                                        handleHabitDelete(habit._id);
-                                        handleCloseDeleteDialog();
-                                    }}
-                                >
-                                    Delete
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
-                    </Card>
-                ))}
-            </div>
-        </>
+                            <EditIcon style={{ color: 'black' }} />
+                        </Link>
+                    </Button>
+                    
+                    {/* DELETE */}
+                    <Button onClick={handleClickOpenDeleteDialog}>
+                        <DeleteIcon style={{ color: 'black' }} />
+                    </Button>
+                    <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
+                        <DialogTitle>DELETE HABIT</DialogTitle>
+                        <DialogContent /*dividers*/>
+                            <DialogContentText>
+                                Are you sure you want to delete this habit?
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleCloseDeleteDialog}>Cancel</Button>
+                            <Button 
+                                color="primary" 
+                                autoFocus
+                                onClick={() => {
+                                    handleHabitDelete(habit._id);
+                                    handleCloseDeleteDialog();
+                                }}
+                            >
+                                Delete
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </Card>
+            ))}
+        </div>
     );
 }

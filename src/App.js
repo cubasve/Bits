@@ -7,9 +7,10 @@ import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import userService from './utils/userService';
 import HabitList from './components/HabitList/HabitList';
-import HabitInfo from './components/HabitInfo/HabitInfo';
+//import HabitInfo from './components/HabitInfo/HabitInfo';
 import EditHabit from './components/EditHabit/EditHabit';
 import NavBar from './components/Navbar/Navbar';
+import HabitGeneratorPage from './pages/HabitGeneratorPage/HabitGeneratorPage';
 
 import habitGeneratorService from './utils/habitGeneratorService';
 import HabitContext from './context/Habit';
@@ -33,8 +34,8 @@ export default function App({ history }) {
         wantedHabit: '',
     });    
 
-    const [formValid, setFormValid] = useState(false);
-    const habitFormRef = useRef('');
+    //const [formValid, setFormValid] = useState(false);
+    //const habitFormRef = useRef('');
 
     const handleLogout = () => {
         userService.logout();
@@ -125,8 +126,8 @@ export default function App({ history }) {
                         handleHabitSubmit,
                         handleHabitDelete,
                         handleHabitUpdate,
-                        habitFormRef,
-                        formValid, setFormValid,
+                        //habitFormRef,
+                        //formValid, setFormValid,
                     }}
                 >
                     <Switch>
@@ -141,9 +142,7 @@ export default function App({ history }) {
                             exact path="/habitgenerator"
                             render={({ location }) => (
                                 userService.getUser() ?
-                                <main>
                                     <HabitList location={location} />
-                                </main>
                                 :
                                 <Redirect to="/login" />
                             )}
@@ -152,7 +151,8 @@ export default function App({ history }) {
                         <Route 
                             exact path="/habitgenerator/:id"
                             render={({ location }) => (
-                                <HabitInfo location={location} />
+                                <HabitGeneratorPage location={location} />
+                                //<HabitInfo location={location} />
                             )}
                         />
 

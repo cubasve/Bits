@@ -10,7 +10,7 @@ export default {
     removeHabit,
 }
 
-function showHabit() {
+async function showHabit() {
     const options = {
         headers: {
             'Content-type': 'application/json',
