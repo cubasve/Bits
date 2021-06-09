@@ -2,18 +2,31 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   background-color: #d4af37;
+  gap: 20px;
+  justify-items: space-between;
   /* height: 100vh; */
 }
 
-@media only screen and (min-width: 650px) and (max-width: 950px) {
+.infoBorder {
+  padding: 20px;
+}
+
+.habit-icons {
+  margin-top: 20px;
+}
+
+.habit-steps {
+  margin-left: 10px;
+}
+
+@media only screen and (min-width: 700px) and (max-width: 1100px) {
   .HabitInfo {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* height: 100vh; */
   }
 }
 
-@media only screen and (max-width: 649px) {
+@media only screen and (max-width: 699px) {
   .HabitInfo {
     display: grid;
     flex-direction: column;
