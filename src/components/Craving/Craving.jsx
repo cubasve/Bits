@@ -10,7 +10,7 @@ export default function getCraving({ location }) {
         <div className="infoBorder">
             <Card>
                 <div className='habit-icons'>
-                    <EmojiObjectsIcon  style={{ fontSize: 40, color: 'red' }} />
+                    <EmojiObjectsIcon  style={{ fontSize: 40, color: '#A0522D' }} />
                 </div>
                 <h1>2. Craving</h1>
                 <h3>After {currentHabit}, I will {cueBehavior}</h3>

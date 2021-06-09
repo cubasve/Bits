@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
     },
     title: {
-        flexGrow: 1,
+        flexGrow: 1
     }
 }));
 
@@ -43,6 +43,7 @@ export default function Navbar() {
 
     let nav = user ? (
         <div>
+            <Typography>{user.name}</Typography>
             <IconButton
                 aria-lebel='account of current user'
                 aria-controls='menu-appbar'
@@ -52,7 +53,6 @@ export default function Navbar() {
             >
                 <AccountCircle />
             </IconButton>
-            <Typography>{user.name}</Typography>
 
             <Menu 
                 id='menu-appbar'
@@ -95,7 +95,9 @@ export default function Navbar() {
         <div className={classes.root}>
             <AppBar>
                 <Toolbar>
-                    <LoopIcon />
+                    <Button edge='start' color='inherit' component={Link} to='/'>
+                        <LoopIcon />
+                    </Button>
                     <Typography variant='h6' className={classes.title}>
                         Bits
                     </Typography>

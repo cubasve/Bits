@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import userService from '../../utils/userService.js';
 import UserContext from '../../context/User';
+import { Button, FormControl, InputAdornment, TextField } from '@material-ui/core';
+import { AccountCircle, Email, Lock } from '@material-ui/icons';
 
 export default function SignupForm({ history, updateMessage }) {
     const [ credentials, setCredentials ] = useState({
@@ -40,67 +42,106 @@ export default function SignupForm({ history, updateMessage }) {
 
     return (
         <>
-            <header className="header-footer">Sign Up</header>
+            <header className="header-footer">SIGN UP</header>
 
-            <form className="form-horizontal" onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <div className="col-sm-12">
-                        <input
+            <FormControl className="form-horizontal" onSubmit={handleSubmit}>
+                {/* <div className="form-group">
+                    <div className="col-sm-12"> */}
+                        <TextField
+                            label="Name"
+                            name="name"
                             type="text"
                             className="form-control"
                             placeholder="Name"
                             value={credentials.name}
-                            name="name"
                             onChange={handleChange}
+                            InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircle />
+                                </InputAdornment>
+                            ),
+                            }}
                         />
-                    </div>
-                </div>
-                <div className="form-group">
-                    <div className="col-sm-12">
-                        <input
+                    {/* </div>
+                </div> */}
+                <br />
+                {/* <div className="form-group">
+                    <div className="col-sm-12"> */}
+                        <TextField
+                            label="Email"
+                            name="email"
                             type="email"
                             className="form-control"
                             placeholder="Email"
                             value={credentials.email}
-                            name="email"
                             onChange={handleChange}
+                            InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Email />
+                                </InputAdornment>
+                            ),
+                            }}
                         />
-                    </div>
-                </div>
-                <div className="form-group">
-                    <div className="col-sm-12">
-                        <input
+                    {/* </div>
+                </div> */}
+                <br />
+                {/* <div className="form-group">
+                    <div className="col-sm-12"> */}
+                        <TextField
+                            label="Password"
+                            name="password"
                             type="password"
                             className="form-control"
                             placeholder="Password"
                             value={credentials.password}
-                            name="password"
                             onChange={handleChange}
+                            InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Lock />
+                                </InputAdornment>
+                            ),
+                            }}
                         />
-                    </div>
-                </div>
-                <div className="form-group">
-                    <div className="col-sm-12">
-                        <input
+                    {/* </div>
+                </div> */}
+                <br />
+                {/* <div className="form-group">
+                    <div className="col-sm-12"> */}
+                        <TextField
+                            label="Password Confirmation"
+                            name="passwordConfirmation"
                             type="password"
                             className="form-control"
                             placeholder="Confirm Password"
                             value={credentials.passwordConfirmation}
-                            name="passwordConfirmation"
                             onChange={handleChange}
+                            InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Lock />
+                                </InputAdornment>
+                            ),
+                            }}
                         />
-                    </div>
-                </div>
-                <div className="form-group">
-                    <div className="col-sm-12 text-center">
-                        <button className="btn btn-default" disabled={isFormInvalid()}>
+                    {/* </div>
+                </div> */}
+                <br />
+                {/* <div className="form-group">
+                    <div className="col-sm-12 text-center"> */}
+                        <Button 
+                            variant='contained' 
+                            color='primary' 
+                            disabled={isFormInvalid()}
+                        >
                             Sign Up
-                        </button>
-                        &nbsp;&nbsp;
+                        </Button>
                         <Link to="/">Cancel</Link>
-                    </div>
-                </div>
-            </form>
+                    {/* </div>
+                </div> */}
+            </FormControl>
         </>
     );
 }

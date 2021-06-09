@@ -9,7 +9,7 @@ export default function getReward({ location }) {
         <div className="infoBorder">
             <Card>
                 <div className='habit-icons'>
-                    <EmojiEventsIcon style={{ fontSize: 40, color: 'red' }} />
+                    <EmojiEventsIcon style={{ fontSize: 40, color: '#A0522D' }} />
                 </div>
 
                 <h1>4. Reward</h1>

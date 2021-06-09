@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import userService from '../../utils/userService';
 import UserContext from '../../context/User';
-//import { Button, InputAdornment, TextField } from '@material-ui/core';
-//import { AccountCircle } from '@material-ui/icons';
+import { Button, FormControl, InputAdornment, TextField } from '@material-ui/core';
+import { AccountCircle, Lock } from '@material-ui/icons';
 
 export default function LoginPage({ history }) {
 
@@ -32,43 +32,63 @@ export default function LoginPage({ history }) {
 
     return (
         <div className="LoginPage">
-            <header className="header-footer">Log In</header>
+            <header className="header-footer">LOG IN</header>
             <br />
-            <form className="form-horizontal" onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <div className="col-sm-12">
-                        <input 
+            <FormControl className="form-horizontal" onSubmit={handleSubmit}>
+                {/* <div className="form-group">
+                    <div className="col-sm-12"> */}
+                        <TextField
+                            //className={classes.margin}
+                            //id="input-with-icon-textfield"
+                            label="Email"
                             type="email"
                             name="email"
                             className="form-control"
                             placeholder="Email"
                             value={credentials.email}
                             onChange={handleChange}
+                            InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                <AccountCircle />
+                                </InputAdornment>
+                            ),
+                            }}
                         />
-                    </div>
-                </div>
+                    {/* </div>
+                </div> */}
                 <br />
-                <div className="form-group">
-                    <div className="col-sm-12">
-                        <input 
+                {/* <div className="form-group">
+                    <div className="col-sm-12"> */}
+                        <TextField
+                            //className={classes.margin}
+                            //id="input-with-icon-textfield"
+                            label="Password"
                             type="password"
                             name="password"
                             className="form-control"
                             placeholder="Password"
                             value={credentials.password}
                             onChange={handleChange}
+                            InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Lock />
+                                </InputAdornment>
+                            ),
+                            }}
                         />
-                    </div>
-                </div>
+                    {/* </div>
+                </div> */}
                 <br />
-                <div className="form-group">
-                    <div className="col-sm-12 text-center">
-                        <button>Log In</button>
+                {/* <div className="form-group">
+                    <div className="col-sm-12 text-center"> */}
+                        <Button variant='contained' color='primary'>Log In</Button>
                         &nbsp;&nbsp;&nbsp;
-                        <button><Link to="/">Cancel</Link></button>
-                    </div>
-                </div>
-            </form>
+                        <Link to="/">Cancel</Link>
+                    {/* </div>
+                </div> */}
+            </FormControl>
         </div>
     );
 }

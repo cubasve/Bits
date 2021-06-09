@@ -9,7 +9,7 @@ export default function getResponse ({ location }) {
         <div className="infoBorder">
             <Card>
                 <div className='habit-icons'>
-                    <BatteryFullIcon style={{ fontSize: 40, color: 'red' }} />
+                    <BatteryFullIcon style={{ fontSize: 40, color: '#A0522D' }} />
                 </div>
                 <h1>3C: Response - Gold</h1>
                 <h3>{responseGold}</h3>
