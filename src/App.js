@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { /*useRef,*/ useState } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -6,9 +6,6 @@ import HomePage from './pages/HomePage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import userService from './utils/userService';
-import HabitList from './components/HabitList/HabitList';
-//import HabitInfo from './components/HabitInfo/HabitInfo';
-//import EditHabit from './components/EditHabit/EditHabit';
 import NavBar from './components/Navbar/Navbar';
 import HabitListPage from './pages/HabitListPage/HabitListPage';
 import HabitEditPage from './pages/HabitEditPage/HabitEditPage';

@@ -80,7 +80,7 @@ export default function LoginPage({ history }) {
                 <Button 
                     type='submit'
                     variant='contained' 
-                    color='primary'
+                    style={{ backgroundColor: '#F4A460' }}
                     onClick={handleSubmit}
                     className={classes.margin}
                 >

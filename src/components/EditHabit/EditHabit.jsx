@@ -1,14 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HabitContext from '../../context/Habit';
-import { 
-    Button, 
-    ListItemText, 
-    ListItem, 
-    List, 
-    Divider, 
-    TextField,
-    FormControl } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { Card } from '@material-ui/core';
 import { 
     Battery20, 
@@ -54,11 +47,16 @@ export default function EditHabit({ location }) {
             <form className={classes.root} onSubmit={handleSubmit}>
                 <Button 
                     onClick={handleSubmit} 
+                    // component={Link}
+                    // to={{
+                    //     pathname: `/habitgenerator/${habitData._id}`,
+                    //     state: { habitData },
+                    // }}
                     variant='contained' 
-                    style={{ backgroundColor: '#A0522D', color: 'white' }}
+                    style={{ backgroundColor: '#F4A460' }}
                     className={classes.button}
                 >
-                    Save Habit
+                    Save Updated Habit
                 </Button>
                 <Button 
                     component={Link} 

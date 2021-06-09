@@ -17,12 +17,16 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
+        backgroundColor: '#B22222',
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     title: {
         flexGrow: 1
+    },
+    appBar: {
+        backgroundColor: '#A0522D',
     }
 }));
 
@@ -43,7 +47,9 @@ export default function Navbar() {
 
     let nav = user ? (
         <div>
-            <Typography>{user.name}</Typography>
+            <Button style={{ color: 'white' }} disabled>
+                {user.name}
+            </Button>
             <IconButton
                 aria-label='account of current user'
                 aria-controls='menu-appbar'
@@ -93,7 +99,7 @@ export default function Navbar() {
 
     return (
         <div className={classes.root}>
-            <AppBar>
+            <AppBar className={classes.appBar}>
                 <Toolbar>
                     <Button edge='start' color='inherit' component={Link} to='/'>
                         <LoopIcon />

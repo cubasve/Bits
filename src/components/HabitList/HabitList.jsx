@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import HabitForm from '../../components/HabitForm/HabitForm';
 import habitGeneratorService from '../../utils/habitGeneratorService';
 import HabitContext from '../../context/Habit';
 import UserContext from '../../context/User';
@@ -79,13 +78,13 @@ export default function GetHabitList ({ location }) {
                     </Button>
 
                     {/* EDIT */}
-                    <Button>
-                        <Link to={{
+                    <Button
+                        component={Link}
+                        to={{
                             pathname: `/habitgenerator/${habit._id}/edit`,
                             state: { habit },
                         }}>
                             <EditIcon style={{ color: 'black' }} />
-                        </Link>
                     </Button>
                     
                     {/* DELETE */}

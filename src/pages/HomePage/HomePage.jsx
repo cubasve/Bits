@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardContent } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, Button } from '@material-ui/core';
 import './HomePage.css';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,6 +17,13 @@ export default function HomePage() {
         <>
             <h1>BITS</h1>
             <h2>Habits are the compound interest of self-improvement.</h2>
+            <Button 
+                component={Link}
+                to='/habitgenerator'
+                variant='contained' 
+                style={{ backgroundColor: '#F4A460' }}>
+                Get Started
+            </Button>
             <div className="cards">
                 <Card className={classes.card}>
                     <CardContent>

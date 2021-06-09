@@ -1,14 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import HabitContext from '../../context/Habit';
 import { Link } from 'react-router-dom';
-import { 
-    Button, 
-    ListItemText, 
-    ListItem, 
-    List, 
-    Divider, 
-    TextField,
-    FormControl } from '@material-ui/core';
+import { Button, TextField} from '@material-ui/core';
 import { Card } from '@material-ui/core';
 import { 
     Battery20, 
@@ -50,7 +43,7 @@ export default function HabitForm () {
                 <Button 
                     onClick={handleHabitSubmit} 
                     variant='contained' 
-                    style={{ backgroundColor: '#A0522D', color: 'white' }}
+                    style={{ backgroundColor: '#F4A460' }}
                     className={classes.button}
                 >
                     Add New Habit
