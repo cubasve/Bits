@@ -34,11 +34,12 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
 
 ## Dependencies:
 
-- bcrypt
-- dotenv
-- express
-- json web token
-- react-router-dom
+- Bcrypt
+- Dotenv
+- Express
+- Json web token
+- Material-UI
+- React-router-dom
 
 ## Getting Started:
 
@@ -68,6 +69,10 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
   - 3. Make it difficult
   - 4. Make it unsatisfying
 
+- **Incorporate a habit tracking system:**
+
+  - Users would be able to track their habits daily and which response they did for that day (bronze, silver, or gold)
+
 - **When a habit is created or updated, redirect the user to that specific habit:**
 
   - It currently redirects to /habitgenerator
@@ -79,4 +84,7 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
 - **Improve the navbar styling:**
 
 - **Improve the app for mobile screens:**
+
   - Make {user.name}'s Habits its own line or remove it completely for mobile screens
+
+- Add examples of common habits (ex. exercise, read, etc.) for new users

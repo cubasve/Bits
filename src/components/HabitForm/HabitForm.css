@@ -10,6 +10,7 @@
   font-size: calc(10px + 2vmin);
   font-weight: bold;
   margin-top: 3px;
+  margin-bottom: 1px;
 }
 
 .habit-create-description {
@@ -17,8 +18,17 @@
 }
 
 .create-text {
-    font-size: calc(20px + 1vmin);
-    color: #A0522D;
+  font-size: calc(20px + 1vmin);
+  color: #a0522d;
+}
+
+.habit-inputs {
+  font-weight: bold;
+}
+
+.habit-example {
+  color: gray;
+  margin: 0px 10px;
 }
 
 @media only screen and (max-width: 999px) {
@@ -31,7 +41,7 @@
 
   .create-infoBorder {
     padding: 10px;
-   }
+  }
 }
 
 @media only screen and (min-width: 1000px) {
