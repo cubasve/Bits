@@ -56,7 +56,7 @@ export default function getHabitInfo({ location }) {
                     <div className='habit-icons'>
                         <Battery20 style={{ fontSize: 40, color: '#A0522D' }} />
                     </div>
-                    <p className='habit-steps'>3A: Response - Bronze</p>
+                    <p className='habit-steps'>3A. Response - Bronze</p>
                     <p className='habit-description'>{responseBronze}</p>
                 </Card>
             </div>
@@ -67,7 +67,7 @@ export default function getHabitInfo({ location }) {
                     <div className='habit-icons'>
                         <Battery50 style={{ fontSize: 40, color: '#A0522D' }} />
                     </div>
-                    <p className='habit-steps'>3B: Response - Silver</p>
+                    <p className='habit-steps'>3B. Response - Silver</p>
                     <p className='habit-description'>{responseSilver}</p>
                 </Card>
             </div>
@@ -78,7 +78,7 @@ export default function getHabitInfo({ location }) {
                     <div className='habit-icons'>
                         <BatteryFull style={{ fontSize: 40, color: '#A0522D' }} />
                     </div>
-                    <p className='habit-steps'>3C: Response - Gold</p>
+                    <p className='habit-steps'>3C. Response - Gold</p>
                     <p className='habit-description'>{responseGold}</p>
                 </Card>
             </div>

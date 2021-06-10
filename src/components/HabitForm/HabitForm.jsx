@@ -1,7 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import HabitContext from '../../context/Habit';
 import { Link } from 'react-router-dom';
-import { Button, TextField} from '@material-ui/core';
+import { 
+    Button, 
+    Popover, 
+    TextField, 
+    Typography 
+} from '@material-ui/core';
 import { Card } from '@material-ui/core';
 import { 
     Battery20, 
@@ -9,7 +14,8 @@ import {
     BatteryFull, 
     EmojiEvents,
     EmojiObjects, 
-    WatchLater 
+    WatchLater,
+    InfoSharp,
 }  from '@material-ui/icons';
 import './HabitForm.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +29,10 @@ const useStyles = makeStyles (theme => ({
     },
     button: {
         margin: theme.spacing(2),
-    }
+    },
+    typography: {
+        padding: theme.spacing(2),
+    },
 }));
 
 export default function HabitForm () {
@@ -36,8 +45,86 @@ export default function HabitForm () {
     } = useContext(HabitContext);
 
     const classes = useStyles();
+    const [cuePopoverEl, setCuePopoverEl] = useState(null);
+    const [cravingPopoverEl, setCravingPopoverEl] = useState(null);
+    const [responseBronzePopoverEl, setResponseBronzePopoverEl] = useState(null);
+    const [responseSilverPopoverEl, setResponseSilverPopoverEl] = useState(null);
+    const [responseGoldPopoverEl, setResponseGoldPopoverEl] = useState(null);
+    const [rewardPopoverEl, setRewardPopoverEl] = useState(null);
 
-    return(
+    // CUE
+    const handleCuePopoverClick = e => {
+        setCuePopoverEl(e.currentTarget);
+    }
+
+    const handleCuePopoverClose = () => {
+        setCuePopoverEl(null);
+    }
+
+    const cueOpen = Boolean(cuePopoverEl);
+    const cueId = cueOpen ? 'simple-popover' : undefined;
+
+    //CRAVING
+    const handleCravingPopoverClick = e => {
+        setCravingPopoverEl(e.currentTarget);
+    }
+
+    const handleCravingPopoverClose = () => {
+        setCravingPopoverEl(null);
+    }
+
+    const cravingOpen = Boolean(cravingPopoverEl);
+    const cravingId = cravingOpen ? 'simple-popover' : undefined;
+
+    //RESPONSE BRONZE
+    const handleResponseBronzePopoverClick = e => {
+        setResponseBronzePopoverEl(e.currentTarget);
+    }
+
+    const handleResponseBronzePopoverClose = () => {
+        setResponseBronzePopoverEl(null);
+    }
+
+    const responseBronzeOpen = Boolean(responseBronzePopoverEl);
+    const bronzeId = responseBronzeOpen ? 'simple-popover' : undefined;
+
+    //RESPONSE SILVER
+    const handleResponseSilverPopoverClick = e => {
+        setResponseSilverPopoverEl(e.currentTarget);
+    }
+
+    const handleResponseSilverPopoverClose = () => {
+        setResponseSilverPopoverEl(null);
+    }
+
+    const responseSilverOpen = Boolean(responseSilverPopoverEl);
+    const silverId = responseSilverOpen ? 'simple-popover' : undefined;
+
+    //RESPONSE GOLD
+    const handleResponseGoldPopoverClick = e => {
+        setResponseGoldPopoverEl(e.currentTarget);
+    }
+
+    const handleResponseGoldPopoverClose = () => {
+        setResponseBronzePopoverEl(null);
+    }
+
+    const responseGoldOpen = Boolean(responseGoldPopoverEl);
+    const goldId = responseGoldOpen ? 'simple-popover' : undefined;
+
+    //REWARD
+    const handleRewardPopoverClick = e => {
+        setResponseGoldPopoverEl(e.currentTarget);
+    }
+
+    const handleRewardPopoverClose = () => {
+        setRewardPopoverEl(null);
+    }
+
+    const rewardOpen = Boolean(rewardPopoverEl);
+    const rewardId = rewardOpen  ? 'simple-popover' : undefined;
+
+    return (
         <>
             <form className={classes.root} onSubmit={handleHabitSubmit}>
                 <Button 
@@ -64,7 +151,33 @@ export default function HabitForm () {
                             <div className='habit-edit-icons'>
                                 <WatchLater style={{ fontSize: 40, color: '#A0522D' }} />
                             </div>
-                            <p className='habit-edit-steps'>1. Cue</p>
+                            <p className='habit-edit-steps'>
+                                1. Cue
+                                <Button 
+                                    aria-describedby={cueId} 
+                                    onClick={handleCuePopoverClick}
+                                >
+                                    <InfoSharp />
+                                </Button>
+                                <Popover
+                                    id={cueId}
+                                    open={cueOpen}
+                                    anchorEl={cuePopoverEl}
+                                    onClose={handleCuePopoverClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Typography className={classes.typography}>
+                                        Cue
+                                    </Typography>
+                                </Popover>
+                            </p>
                             <p className='habit-edit-description'>
                                 <span className='edit-text'>I WILL </span>
                                 <TextField 
@@ -119,7 +232,33 @@ export default function HabitForm () {
                             <div className='habit-edit-icons'>
                                 <EmojiObjects style={{ fontSize: 40, color: '#A0522D' }} />
                             </div>
-                            <p className='habit-edit-steps'>2. Craving</p>
+                            <p className='habit-edit-steps'>
+                                2. Craving
+                                <Button 
+                                    aria-describedby={cravingId} 
+                                    onClick={handleCravingPopoverClick}
+                                >
+                                    <InfoSharp />
+                                </Button>
+                                <Popover
+                                    id={cravingId}
+                                    open={cravingOpen}
+                                    anchorEl={cravingPopoverEl}
+                                    onClose={handleCravingPopoverClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Typography className={classes.typography}>
+                                        Craving
+                                    </Typography>
+                                </Popover>
+                            </p>
                             <p className='habit-edit-description'>
                                 <span className='edit-text'>AFTER </span>
                                 <TextField 
