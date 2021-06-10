@@ -32,6 +32,7 @@ const useStyles = makeStyles (theme => ({
     },
     typography: {
         padding: theme.spacing(2),
+        width: '350px',
     },
 }));
 
@@ -106,7 +107,7 @@ export default function HabitForm () {
     }
 
     const handleResponseGoldPopoverClose = () => {
-        setResponseBronzePopoverEl(null);
+        setResponseGoldPopoverEl(null);
     }
 
     const responseGoldOpen = Boolean(responseGoldPopoverEl);
@@ -114,7 +115,7 @@ export default function HabitForm () {
 
     //REWARD
     const handleRewardPopoverClick = e => {
-        setResponseGoldPopoverEl(e.currentTarget);
+        setRewardPopoverEl(e.currentTarget);
     }
 
     const handleRewardPopoverClose = () => {
@@ -174,7 +175,12 @@ export default function HabitForm () {
                                     }}
                                 >
                                     <Typography className={classes.typography}>
-                                        Cue
+                                        <strong>Notice the reward: </strong>
+                                        The 2 most common cues are time and location.
+                                        People who make a specific plan for when and where 
+                                        they will perform a new habit are more likely to follow 
+                                        through. Don't leave it up to chance and hope we will 
+                                        just remember to do it or feel motivated at the right time.
                                     </Typography>
                                 </Popover>
                             </p>
@@ -255,7 +261,12 @@ export default function HabitForm () {
                                     }}
                                 >
                                     <Typography className={classes.typography}>
-                                        Craving
+                                        <strong>Want the reward: </strong>
+                                        Pair an action you WANT to do with an action you NEED to do.
+                                        We often decide what to do next based on what we have just finished doing.
+                                        No behavior happens in isolation.
+                                        Each action becomes a cue that triggers the next behavior.
+                                        Idenify a current habit you already do each day and then stack your new behavior on top.
                                     </Typography>
                                 </Popover>
                             </p>
@@ -296,7 +307,37 @@ export default function HabitForm () {
                             <div className='habit-edit-icons'>
                                 <Battery20 style={{ fontSize: 40, color: '#A0522D' }} />
                             </div>
-                            <p className='habit-edit-steps'>3A. Response - Bronze</p>
+                            <p className='habit-edit-steps'>
+                                3A. Response - Bronze
+                                <Button 
+                                    aria-describedby={bronzeId} 
+                                    onClick={handleResponseBronzePopoverClick}
+                                >
+                                    <InfoSharp />
+                                </Button>
+                                <Popover
+                                    id={bronzeId}
+                                    open={responseBronzeOpen}
+                                    anchorEl={responseBronzePopoverEl}
+                                    onClose={handleResponseBronzePopoverClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Typography className={classes.typography}>
+                                        <strong>Use the 2-Minute Rule:  </strong>
+                                        When starting a new habit or on unmotivating days, complete your habit in less than 2 minutes.
+                                        Your goal might be to run a marathon, but your gateway habit is to put on your running shoes.
+                                        It's better to do less than you hoped than to do nothing at all.
+                                        Ex. Write 1 sentence, change into workout clothes, etc.
+                                    </Typography>
+                                </Popover>
+                            </p>
                             <p className='habit-edit-description'>
                                 <TextField 
                                     id="outlined-basic" 
@@ -319,7 +360,38 @@ export default function HabitForm () {
                             <div className='habit-edit-icons'>
                                 <Battery50 style={{ fontSize: 40, color: '#A0522D' }} />
                             </div>
-                            <p className='habit-edit-steps'>3B. Response - Silver</p>
+                            <p className='habit-edit-steps'>
+                                3B. Response - Silver
+                                <Button 
+                                    aria-describedby={silverId} 
+                                    onClick={handleResponseSilverPopoverClick}
+                                >
+                                    <InfoSharp />
+                                </Button>
+                                <Popover
+                                    id={silverId}
+                                    open={responseSilverOpen}
+                                    anchorEl={responseSilverPopoverEl}
+                                    onClose={handleResponseSilverPopoverClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Typography className={classes.typography}>
+                                        <strong>Advance to intermediate steps: </strong>
+                                        Always stay below the point where the habit feels like work.
+                                        Stop before it seems like a hassle. 
+                                        Master the habit of showing up: 
+                                        A habit must be established before it can be improved.
+                                        Ex. Write 1 paragraph, Go to the gym for 10 minutes, etc.
+                                    </Typography>
+                                </Popover>
+                            </p>
                             <p className='habit-edit-description'>
                                 <TextField 
                                     id="outlined-basic" 
@@ -342,7 +414,38 @@ export default function HabitForm () {
                             <div className='habit-edit-icons'>
                                 <BatteryFull style={{ fontSize: 40, color: '#A0522D' }} />
                             </div>
-                            <p className='habit-edit-steps'>3C. Response - Gold</p>
+                            <p className='habit-edit-steps'>
+                                3C. Response - Gold
+                                <Button 
+                                    aria-describedby={goldId} 
+                                    onClick={handleResponseGoldPopoverClick}
+                                >
+                                    <InfoSharp />
+                                </Button>
+                                <Popover
+                                    id={goldId}
+                                    open={responseGoldOpen}
+                                    anchorEl={responseGoldPopoverEl}
+                                    onClose={handleResponseGoldPopoverClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Typography className={classes.typography}>
+                                        <strong>Keep advancing: </strong>
+                                        Once we've established the habit and showing up each day,
+                                        combine the 2-minute rule with habit shaping to scale the habit back up 
+                                        toward your ultimate goal.
+                                        Nearly any larger life goal can be transformed into a 2-minute behavior.
+                                        Ex. Write 1,000 words, Exercise for 15 minutes per week, etc.
+                                    </Typography>
+                                </Popover>
+                            </p>
                             <p className='habit-edit-description'>
                                 <TextField 
                                     id="outlined-basic" 
@@ -365,7 +468,37 @@ export default function HabitForm () {
                             <div className='habit-edit-icons'>
                                 <EmojiEvents style={{ fontSize: 40, color: '#A0522D' }} />
                             </div>
-                            <p className='habit-edit-steps'>4. Reward</p>
+                            <p className='habit-edit-steps'>
+                                4. Reward
+                                <Button 
+                                    aria-describedby={rewardId} 
+                                    onClick={handleRewardPopoverClick}
+                                >
+                                    <InfoSharp />
+                                </Button>
+                                <Popover
+                                    id={rewardId}
+                                    open={rewardOpen}
+                                    anchorEl={rewardPopoverEl}
+                                    onClose={handleRewardPopoverClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Typography className={classes.typography}>
+                                        <strong>Repeat the habit: </strong>
+                                        We're more likely to repeat a behavior when the experience is satisfying.
+                                        Give yourself an immediate reward when you complete your habit.
+                                        Pleasure teaches your brain that a behavior is worth remembering and repeating.
+                                        When is reward is repeated. What is punished is avoided.
+                                    </Typography>
+                                </Popover>
+                            </p>
                             <p className='habit-edit-description'>
                                 <span className='edit-text'>AFTER </span>
                                 <TextField 
