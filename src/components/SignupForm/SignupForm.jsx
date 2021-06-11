@@ -129,7 +129,7 @@ export default function SignupForm({ history, updateMessage }) {
                 <Button 
                     type='submit'
                     variant='contained' 
-                    style={{ backgroundColor: '#F4A460'}}
+                    style={{ backgroundColor: 'maroon', color: 'white'}}
                     disabled={isFormInvalid()}
                     onClick={handleSubmit}
                     className={classes.margin}

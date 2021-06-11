@@ -2,12 +2,13 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
-  margin-top: 20px;
+  margin: 35px 0px;
 }
 
 .steps {
   border-radius: 50%;
-  background-color: #F4A460;
+  background-color: beige;
+  color: maroon;
   margin: 10px 100px;
 }
 

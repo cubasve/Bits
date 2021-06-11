@@ -89,9 +89,12 @@ export default function App({ history }) {
 
     //DELETE
     const handleHabitDelete = async (event) => {
+        console.log('event: ', event);
         try {
             const data = await habitGeneratorService.removeHabit({ id: event });
+            console.log('data: ', data);
             setAllHabits(data.user.userHabitGenerator);
+            console.log('all habits: ', allHabits);
         } catch (err) {
             console.error(err);
         }
@@ -141,10 +144,9 @@ export default function App({ history }) {
                             exact path="/habitgenerator"
                             render={() => (
                                 userService.getUser() ?
-                                    // <HabitList location={location} />
                                     <HabitCreationPage />
                                 :
-                                <Redirect to="/login" />
+                                    <Redirect to="/login" />
                             )}
                         />
 
@@ -152,14 +154,12 @@ export default function App({ history }) {
                             exact path="/habitgenerator/:id"
                             render={({ location }) => (
                                 <HabitListPage location={location} />
-                                //<HabitInfo location={location} />
                             )}
                         />
 
                         <Route 
                             exact path="/habitgenerator/:id/edit"
                             render={({ location }) => 
-                                // <EditHabit {...props} />
                                 <HabitEditPage location={location} />
                             }
                         />      

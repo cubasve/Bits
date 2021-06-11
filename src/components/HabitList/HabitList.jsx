@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 import { 
     Button, 
     Card, 
-    Dialog, 
-    DialogActions, 
-    DialogContent, 
-    DialogContentText, 
-    DialogTitle,
+    // Dialog, 
+    // DialogActions, 
+    // DialogContent, 
+    // DialogContentText, 
+    // DialogTitle,
     Grid,
  } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -46,15 +46,15 @@ export default function GetHabitList ({ location }) {
     }, [ fetchData, isLoading ]);
 
     // MODAL
-    const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
+    // const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
 
-    const handleClickOpenDeleteDialog = () => {
-        setOpenDeleteDialog(true);
-    }
+    // const handleClickOpenDeleteDialog = () => {
+    //     setOpenDeleteDialog(true);
+    // }
 
-    const handleCloseDeleteDialog = () => {
-        setOpenDeleteDialog(false);
-    }
+    // const handleCloseDeleteDialog = () => {
+    //     setOpenDeleteDialog(false);
+    // }
 
     return (
         <div className="HabitList">
@@ -64,7 +64,7 @@ export default function GetHabitList ({ location }) {
             </Grid>
 
             {allHabits.map((habit) => (
-                <Card key={habit._id} variant='outlined'>
+                <Card key={habit.cueBehavior} variant='outlined'>
                     <Button>
                         <Link 
                             to={{
@@ -88,14 +88,16 @@ export default function GetHabitList ({ location }) {
                     </Button>
                     
                     {/* DELETE */}
-                    <Button onClick={handleClickOpenDeleteDialog}>
+                    <Button 
+                        onClick={() => handleHabitDelete(habit._id)}
+                    >
                         <DeleteIcon style={{ color: 'black' }} />
                     </Button>
-                    <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-                        <DialogTitle>DELETE HABIT</DialogTitle>
-                        <DialogContent /*dividers*/>
+                    {/* <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
+                        <DialogTitle>Delete Habit</DialogTitle>
+                        <DialogContent dividers>
                             <DialogContentText>
-                                Are you sure you want to delete this habit?
+                                Are you sure you want to delete the habit named {habit.cueBehavior} {habit._id}?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
@@ -111,7 +113,7 @@ export default function GetHabitList ({ location }) {
                                 Delete
                             </Button>
                         </DialogActions>
-                    </Dialog>
+                    </Dialog> */}
                 </Card>
             ))}
         </div>

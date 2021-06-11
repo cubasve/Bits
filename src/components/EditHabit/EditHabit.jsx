@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HabitContext from '../../context/Habit';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
 import { Card } from '@material-ui/core';
 import { 
     Battery20, 
@@ -44,35 +44,15 @@ export default function EditHabit({ location }) {
 
     return (
         <>
-            <form className={classes.root} onSubmit={handleSubmit}>
-                <Button 
-                    onClick={handleSubmit} 
-                    // component={Link}
-                    // to={{
-                    //     pathname: `/habitgenerator/${habitData._id}`,
-                    //     state: { habitData },
-                    // }}
-                    variant='contained' 
-                    style={{ backgroundColor: '#F4A460' }}
-                    className={classes.button}
-                >
-                    Save Updated Habit
-                </Button>
-                <Button 
-                    component={Link} 
-                    to='/habitgenerator' 
-                    variant='contained'
-                    className={classes.button}
-                >
-                    Cancel
-                </Button>
+            <Typography variant='h5'>EDIT A HABIT</Typography>
 
+            <form className={classes.root} onSubmit={handleSubmit}>
                 <div className="EditHabitInfo">
                     {/* CUE */}
                     <div className='edit-infoBorder'>
                         <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                             <div className='habit-edit-icons'>
-                                <WatchLater style={{ fontSize: 40, color: '#A0522D' }} />
+                                <WatchLater style={{ fontSize: 40, color: 'maroon' }} />
                             </div>
                             <p className='habit-edit-steps'>1. Cue</p>
                             <p className='habit-edit-description'>
@@ -127,7 +107,7 @@ export default function EditHabit({ location }) {
                     <div className='edit-infoBorder'>
                         <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                             <div className='habit-edit-icons'>
-                                <EmojiObjects style={{ fontSize: 40, color: '#A0522D' }} />
+                                <EmojiObjects style={{ fontSize: 40, color: 'maroon' }} />
                             </div>
                             <p className='habit-edit-steps'>2. Craving</p>
                             <p className='habit-edit-description'>
@@ -165,7 +145,7 @@ export default function EditHabit({ location }) {
                     <div className='edit-infoBorder'>
                         <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                             <div className='habit-edit-icons'>
-                                <Battery20 style={{ fontSize: 40, color: '#A0522D' }} />
+                                <Battery20 style={{ fontSize: 40, color: 'maroon' }} />
                             </div>
                             <p className='habit-edit-steps'>3A. Response - Bronze</p>
                             <p className='habit-edit-description'>
@@ -188,7 +168,7 @@ export default function EditHabit({ location }) {
                     <div className='edit-infoBorder'>
                         <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                             <div className='habit-edit-icons'>
-                                <Battery50 style={{ fontSize: 40, color: '#A0522D' }} />
+                                <Battery50 style={{ fontSize: 40, color: 'maroon' }} />
                             </div>
                             <p className='habit-edit-steps'>3B. Response - Silver</p>
                             <p className='habit-edit-description'>
@@ -211,7 +191,7 @@ export default function EditHabit({ location }) {
                     <div className='edit-infoBorder'>
                         <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                             <div className='habit-edit-icons'>
-                                <BatteryFull style={{ fontSize: 40, color: '#A0522D' }} />
+                                <BatteryFull style={{ fontSize: 40, color: 'maroon' }} />
                             </div>
                             <p className='habit-edit-steps'>3C. Response - Gold</p>
                             <p className='habit-edit-description'>
@@ -234,7 +214,7 @@ export default function EditHabit({ location }) {
                     <div className='edit-infoBorder'>
                         <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                             <div className='habit-edit-icons'>
-                                <EmojiEvents style={{ fontSize: 40, color: '#A0522D' }} />
+                                <EmojiEvents style={{ fontSize: 40, color: 'maroon' }} />
                             </div>
                             <p className='habit-edit-steps'>4. Reward</p>
                             <p className='habit-edit-description'>
@@ -268,6 +248,28 @@ export default function EditHabit({ location }) {
                         </Card>
                     </div>
                 </div>
+
+                <Button 
+                    onClick={handleSubmit} 
+                    // component={Link}
+                    // to={{
+                    //     pathname: `/habitgenerator/${habitData._id}`,
+                    //     state: { habitData },
+                    // }}
+                    variant='contained' 
+                    style={{ backgroundColor: 'maroon', color: 'white' }}
+                    className={classes.button}
+                >
+                    Save Updated Habit
+                </Button>
+                <Button 
+                    component={Link} 
+                    to='/habitgenerator' 
+                    variant='contained'
+                    className={classes.button}
+                >
+                    Cancel
+                </Button>
             </form>
         </>
     );

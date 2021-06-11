@@ -87,4 +87,4 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
 
   - Make {user.name}'s Habits its own line or remove it completely for mobile screens
 
-- Add examples of common habits (ex. exercise, read, etc.) for new users
+- **Using Material-UI's Dialog for delete functionality deletes the last habit in the array:**

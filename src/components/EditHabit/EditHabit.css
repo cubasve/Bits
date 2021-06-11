@@ -18,7 +18,7 @@
 
 .edit-text {
     font-size: calc(20px + 1vmin);
-    color: #A0522D;
+    color: maroon;
 }
 
 @media only screen and (max-width: 999px) {

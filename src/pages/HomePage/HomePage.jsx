@@ -21,7 +21,7 @@ export default function HomePage() {
                 component={Link}
                 to='/habitgenerator'
                 variant='contained' 
-                style={{ backgroundColor: '#F4A460' }}>
+                style={{ backgroundColor: 'maroon', color: 'white' }}>
                 Get Started
             </Button>
             <div className="cards">

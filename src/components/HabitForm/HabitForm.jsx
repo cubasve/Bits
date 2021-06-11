@@ -127,24 +127,8 @@ export default function HabitForm () {
 
     return (
         <>
+            <Typography variant='h5'>ADD A NEW HABIT</Typography>
             <form className={classes.root} onSubmit={handleHabitSubmit}>
-                <Button 
-                    onClick={handleHabitSubmit} 
-                    variant='contained' 
-                    style={{ backgroundColor: '#F4A460' }}
-                    className={classes.button}
-                >
-                    Add New Habit
-                </Button>
-                <Button 
-                    component={Link} 
-                    to='/' 
-                    variant='contained'
-                    className={classes.button}
-                >
-                    Cancel
-                </Button>
-
                 <div className="EditHabitInfo">
                     {/* CUE */}
                     <div className='create-infoBorder'>
@@ -155,7 +139,7 @@ export default function HabitForm () {
                                         <WatchLater 
                                             style={{ 
                                                 fontSize: 25, 
-                                                color: '#A0522D', 
+                                                color: 'maroon', 
                                             }} 
                                         />
                                     </Button>
@@ -254,7 +238,7 @@ export default function HabitForm () {
                                         <EmojiObjects 
                                             style={{ 
                                                 fontSize: 28, 
-                                                color: '#A0522D' 
+                                                color: 'maroon' 
                                             }} 
                                         />
                                     </Button>
@@ -335,7 +319,7 @@ export default function HabitForm () {
                                         <Battery20 
                                             style={{ 
                                                 fontSize: 25, 
-                                                color: '#A0522D' 
+                                                color: 'maroon' 
                                             }} 
                                         />
                                     </Button>
@@ -401,7 +385,7 @@ export default function HabitForm () {
                                         <Battery50 
                                             style={{ 
                                                 fontSize: 25, 
-                                                color: '#A0522D' 
+                                                color: 'maroon' 
                                             }} 
                                         />
                                     </Button>
@@ -468,7 +452,7 @@ export default function HabitForm () {
                                         <BatteryFull 
                                             style={{ 
                                                 fontSize: 25, 
-                                                color: '#A0522D' 
+                                                color: 'maroon' 
                                             }} 
                                         />
                                     </Button>
@@ -535,7 +519,7 @@ export default function HabitForm () {
                                         <EmojiEvents 
                                             style={{ 
                                                 fontSize: 25, 
-                                                color: '#A0522D' 
+                                                color: 'maroon' 
                                             }} 
                                         />
                                     </Button>
@@ -608,6 +592,23 @@ export default function HabitForm () {
                         </Card>
                     </div>
                 </div>
+
+                <Button 
+                    onClick={handleHabitSubmit} 
+                    variant='contained' 
+                    style={{ backgroundColor: 'maroon', color: 'white' }}
+                    className={classes.button}
+                >
+                    Add New Habit
+                </Button>
+                <Button 
+                    component={Link} 
+                    to='/' 
+                    variant='contained'
+                    className={classes.button}
+                >
+                    Cancel
+                </Button>
             </form>
         </>
     );

@@ -75,6 +75,8 @@ async function remove(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
         const habitId = user.userHabitGenerator.id(req.body.id);
+        console.log('req.user: ', req.user);
+        console.log('habitID: ', req.body.id);
         
         habitId.remove();
         await user.save();

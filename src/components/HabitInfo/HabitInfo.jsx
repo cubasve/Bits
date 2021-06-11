@@ -28,7 +28,7 @@ export default function getHabitInfo({ location }) {
             <div className='infoBorder'>
                 <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                     <div className='habit-icons'>
-                        <WatchLater style={{ fontSize: 40, color: '#A0522D' }} />
+                        <WatchLater style={{ fontSize: 40, color: 'maroon' }} />
                     </div>
                     <p className='habit-steps'>1. Cue</p>
                     <p className='habit-description'>
@@ -41,7 +41,7 @@ export default function getHabitInfo({ location }) {
             <div className='infoBorder'>
                 <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                     <div className='habit-icons'>
-                        <EmojiObjects  style={{ fontSize: 40, color: '#A0522D' }} />
+                        <EmojiObjects  style={{ fontSize: 40, color: 'maroon' }} />
                     </div>
                     <p className='habit-steps'>2. Craving</p>
                     <p className='habit-description'>
@@ -54,7 +54,7 @@ export default function getHabitInfo({ location }) {
             <div className='infoBorder'>
                 <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                     <div className='habit-icons'>
-                        <Battery20 style={{ fontSize: 40, color: '#A0522D' }} />
+                        <Battery20 style={{ fontSize: 40, color: 'maroon' }} />
                     </div>
                     <p className='habit-steps'>3A. Response - Bronze</p>
                     <p className='habit-description'>{responseBronze}</p>
@@ -65,7 +65,7 @@ export default function getHabitInfo({ location }) {
             <div className='infoBorder'>
                 <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                     <div className='habit-icons'>
-                        <Battery50 style={{ fontSize: 40, color: '#A0522D' }} />
+                        <Battery50 style={{ fontSize: 40, color: 'maroon' }} />
                     </div>
                     <p className='habit-steps'>3B. Response - Silver</p>
                     <p className='habit-description'>{responseSilver}</p>
@@ -76,7 +76,7 @@ export default function getHabitInfo({ location }) {
             <div className='infoBorder'>
                 <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                     <div className='habit-icons'>
-                        <BatteryFull style={{ fontSize: 40, color: '#A0522D' }} />
+                        <BatteryFull style={{ fontSize: 40, color: 'maroon' }} />
                     </div>
                     <p className='habit-steps'>3C. Response - Gold</p>
                     <p className='habit-description'>{responseGold}</p>
@@ -87,7 +87,7 @@ export default function getHabitInfo({ location }) {
             <div className='infoBorder'>
                 <Card variant='outlined' style={{ backgroundColor: 'beige'}}>
                     <div className='habit-icons'>
-                        <EmojiEvents style={{ fontSize: 40, color: '#A0522D' }} />
+                        <EmojiEvents style={{ fontSize: 40, color: 'maroon' }} />
                     </div>
 
                     <p className='habit-steps'>4. Reward</p>
