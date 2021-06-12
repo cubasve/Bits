@@ -3,6 +3,7 @@ import habitGeneratorService from '../../utils/habitGeneratorService';
 import HabitContext from '../../context/Habit';
 import UserContext from '../../context/User';
 import './HabitList.css';
+import ConfirmDialog from '../ConfirmDialog';
 
 import { Link } from 'react-router-dom';
 import { 
@@ -46,15 +47,15 @@ export default function GetHabitList ({ location }) {
     }, [ fetchData, isLoading ]);
 
     // MODAL
-    // const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
+    const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
 
-    // const handleClickOpenDeleteDialog = () => {
-    //     setOpenDeleteDialog(true);
-    // }
+    const handleClickOpenDeleteDialog = () => {
+        setOpenDeleteDialog(true);
+    }
 
-    // const handleCloseDeleteDialog = () => {
-    //     setOpenDeleteDialog(false);
-    // }
+    const handleCloseDeleteDialog = () => {
+        setOpenDeleteDialog(false);
+    }
 
     return (
         <div className="HabitList">
@@ -89,10 +90,17 @@ export default function GetHabitList ({ location }) {
                     
                     {/* DELETE */}
                     <Button 
-                        onClick={() => handleHabitDelete(habit._id)}
+                        onClick={() => setOpenDeleteDialog(true)}
+                        //onClick={() => handleHabitDelete(habit._id)}
                     >
                         <DeleteIcon style={{ color: 'black' }} />
                     </Button>
+                    <ConfirmDialog 
+                        openDeleteDialog={openDeleteDialog}
+                        setOpenDeleteDialog={setOpenDeleteDialog}
+                        habit={habit}
+                        onConfirm={() => handleHabitDelete(habit._id)}
+                    />
                     {/* <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
                         <DialogTitle>Delete Habit</DialogTitle>
                         <DialogContent dividers>

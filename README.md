@@ -13,17 +13,13 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
 
 ## Screenshots of Application:
 
-![image](https://user-images.githubusercontent.com/62129720/121422016-c37e7f00-c93c-11eb-87b0-8931321a6aa2.png)
+![image](https://user-images.githubusercontent.com/62129720/121761882-9975ba00-cb00-11eb-8cc9-63a6ce56465f.png)
 
-![image](https://user-images.githubusercontent.com/62129720/121422257-0a6c7480-c93d-11eb-90a6-593c171e4f29.png)
+![image](https://user-images.githubusercontent.com/62129720/121761904-bc07d300-cb00-11eb-850f-e4969e6b2890.png)
 
-![image](https://user-images.githubusercontent.com/62129720/121422596-646d3a00-c93d-11eb-8f68-39612870b8e7.png)
+![image](https://user-images.githubusercontent.com/62129720/121761919-d04bd000-cb00-11eb-9d61-a82ce2e96f4c.png)
 
-![image](https://user-images.githubusercontent.com/62129720/121422740-8666bc80-c93d-11eb-8eff-d56a6e8980ea.png)
-
-![image](https://user-images.githubusercontent.com/62129720/121422662-73ec8300-c93d-11eb-8715-de08b56bdf91.png)
-
-![image](https://user-images.githubusercontent.com/62129720/121423124-efe6cb00-c93d-11eb-9ccc-82b5fcb7aca0.png)
+![image](https://user-images.githubusercontent.com/62129720/121761943-ff624180-cb00-11eb-91a9-60fec455ef65.png)
 
 ## Technologies Used:
 
@@ -72,6 +68,8 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
 - **Incorporate a habit tracking system:**
 
   - Users would be able to track their habits daily and which response they did for that day (bronze, silver, or gold)
+  - The current route to create a new habit is /habitgenerator
+  - Change it to /habitgenerator/create and the /habitgenerator route will be a tracker instead
 
 - **When a habit is created or updated, redirect the user to that specific habit:**
 
