@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import HabitContext from '../../context/Habit';
+import { HabitContext } from '../../context/HabitContext';
 import { Link } from 'react-router-dom';
 import { 
     Button, 
@@ -41,9 +41,10 @@ export default function HabitForm () {
         newHabit, 
         handleInputChange, 
         handleHabitSubmit,
-        // habitFormRef,
-        // formValid, 
+        habitFormRef,
+        formValid, 
     } = useContext(HabitContext);
+    //console.log('habitFormRef: ', habitFormRef.current);
 
     const classes = useStyles();
     const [cuePopoverEl, setCuePopoverEl] = useState(null);
@@ -128,7 +129,7 @@ export default function HabitForm () {
     return (
         <>
             <Typography variant='h5'>ADD A NEW HABIT</Typography>
-            <form className={classes.root} onSubmit={handleHabitSubmit}>
+            <form className={classes.root} ref={habitFormRef} onSubmit={handleHabitSubmit}>
                 <div className="EditHabitInfo">
                     {/* CUE */}
                     <div className='create-infoBorder'>

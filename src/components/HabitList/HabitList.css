@@ -21,4 +21,13 @@
     width: 98%;
     margin: 5px 5px;
   }
+
+  .user-habit-banner {
+    /* visibility: hidden; */
+    /* Hides the elements, but still takes up space in the layout */
+    display: none;
+    /* Turns off the display and removes element from document 
+      (doesn't take up any space)
+    */
+  }
 }

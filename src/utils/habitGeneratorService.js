@@ -17,7 +17,10 @@ async function showHabit() {
             'Authorization': 'Bearer ' + tokenService.getToken()
         },
     }
-    return fetch(BASE_URL, options).then(res => res.json());  
+    const response = await fetch(BASE_URL, options);
+    const data = await response.json();
+    return data;
+    //return fetch(BASE_URL, options).then(res => res.json());  
 }
 
 // function showOneHabit(habitData) {

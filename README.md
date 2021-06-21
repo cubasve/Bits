@@ -13,13 +13,15 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
 
 ## Screenshots of Application:
 
-![image](https://user-images.githubusercontent.com/62129720/121761882-9975ba00-cb00-11eb-8cc9-63a6ce56465f.png)
+![image](https://user-images.githubusercontent.com/62129720/121761991-5c5df780-cb01-11eb-9868-c2874f8d5f31.png)
 
-![image](https://user-images.githubusercontent.com/62129720/121761904-bc07d300-cb00-11eb-850f-e4969e6b2890.png)
+![image](https://user-images.githubusercontent.com/62129720/121762071-a7780a80-cb01-11eb-904d-85daaa0c6f9a.png)
 
-![image](https://user-images.githubusercontent.com/62129720/121761919-d04bd000-cb00-11eb-9d61-a82ce2e96f4c.png)
+![image](https://user-images.githubusercontent.com/62129720/121762017-75ff3f00-cb01-11eb-83bf-7090b9ae1a04.png)
 
-![image](https://user-images.githubusercontent.com/62129720/121761943-ff624180-cb00-11eb-91a9-60fec455ef65.png)
+![image](https://user-images.githubusercontent.com/62129720/121762037-8dd6c300-cb01-11eb-828e-4367b4394c27.png)
+
+![image](https://user-images.githubusercontent.com/62129720/121762113-e4dc9800-cb01-11eb-810c-5831e28b9d46.png)
 
 ## Technologies Used:
 
@@ -43,7 +45,7 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
 
 ## Next Steps: Planned Future Enhancements
 
-- **Incorporate popovers:**
+- ~~Incorporate popovers:~~
 
   - Futher explain the system and its steps on the habit form page
   - Focus on the 3 types of responses (bronze, silver, gold)
@@ -70,6 +72,7 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
   - Users would be able to track their habits daily and which response they did for that day (bronze, silver, or gold)
   - The current route to create a new habit is /habitgenerator
   - Change it to /habitgenerator/create and the /habitgenerator route will be a tracker instead
+  - Have only the route /habitgenerator in App.js and then have the remaining routes (/:id, /:id/edit) in its component (nested routing)
 
 - **When a habit is created or updated, redirect the user to that specific habit:**
 
@@ -81,7 +84,7 @@ Instead of focusing on goals (results you want to achieve), focus on systems (pr
 
 - **Improve the navbar styling:**
 
-- **Improve the app for mobile screens:**
+- ~~Improve the app for mobile screens:~~
 
   - Make {user.name}'s Habits its own line or remove it completely for mobile screens
 
