@@ -27,10 +27,3 @@ export const UserProvider = ({ children }) => {
 		<UserContext.Provider value={context}>{children}</UserContext.Provider>
 	);
 };
-
-// const UserContext = React.createContext({
-// 	user: {},
-// 	setUser: () => {},
-// });
-
-// export default UserContext;

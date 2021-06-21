@@ -108,12 +108,3 @@ export const HabitProvider = ({ children }) => {
 		<HabitContext.Provider value={context}>{children}</HabitContext.Provider>
 	);
 };
-// const HabitContext = React.createContext({
-//     newHabit: {},
-//     setNewHabit: () => {},
-
-//     allHabits: [],
-//     setAllHabits: () => {},
-// });
-
-// export default HabitContext;
