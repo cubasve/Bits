@@ -7,6 +7,7 @@ import ConfirmDialog from "../ConfirmDialog";
 
 import { Link } from "react-router-dom";
 import {
+	Box,
 	Button,
 	Card,
 	// Dialog,
@@ -18,7 +19,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
-export default function GetHabitList({ location }) {
+export default function GetHabitList({ classes }) {
 	const { allHabits, setAllHabits, handleHabitDelete } =
 		useContext(HabitContext);
 	const { user } = useContext(UserContext);
@@ -58,7 +59,7 @@ export default function GetHabitList({ location }) {
 
 			{allHabits.map((habit) => (
 				<Card key={habit.cueBehavior} variant="outlined">
-					<Button>
+					<Box component="span">
 						<Link
 							to={{
 								pathname: `/habitgenerator/${habit._id}`,
@@ -68,7 +69,7 @@ export default function GetHabitList({ location }) {
 						>
 							{habit.cueBehavior}
 						</Link>
-					</Button>
+					</Box>
 
 					{/* EDIT */}
 					<Button

@@ -1,8 +1,16 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { HabitContext } from "../../context/HabitContext";
-import { Button, TextField, Typography } from "@material-ui/core";
-import { Card } from "@material-ui/core";
+import {
+	Button,
+	Card,
+	CardContent,
+	CardHeader,
+	Divider,
+	TextField,
+	Typography,
+} from "@material-ui/core";
+import { Formik, Form } from "formik";
 import {
 	Battery20,
 	Battery50,
@@ -42,21 +50,56 @@ export default function EditHabit({ history, location }) {
 		handleHabitUpdate(habitData);
 		history.push("/habitgenerator");
 	};
+	const { cueBehavior } = habitData;
 
 	return (
 		<>
 			<Typography variant="h5">EDIT A HABIT</Typography>
+			<Card>
+				<CardHeader title="EDIT A HABIT" />
+				<Divider />
+				<CardContent>
+					<Formik
+						initialValues={{
+							cueBehavior: cueBehavior,
+						}}
+					>
+						{({ errors, handleChange, touched }) => (
+							<Form>
+								<TextField
+									id="outlined-basic"
+									label="Behavior"
+									variant="outlined"
+									name="cueBehavior"
+									value=""
+									onChange={handleChange}
+									required
+									pattern=".{2,}"
+									size="small"
+								/>
+							</Form>
+						)}
+					</Formik>
+				</CardContent>
+			</Card>
 
 			<form className={classes.root} onSubmit={handleSubmit}>
 				<div className="EditHabitInfo">
 					{/* CUE */}
 					<div className="edit-infoBorder">
 						<Card variant="outlined" style={{ backgroundColor: "beige" }}>
-							<div className="habit-edit-icons">
-								<WatchLater style={{ fontSize: 40, color: "maroon" }} />
-							</div>
-							<p className="habit-edit-steps">1. Cue</p>
-							<p className="habit-edit-description">
+							<CardHeader
+								title={
+									<span style={{ fontSize: 25, fontWeight: "bold" }}>
+										1. Cue
+									</span>
+								}
+								avatar={
+									<WatchLater style={{ fontSize: 40, color: "maroon" }} />
+								}
+							/>
+							<Divider />
+							<CardContent>
 								<span className="edit-text">I WILL </span>
 								<TextField
 									id="outlined-basic"
@@ -100,7 +143,7 @@ export default function EditHabit({ history, location }) {
 									pattern=".{2,}"
 									size="small"
 								/>
-							</p>
+							</CardContent>
 						</Card>
 					</div>
 
