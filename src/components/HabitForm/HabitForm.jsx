@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { HabitContext } from "../../context/HabitContext";
 import { Link } from "react-router-dom";
-import { Formik } from "formik";
+import { Field, Formik } from "formik";
 import { Button, Popover, TextField, Typography } from "@material-ui/core";
 import { Card } from "@material-ui/core";
 import {
@@ -34,7 +34,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HabitForm() {
 	const {
-		newHabit,
+		newHabit: {
+			cueBehavior,
+			cueTime,
+			cueLocation,
+			currentHabit,
+			responseBronze,
+			responseSilver,
+			responseGold,
+			wantedHabit,
+		},
 		handleInputChange,
 		handleHabitSubmit,
 		habitFormRef,
@@ -122,8 +131,116 @@ export default function HabitForm() {
 	const rewardOpen = Boolean(rewardPopoverEl);
 	const rewardId = rewardOpen ? "simple-popover" : undefined;
 
+	const initialValues = {
+		cueBehavior: "",
+		cueTime: "",
+		cueLocation: "",
+		currentHabit: "",
+		responseBronze: "",
+		responseSilver: "",
+		responseGold: "",
+		wantedHabit: "",
+	};
+
 	return (
 		<>
+			<Formik initialValues={initialValues}>
+				{({
+					errors,
+					handleChange,
+					handleSubmit,
+					isSubmitting,
+					setFieldValue,
+					touched,
+					values,
+				}) => (
+					<form onSubmit={handleSubmit}>
+						<TextField
+							id="outlined-basic"
+							label="Behavior"
+							variant="outlined"
+							name="cueBehavior"
+							value={values.cueBehavior}
+							onChange={handleChange}
+							required
+							pattern=".{2,}"
+							size="small"
+						/>
+						<Field name="cueBehavior">
+							{({ field, meta }) => (
+								<TextField
+									{...field}
+									error={meta.touched && meta.error}
+									label="Behavior"
+									required
+									size="small"
+									variant="outlined"
+								/>
+							)}
+						</Field>
+						<TextField
+							id="time"
+							label="Time"
+							type="time"
+							variant="outlined"
+							name="cueTime"
+							value={values.cueTime}
+							onChange={handleInputChange}
+							required
+							pattern=".{2,}"
+							InputLabelProps={{
+								shrink: true,
+							}}
+							inputProps={{
+								step: 300, // 5 min
+							}}
+							size="small"
+						/>
+						<Field name="cueTime">
+							{({ field, meta }) => (
+								<TextField
+									{...field}
+									error={meta.touched && meta.error}
+									InputLabelProps={{
+										shrink: true,
+									}}
+									inputProps={{
+										step: 300, // 5 min
+									}}
+									label="Time"
+									required
+									size="small"
+									type="time"
+									variant="outlined"
+								/>
+							)}
+						</Field>
+						<TextField
+							id="outlined-basic"
+							label="Location"
+							variant="outlined"
+							name="cueLocation"
+							value={cueLocation}
+							onChange={handleInputChange}
+							required
+							pattern=".{2,}"
+							size="small"
+						/>
+						<Field name="cueLocation">
+							{({ field, meta }) => (
+								<TextField
+									{...field}
+									error={meta.touched && meta.error}
+									label="Location"
+									required
+									size="small"
+									variant="outlined"
+								/>
+							)}
+						</Field>
+					</form>
+				)}
+			</Formik>
 			<Typography variant="h5">ADD A NEW HABIT</Typography>
 			<form
 				className={classes.root}
@@ -189,7 +306,7 @@ export default function HabitForm() {
 									label="Behavior"
 									variant="outlined"
 									name="cueBehavior"
-									value={newHabit.cueBehavior}
+									value={cueBehavior}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -202,7 +319,7 @@ export default function HabitForm() {
 									type="time"
 									variant="outlined"
 									name="cueTime"
-									value={newHabit.cueTime}
+									value={cueTime}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -220,7 +337,7 @@ export default function HabitForm() {
 									label="Location"
 									variant="outlined"
 									name="cueLocation"
-									value={newHabit.cueLocation}
+									value={cueLocation}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -289,7 +406,7 @@ export default function HabitForm() {
 									label="Current Habit"
 									variant="outlined"
 									name="currentHabit"
-									value={newHabit.currentHabit}
+									value={currentHabit}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -303,7 +420,7 @@ export default function HabitForm() {
 									label="Habit I Need"
 									variant="outlined"
 									name="cueBehavior"
-									value={newHabit.cueBehavior}
+									value={cueBehavior}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -371,7 +488,7 @@ export default function HabitForm() {
 									label="Bronze"
 									variant="outlined"
 									name="responseBronze"
-									value={newHabit.responseBronze}
+									value={responseBronze}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -437,7 +554,7 @@ export default function HabitForm() {
 									label="Silver"
 									variant="outlined"
 									name="responseSilver"
-									value={newHabit.responseSilver}
+									value={responseSilver}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -504,7 +621,7 @@ export default function HabitForm() {
 									label="Gold"
 									variant="outlined"
 									name="responseGold"
-									value={newHabit.responseGold}
+									value={responseGold}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -573,7 +690,7 @@ export default function HabitForm() {
 									label="Habit I Need"
 									variant="outlined"
 									name="cueBehavior"
-									value={newHabit.cueBehavior}
+									value={cueBehavior}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
@@ -587,7 +704,7 @@ export default function HabitForm() {
 									label="Habit I Want"
 									variant="outlined"
 									name="wantedHabit"
-									value={newHabit.wantedHabit}
+									value={wantedHabit}
 									onChange={handleInputChange}
 									required
 									pattern=".{2,}"
