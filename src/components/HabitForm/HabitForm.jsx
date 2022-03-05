@@ -15,6 +15,7 @@ import {
 } from "@material-ui/icons";
 import "./HabitForm.css";
 import { makeStyles } from "@material-ui/core/styles";
+import { object, string } from "yup";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -140,11 +141,27 @@ export default function HabitForm() {
 		responseSilver: "",
 		responseGold: "",
 		wantedHabit: "",
+		currentHabit: "",
 	};
+
+	const validationSchema = object().shape({
+		cueBehavior: string().required("Behavior/Habit is required"),
+		cueTime: string().required("Time of habit is required"),
+		cueLocation: string().required("Location of habit is required"),
+		responseBronze: string().required("Bronze response is required"),
+		responseSilver: string().required("Silver response is required"),
+		responseGold: string().required("Gold response is required"),
+		wantedHabit: string().required("Wanted Habit is required"),
+		currentHabit: string().required("Current Habit is required"),
+	});
 
 	return (
 		<>
-			<Formik initialValues={initialValues}>
+			<Formik
+				initialValues={initialValues}
+				onSubmit={handleHabitSubmit}
+				validationSchema={validationSchema}
+			>
 				{({
 					errors,
 					handleChange,
@@ -155,52 +172,24 @@ export default function HabitForm() {
 					values,
 				}) => (
 					<form onSubmit={handleSubmit}>
-						<TextField
-							id="outlined-basic"
-							label="Behavior"
-							variant="outlined"
-							name="cueBehavior"
-							value={values.cueBehavior}
-							onChange={handleChange}
-							required
-							pattern=".{2,}"
-							size="small"
-						/>
 						<Field name="cueBehavior">
 							{({ field, meta }) => (
 								<TextField
 									{...field}
 									error={meta.touched && meta.error}
+									helperText={meta.touched && meta.error}
 									label="Behavior"
-									required
 									size="small"
 									variant="outlined"
 								/>
 							)}
 						</Field>
-						<TextField
-							id="time"
-							label="Time"
-							type="time"
-							variant="outlined"
-							name="cueTime"
-							value={values.cueTime}
-							onChange={handleInputChange}
-							required
-							pattern=".{2,}"
-							InputLabelProps={{
-								shrink: true,
-							}}
-							inputProps={{
-								step: 300, // 5 min
-							}}
-							size="small"
-						/>
 						<Field name="cueTime">
 							{({ field, meta }) => (
 								<TextField
 									{...field}
 									error={meta.touched && meta.error}
+									helperText={meta.touched && meta.error}
 									InputLabelProps={{
 										shrink: true,
 									}}
@@ -208,36 +197,105 @@ export default function HabitForm() {
 										step: 300, // 5 min
 									}}
 									label="Time"
-									required
 									size="small"
 									type="time"
 									variant="outlined"
 								/>
 							)}
 						</Field>
-						<TextField
-							id="outlined-basic"
-							label="Location"
-							variant="outlined"
-							name="cueLocation"
-							value={cueLocation}
-							onChange={handleInputChange}
-							required
-							pattern=".{2,}"
-							size="small"
-						/>
+
 						<Field name="cueLocation">
 							{({ field, meta }) => (
 								<TextField
 									{...field}
 									error={meta.touched && meta.error}
+									helperText={meta.touched && meta.error}
 									label="Location"
-									required
 									size="small"
 									variant="outlined"
 								/>
 							)}
 						</Field>
+
+						<Field name="currentHabit">
+							{({ field, meta }) => (
+								<TextField
+									{...field}
+									error={meta.touched && meta.error}
+									helperText={meta.touched && meta.error}
+									label="Current Habit"
+									size="small"
+									variant="outlined"
+								/>
+							)}
+						</Field>
+
+						<Field name="responseBronze">
+							{({ field, meta }) => (
+								<TextField
+									{...field}
+									error={meta.touched && meta.error}
+									helperText={meta.touched && meta.error}
+									label="Bronze"
+									size="small"
+									variant="outlined"
+								/>
+							)}
+						</Field>
+						<Field name="responseSilver">
+							{({ field, meta }) => (
+								<TextField
+									{...field}
+									error={meta.touched && meta.error}
+									helperText={meta.touched && meta.error}
+									label="Silver"
+									size="small"
+									variant="outlined"
+								/>
+							)}
+						</Field>
+						<Field name="responseGold">
+							{({ field, meta }) => (
+								<TextField
+									{...field}
+									error={meta.touched && meta.error}
+									helperText={meta.touched && meta.error}
+									label="Gold"
+									size="small"
+									variant="outlined"
+								/>
+							)}
+						</Field>
+
+						<Field name="wantedHabit">
+							{({ field, meta }) => (
+								<TextField
+									{...field}
+									error={meta.touched && meta.error}
+									helperText={meta.touched && meta.error}
+									label="Habit I Want"
+									size="small"
+									variant="outlined"
+								/>
+							)}
+						</Field>
+						<Button
+							disabled={isSubmitting}
+							variant="contained"
+							style={{ backgroundColor: "maroon", color: "white" }}
+							className={classes.button}
+							type="submit"
+						>
+							Add A New Habit
+						</Button>
+						<Button
+							component={Link}
+							to="/"
+							variant="contained"
+							className={classes.button}
+						>
+							Cancel
+						</Button>
 					</form>
 				)}
 			</Formik>
