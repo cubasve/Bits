@@ -6,6 +6,11 @@ import {
 	Box,
 	Button,
 	Card,
+	CardContent,
+	CardHeader,
+	Divider,
+	Icon,
+	IconButton,
 	Paper,
 	Popover,
 	Step,
@@ -48,26 +53,18 @@ const useStyles = makeStyles((theme) => ({
 const steps = [
 	{
 		label: "Cue: Notice the Reward",
-		description: `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`,
 	},
+
 	{
 		label: "Craving: Want the Reward",
-		description:
-			"An ad group contains one or more ads which target a shared set of keywords.",
 	},
+
 	{
 		label: "Response: Obtain the Reward",
-		description: `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues'`,
 	},
+
 	{
 		label: "Reward: Repeat the Habit",
-		description:
-			"xyzjkweiuew rwgwiouehgu aieghiuwehguwehg iwehgwaiueghowei irhiuewhgui",
 	},
 ];
 
@@ -150,6 +147,13 @@ export default function HabitForm() {
 		currentHabit: "",
 	};
 
+	const formSteps = [
+		["cueBehavior", "cueTime", "cueLocation"],
+		["currentHabit", "cueBehavior"],
+		["responseBronze", "responseSilver", "responseGold"],
+		["cueBehavior", "wantedHabit"],
+	];
+
 	const validationSchema = object().shape({
 		cueBehavior: string().required("Behavior/Habit is required"),
 		cueTime: string().required("Time of habit is required"),
@@ -165,10 +169,10 @@ export default function HabitForm() {
 		<Box>
 			<Typography variant="h5">ADD A NEW HABIT</Typography>
 			<Stepper activeStep={activeStep} orientation="vertical">
-				{steps.map(({ label, description }, index) => (
+				{steps.map(({ label }) => (
 					<Step key={label}>
-						<StepLabel>
-							<Typography variant="h6" sx={{ textAlign: "left" }}>
+						<StepLabel sx={{ color: "maroon" }}>
+							<Typography variant="h6" style={{ textAlign: "left" }}>
 								{label}
 							</Typography>
 						</StepLabel>
@@ -186,77 +190,95 @@ export default function HabitForm() {
 										console.error(e);
 									}
 								}}
-								validationSchema={validationSchema}
+								validationSchema={validationSchema.pick(formSteps[activeStep])}
 							>
-								{({
-									errors,
-									handleChange,
-									handleSubmit,
-									isSubmitting,
-									setFieldValue,
-									touched,
-									values,
-								}) => (
+								{({ handleSubmit, isSubmitting }) => (
 									<form onSubmit={handleSubmit}>
 										{activeStep === 0 && (
 											<Card
 												variant="outlined"
 												style={{ backgroundColor: "beige" }}
 											>
-												<span className="habit-create-icons">
-													<p className="habit-create-steps">
-														<Button disabled>
-															<WatchLater
-																style={{
-																	fontSize: 25,
-																	color: "maroon",
+												<CardHeader
+													avatar={
+														<Icon
+															style={{
+																color: "maroon",
+															}}
+														>
+															<WatchLater style={{ fontSize: 35 }} />
+														</Icon>
+													}
+													title={
+														<Typography
+															variant="body1"
+															style={{ fontWeight: "bold" }}
+														>
+															1. Cue
+														</Typography>
+													}
+													subheader={
+														<Typography
+															variant="body2"
+															className="habit-example"
+														>
+															Ex: I will
+															<span className="habit-inputs">
+																{" "}
+																exercise{" "}
+															</span>{" "}
+															at
+															<span className="habit-inputs"> 7.00pm </span> in
+															<span className="habit-inputs">
+																{" "}
+																my house (living room)
+															</span>
+															.
+														</Typography>
+													}
+													action={
+														<>
+															<IconButton onClick={handleCuePopoverClick}>
+																<InfoSharp />
+															</IconButton>
+															<Popover
+																open={cueOpen}
+																anchorEl={cuePopoverEl}
+																onClose={handleCuePopoverClose}
+																anchorOrigin={{
+																	vertical: "bottom",
+																	horizontal: "center",
 																}}
-															/>
-														</Button>
-														1. Cue
-														<Button
-															aria-describedby={cueId}
-															onClick={handleCuePopoverClick}
-														>
-															<InfoSharp />
-														</Button>
-														<Popover
-															id={cueId}
-															open={cueOpen}
-															anchorEl={cuePopoverEl}
-															onClose={handleCuePopoverClose}
-															anchorOrigin={{
-																vertical: "bottom",
-																horizontal: "center",
-															}}
-															transformOrigin={{
-																vertical: "top",
-																horizontal: "center",
-															}}
-														>
-															<Typography className={classes.typography}>
-																<strong>Notice the reward: </strong>
-																The 2 most common cues are time and location.
-																People who make a specific plan for when and
-																where they will perform a new habit are more
-																likely to follow through. Don't leave it up to
-																chance and hope we will just remember to do it
-																or feel motivated at the right time.
-															</Typography>
-														</Popover>
-													</p>
-												</span>
-												<div className="habit-example">
-													Ex: I will
-													<span className="habit-inputs"> exercise </span> at
-													<span className="habit-inputs"> 7.00pm </span> in
-													<span className="habit-inputs">
-														{" "}
-														my house (living room)
-													</span>
-													.
-												</div>
-												<p className="habit-create-description">
+																transformOrigin={{
+																	vertical: "top",
+																	horizontal: "center",
+																}}
+															>
+																<Typography className={classes.typography}>
+																	<strong>Notice the reward: </strong>
+																	The 2 most common cues are time and location.
+																	People who make a specific plan for when and
+																	where they will perform a new habit are more
+																	likely to follow through. Don't leave it up to
+																	chance and hope we will just remember to do it
+																	or feel motivated at the right time.
+																</Typography>
+															</Popover>
+														</>
+													}
+												/>
+												<Divider />
+												<CardContent
+													sx={{ display: "flex", alignItems: "center" }}
+												>
+													<Typography
+														sx={{
+															color: "maroon",
+														}}
+														variant="body2"
+													>
+														I WILL
+													</Typography>
 													<span className="create-text">I WILL </span>
 													<Field name="cueBehavior">
 														{({ field, meta }) => (
@@ -303,7 +325,7 @@ export default function HabitForm() {
 															/>
 														)}
 													</Field>
-												</p>
+												</CardContent>
 											</Card>
 										)}
 										{activeStep === 1 && (
@@ -311,60 +333,74 @@ export default function HabitForm() {
 												variant="outlined"
 												style={{ backgroundColor: "beige" }}
 											>
-												<span className="habit-create-icons">
-													<p className="habit-create-steps">
-														<Button disabled>
-															<EmojiObjects
-																style={{
-																	fontSize: 28,
-																	color: "maroon",
+												<CardHeader
+													avatar={
+														<Icon
+															style={{
+																color: "maroon",
+															}}
+														>
+															<EmojiObjects style={{ fontSize: 35 }} />
+														</Icon>
+													}
+													title={
+														<Typography
+															variant="h5"
+															style={{ fontWeight: "bold" }}
+														>
+															2. Craving
+														</Typography>
+													}
+													subheader={
+														<Typography
+															variant="body2"
+															className="habit-example"
+														>
+															Ex: After I
+															<span className="habit-inputs">
+																{" "}
+																watch my tv show{" "}
+															</span>{" "}
+															, I will
+															<span className="habit-inputs"> exercise </span>.
+														</Typography>
+													}
+													action={
+														<>
+															<IconButton onClick={handleCravingPopoverClick}>
+																<InfoSharp />
+															</IconButton>
+															<Popover
+																id={cravingId}
+																open={cravingOpen}
+																anchorEl={cravingPopoverEl}
+																onClose={handleCravingPopoverClose}
+																anchorOrigin={{
+																	vertical: "bottom",
+																	horizontal: "center",
 																}}
-															/>
-														</Button>
-														2. Craving
-														<Button
-															aria-describedby={cravingId}
-															onClick={handleCravingPopoverClick}
-														>
-															<InfoSharp />
-														</Button>
-														<Popover
-															id={cravingId}
-															open={cravingOpen}
-															anchorEl={cravingPopoverEl}
-															onClose={handleCravingPopoverClose}
-															anchorOrigin={{
-																vertical: "bottom",
-																horizontal: "center",
-															}}
-															transformOrigin={{
-																vertical: "top",
-																horizontal: "center",
-															}}
-														>
-															<Typography className={classes.typography}>
-																<strong>Want the reward: </strong>
-																Pair an action you WANT to do with an action you
-																NEED to do. We often decide what to do next
-																based on what we have just finished doing. No
-																behavior happens in isolation. Each action
-																becomes a cue that triggers the next behavior.
-																Idenify a current habit you already do each day
-																and then stack your new behavior on top.
-															</Typography>
-														</Popover>
-													</p>
-												</span>
-												<div className="habit-example">
-													Ex: After I
-													<span className="habit-inputs">
-														{" "}
-														watch my tv show{" "}
-													</span>{" "}
-													, I will
-													<span className="habit-inputs"> exercise </span>.
-												</div>
-												<p className="habit-create-description">
+																transformOrigin={{
+																	vertical: "top",
+																	horizontal: "center",
+																}}
+															>
+																<Typography className={classes.typography}>
+																	<strong>Want the reward: </strong>
+																	Pair an action you WANT to do with an action
+																	you NEED to do. We often decide what to do
+																	next based on what we have just finished
+																	doing. No behavior happens in isolation. Each
+																	action becomes a cue that triggers the next
+																	behavior. Idenify a current habit you already
+																	do each day and then stack your new behavior
+																	on top.
+																</Typography>
+															</Popover>
+														</>
+													}
+												/>
+												<Divider />
+												<CardContent>
 													<span className="create-text">AFTER </span>
 													<Field name="currentHabit">
 														{({ field, meta }) => (
@@ -379,7 +415,7 @@ export default function HabitForm() {
 														)}
 													</Field>
 													<span className="create-text"> ,</span>
-													<br />
+
 													<span className="create-text"> I WILL </span>
 													<Field name="cueBehavior">
 														{({ field, meta }) => (
@@ -393,69 +429,83 @@ export default function HabitForm() {
 															/>
 														)}
 													</Field>
-												</p>
+												</CardContent>
 											</Card>
 										)}
 										{activeStep === 2 && (
-											<>
+											<Box>
 												<Card
 													variant="outlined"
 													style={{ backgroundColor: "beige" }}
 												>
-													<span className="habit-create-icons">
-														<p className="habit-create-steps">
-															<Button disabled>
-																<Battery20
-																	style={{
-																		fontSize: 25,
-																		color: "maroon",
+													<CardHeader
+														avatar={
+															<Icon
+																style={{
+																	color: "maroon",
+																}}
+															>
+																<Battery20 style={{ fontSize: 35 }} />
+															</Icon>
+														}
+														title={
+															<Typography
+																variant="h5"
+																style={{ fontWeight: "bold" }}
+															>
+																3A. Response - Bronze
+															</Typography>
+														}
+														subheader={
+															<Typography
+																variant="body2"
+																className="habit-example"
+															>
+																Ex:
+																<span className="habit-inputs">
+																	{" "}
+																	30 Jumping Jacks{" "}
+																</span>
+															</Typography>
+														}
+														action={
+															<>
+																<IconButton
+																	onClick={handleResponseBronzePopoverClick}
+																>
+																	<InfoSharp />
+																</IconButton>
+																<Popover
+																	id={bronzeId}
+																	open={responseBronzeOpen}
+																	anchorEl={responseBronzePopoverEl}
+																	onClose={handleResponseBronzePopoverClose}
+																	anchorOrigin={{
+																		vertical: "bottom",
+																		horizontal: "center",
 																	}}
-																/>
-															</Button>
-															3A. Response - Bronze
-															<Button
-																aria-describedby={bronzeId}
-																onClick={handleResponseBronzePopoverClick}
-															>
-																<InfoSharp />
-															</Button>
-															<Popover
-																id={bronzeId}
-																open={responseBronzeOpen}
-																anchorEl={responseBronzePopoverEl}
-																onClose={handleResponseBronzePopoverClose}
-																anchorOrigin={{
-																	vertical: "bottom",
-																	horizontal: "center",
-																}}
-																transformOrigin={{
-																	vertical: "top",
-																	horizontal: "center",
-																}}
-															>
-																<Typography className={classes.typography}>
-																	<strong>Use the 2-Minute Rule: </strong>
-																	When starting a new habit or on unmotivating
-																	days, complete your habit in less than 2
-																	minutes. Your goal might be to run a marathon,
-																	but your gateway habit is to put on your
-																	running shoes. It's better to do less than you
-																	hoped than to do nothing at all. Ex. Write 1
-																	sentence, open your study notes, etc.
-																</Typography>
-															</Popover>
-														</p>
-													</span>
-
-													<div className="habit-example">
-														Ex:
-														<span className="habit-inputs">
-															{" "}
-															30 Jumping Jacks{" "}
-														</span>
-													</div>
-
-													<p className="habit-create-description">
+																	transformOrigin={{
+																		vertical: "top",
+																		horizontal: "center",
+																	}}
+																>
+																	<Typography className={classes.typography}>
+																		<strong>Use the 2-Minute Rule: </strong>
+																		When starting a new habit or on unmotivating
+																		days, complete your habit in less than 2
+																		minutes. Your goal might be to run a
+																		marathon, but your gateway habit is to put
+																		on your running shoes. It's better to do
+																		less than you hoped than to do nothing at
+																		all. Ex. Write 1 sentence, open your study
+																		notes, etc.
+																	</Typography>
+																</Popover>
+															</>
+														}
+													/>
+													<Divider />
+													<CardContent>
 														<Field name="responseBronze">
 															{({ field, meta }) => (
 																<TextField
@@ -468,67 +518,80 @@ export default function HabitForm() {
 																/>
 															)}
 														</Field>
-													</p>
+													</CardContent>
 												</Card>
 												<Card
 													variant="outlined"
 													style={{ backgroundColor: "beige" }}
 												>
-													<span className="habit-create-icons">
-														<p className="habit-create-steps">
-															<Button disabled>
-																<Battery50
-																	style={{
-																		fontSize: 25,
-																		color: "maroon",
+													<CardHeader
+														avatar={
+															<Icon
+																style={{
+																	color: "maroon",
+																}}
+															>
+																<Battery50 style={{ fontSize: 35 }} />
+															</Icon>
+														}
+														title={
+															<Typography
+																variant="h5"
+																style={{ fontWeight: "bold" }}
+															>
+																3B. Response - Silver
+															</Typography>
+														}
+														subheader={
+															<Typography
+																variant="body2"
+																className="habit-example"
+															>
+																Ex:
+																<span className="habit-inputs">
+																	{" "}
+																	15 minute workout{" "}
+																</span>
+															</Typography>
+														}
+														action={
+															<>
+																<IconButton
+																	onClick={handleResponseSilverPopoverClick}
+																>
+																	<InfoSharp />
+																</IconButton>
+																<Popover
+																	id={silverId}
+																	open={responseSilverOpen}
+																	anchorEl={responseSilverPopoverEl}
+																	onClose={handleResponseSilverPopoverClose}
+																	anchorOrigin={{
+																		vertical: "bottom",
+																		horizontal: "center",
 																	}}
-																/>
-															</Button>
-															3B. Response - Silver
-															<Button
-																aria-describedby={silverId}
-																onClick={handleResponseSilverPopoverClick}
-															>
-																<InfoSharp />
-															</Button>
-															<Popover
-																id={silverId}
-																open={responseSilverOpen}
-																anchorEl={responseSilverPopoverEl}
-																onClose={handleResponseSilverPopoverClose}
-																anchorOrigin={{
-																	vertical: "bottom",
-																	horizontal: "center",
-																}}
-																transformOrigin={{
-																	vertical: "top",
-																	horizontal: "center",
-																}}
-															>
-																<Typography className={classes.typography}>
-																	<strong>
-																		Advance to intermediate steps:{" "}
-																	</strong>
-																	Always stay below the point where the habit
-																	feels like work. Stop before it seems like a
-																	hassle. Master the habit of showing up: A
-																	habit must be established before it can be
-																	improved. Ex. Write 1 paragraph, study for 15
-																	min, etc.
-																</Typography>
-															</Popover>
-														</p>
-													</span>
-
-													<div className="habit-example">
-														Ex:
-														<span className="habit-inputs">
-															{" "}
-															15 minute workout{" "}
-														</span>
-													</div>
-
-													<p className="habit-create-description">
+																	transformOrigin={{
+																		vertical: "top",
+																		horizontal: "center",
+																	}}
+																>
+																	<Typography className={classes.typography}>
+																		<strong>
+																			Advance to intermediate steps:{" "}
+																		</strong>
+																		Always stay below the point where the habit
+																		feels like work. Stop before it seems like a
+																		hassle. Master the habit of showing up: A
+																		habit must be established before it can be
+																		improved. Ex. Write 1 paragraph, study for
+																		15 min, etc.
+																	</Typography>
+																</Popover>
+															</>
+														}
+													/>
+													<Divider />
+													<CardContent>
 														<Field name="responseSilver">
 															{({ field, meta }) => (
 																<TextField
@@ -541,22 +604,37 @@ export default function HabitForm() {
 																/>
 															)}
 														</Field>
-													</p>
+													</CardContent>
 												</Card>
 												<Card
 													variant="outlined"
 													style={{ backgroundColor: "beige" }}
 												>
-													<span className="habit-create-icons">
-														<p className="habit-create-steps">
-															<Button disabled>
+													<CardContent
+														avatar={
+															<Icon
+																style={{
+																	color: "maroon",
+																}}
+															>
 																<BatteryFull
 																	style={{
-																		fontSize: 25,
-																		color: "maroon",
+																		fontSize: 35,
 																	}}
 																/>
-															</Button>
+															</Icon>
+														}
+														title={
+															<Typography
+																variant="h5"
+																style={{ fontWeight: "bold" }}
+															>
+																3A. Response - Bronze
+															</Typography>
+														}
+													/>
+													<span className="habit-create-icons">
+														<p className="habit-create-steps">
 															3C. Response - Gold
 															<Button
 																aria-describedby={goldId}
@@ -615,7 +693,7 @@ export default function HabitForm() {
 														</Field>
 													</p>
 												</Card>
-											</>
+											</Box>
 										)}
 										{activeStep === 3 && (
 											<Card
@@ -705,7 +783,7 @@ export default function HabitForm() {
 												</p>
 											</Card>
 										)}
-										<Typography>{description}</Typography>
+
 										<Box sx={{ mb: 2 }}>
 											<div>
 												{activeStep === steps.length - 1 ? (
@@ -724,6 +802,7 @@ export default function HabitForm() {
 												) : (
 													<Button
 														className={classes.button}
+														disabled={isSubmitting}
 														variant="contained"
 														onClick={handleNext}
 														sx={{ mt: 1, mr: 1 }}
