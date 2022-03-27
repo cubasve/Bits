@@ -181,11 +181,15 @@ export default function HabitForm() {
 								initialValues={initialValues}
 								onSubmit={async (values, { resetForm }) => {
 									try {
-										const data = await habitGeneratorService.createHabit({
-											...values,
-										});
-										setAllHabits(data.user.userHabitGenerator);
-										resetForm();
+										if (activeStep === steps.length - 1) {
+											const data = await habitGeneratorService.createHabit({
+												...values,
+											});
+											setAllHabits(data.user.userHabitGenerator);
+											resetForm();
+										} else {
+											handleNext();
+										}
 									} catch (e) {
 										console.error(e);
 									}
@@ -610,7 +614,7 @@ export default function HabitForm() {
 													variant="outlined"
 													style={{ backgroundColor: "beige" }}
 												>
-													<CardContent
+													<CardHeader
 														avatar={
 															<Icon
 																style={{
@@ -629,56 +633,58 @@ export default function HabitForm() {
 																variant="h5"
 																style={{ fontWeight: "bold" }}
 															>
-																3A. Response - Bronze
+																3C. Response - Gold
 															</Typography>
 														}
+														subheader={
+															<Typography
+																variant="body2"
+																className="habit-example"
+															>
+																Ex:
+																<span className="habit-inputs">
+																	{" "}
+																	30 minute workout
+																</span>
+															</Typography>
+														}
+														action={
+															<>
+																<IconButton
+																	onClick={handleResponseGoldPopoverClick}
+																>
+																	<InfoSharp />
+																</IconButton>
+																<Popover
+																	id={goldId}
+																	open={responseGoldOpen}
+																	anchorEl={responseGoldPopoverEl}
+																	onClose={handleResponseGoldPopoverClose}
+																	anchorOrigin={{
+																		vertical: "bottom",
+																		horizontal: "center",
+																	}}
+																	transformOrigin={{
+																		vertical: "top",
+																		horizontal: "center",
+																	}}
+																>
+																	<Typography className={classes.typography}>
+																		<strong>Keep advancing: </strong>
+																		Once we've established the habit and showing
+																		up each day, combine the 2-minute rule with
+																		habit shaping to scale the habit back up
+																		toward your ultimate goal. Nearly any larger
+																		life goal can be transformed into a 2-minute
+																		behavior. Ex. Write 1,000 words, study for 3
+																		hours, etc.
+																	</Typography>
+																</Popover>
+															</>
+														}
 													/>
-													<span className="habit-create-icons">
-														<p className="habit-create-steps">
-															3C. Response - Gold
-															<Button
-																aria-describedby={goldId}
-																onClick={handleResponseGoldPopoverClick}
-															>
-																<InfoSharp />
-															</Button>
-															<Popover
-																id={goldId}
-																open={responseGoldOpen}
-																anchorEl={responseGoldPopoverEl}
-																onClose={handleResponseGoldPopoverClose}
-																anchorOrigin={{
-																	vertical: "bottom",
-																	horizontal: "center",
-																}}
-																transformOrigin={{
-																	vertical: "top",
-																	horizontal: "center",
-																}}
-															>
-																<Typography className={classes.typography}>
-																	<strong>Keep advancing: </strong>
-																	Once we've established the habit and showing
-																	up each day, combine the 2-minute rule with
-																	habit shaping to scale the habit back up
-																	toward your ultimate goal. Nearly any larger
-																	life goal can be transformed into a 2-minute
-																	behavior. Ex. Write 1,000 words, study for 3
-																	hours, etc.
-																</Typography>
-															</Popover>
-														</p>
-													</span>
-
-													<div className="habit-example">
-														Ex:
-														<span className="habit-inputs">
-															{" "}
-															30 minute workout
-														</span>
-													</div>
-
-													<p className="habit-create-description">
+													<Divider />
+													<CardContent>
 														<Field name="responseGold">
 															{({ field, meta }) => (
 																<TextField
@@ -691,7 +697,7 @@ export default function HabitForm() {
 																/>
 															)}
 														</Field>
-													</p>
+													</CardContent>
 												</Card>
 											</Box>
 										)}
@@ -700,58 +706,74 @@ export default function HabitForm() {
 												variant="outlined"
 												style={{ backgroundColor: "beige" }}
 											>
-												<span className="habit-create-icons">
-													<p className="habit-create-steps">
-														<Button disabled>
+												<CardHeader
+													avatar={
+														<Icon
+															style={{
+																color: "maroon",
+															}}
+														>
 															<EmojiEvents
 																style={{
-																	fontSize: 25,
-																	color: "maroon",
+																	fontSize: 35,
 																}}
 															/>
-														</Button>
-														4. Reward
-														<Button
-															aria-describedby={rewardId}
-															onClick={handleRewardPopoverClick}
+														</Icon>
+													}
+													title={
+														<Typography
+															variant="h5"
+															style={{ fontWeight: "bold" }}
 														>
-															<InfoSharp />
-														</Button>
-														<Popover
-															id={rewardId}
-															open={rewardOpen}
-															anchorEl={rewardPopoverEl}
-															onClose={handleRewardPopoverClose}
-															anchorOrigin={{
-																vertical: "bottom",
-																horizontal: "center",
-															}}
-															transformOrigin={{
-																vertical: "top",
-																horizontal: "center",
-															}}
+															4. Reward
+														</Typography>
+													}
+													subheader={
+														<Typography
+															variant="body2"
+															className="habit-example"
 														>
-															<Typography className={classes.typography}>
-																<strong>Repeat the habit: </strong>
-																We're more likely to repeat a behavior when the
-																experience is satisfying. Give yourself an
-																immediate reward when you complete your habit.
-																Pleasure teaches your brain that a behavior is
-																worth remembering and repeating. When is reward
-																is repeated. What is punished is avoided.
-															</Typography>
-														</Popover>
-													</p>
-												</span>
-
-												<div className="habit-example">
-													Ex: After I
-													<span className="habit-inputs"> exercise </span> , I
-													will
-													<span className="habit-inputs"> shower </span>.
-												</div>
-
-												<p className="habit-create-description">
+															Ex: After I
+															<span className="habit-inputs"> exercise </span> ,
+															I will
+															<span className="habit-inputs"> shower </span>.
+														</Typography>
+													}
+													action={
+														<>
+															<IconButton onClick={handleRewardPopoverClick}>
+																<InfoSharp />
+															</IconButton>
+															<Popover
+																id={rewardId}
+																open={rewardOpen}
+																anchorEl={rewardPopoverEl}
+																onClose={handleRewardPopoverClose}
+																anchorOrigin={{
+																	vertical: "bottom",
+																	horizontal: "center",
+																}}
+																transformOrigin={{
+																	vertical: "top",
+																	horizontal: "center",
+																}}
+															>
+																<Typography className={classes.typography}>
+																	<strong>Repeat the habit: </strong>
+																	We're more likely to repeat a behavior when
+																	the experience is satisfying. Give yourself an
+																	immediate reward when you complete your habit.
+																	Pleasure teaches your brain that a behavior is
+																	worth remembering and repeating. When is
+																	reward is repeated. What is punished is
+																	avoided.
+																</Typography>
+															</Popover>
+														</>
+													}
+												/>
+												<Divider />
+												<CardContent>
 													<span className="create-text">AFTER </span>
 													<Field name="cueBehavior">
 														{({ field, meta }) => (
@@ -766,7 +788,6 @@ export default function HabitForm() {
 														)}
 													</Field>
 													<span className="create-text"> ,</span>
-													<br />
 													<span className="create-text"> I WILL </span>
 													<Field name="wantedHabit">
 														{({ field, meta }) => (
@@ -780,40 +801,26 @@ export default function HabitForm() {
 															/>
 														)}
 													</Field>
-												</p>
+												</CardContent>
 											</Card>
 										)}
 
 										<Box sx={{ mb: 2 }}>
 											<div>
-												{activeStep === steps.length - 1 ? (
-													<Button
-														disabled={isSubmitting}
-														variant="contained"
-														style={{
-															backgroundColor: "maroon",
-															color: "white",
-														}}
-														className={classes.button}
-														type="submit"
-													>
-														Add A New Habit
-													</Button>
-												) : (
-													<Button
-														className={classes.button}
-														disabled={isSubmitting}
-														variant="contained"
-														onClick={handleNext}
-														sx={{ mt: 1, mr: 1 }}
-														style={{
-															backgroundColor: "maroon",
-															color: "white",
-														}}
-													>
-														Continue
-													</Button>
-												)}
+												<Button
+													disabled={isSubmitting}
+													variant="contained"
+													style={{
+														backgroundColor: "maroon",
+														color: "white",
+													}}
+													className={classes.button}
+													type="submit"
+												>
+													{activeStep === steps.length - 1
+														? "Add A New Habit"
+														: "Continue"}
+												</Button>
 
 												<Button
 													disabled={activeStep === 0}
